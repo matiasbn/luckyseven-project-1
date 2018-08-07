@@ -75,6 +75,10 @@ App = {
         return lucky7Instance.userValues(account);
       }).then(function(result) {
          console.log(result);
+         var numbersTemplate = $('#numbersTemplate');
+         numbersTemplate.find('.ticket').text(result[2]);
+         numbersTemplate.find('.first-parameter').text(result[0]);
+         numbersTemplate.find('.second-parameter').text(result[1]);
       }).catch(function(err) {
         console.log(err.message);
       });
