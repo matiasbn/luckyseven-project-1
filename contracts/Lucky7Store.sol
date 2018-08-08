@@ -1,7 +1,7 @@
 pragma solidity ^0.4.20;
-import "./Lucky7TicketFactory.sol";
+import "./Lucky7Ballot.sol";
 
-contract Lucky7Store is Lucky7TicketFactory{
+contract Lucky7Store is Lucky7Ballot{
     
     using SafeMath for uint256;
     
@@ -42,25 +42,25 @@ contract Lucky7Store is Lucky7TicketFactory{
         _generateTicket(msg.sender);
     }
     
-    function generateParameters(address _ticketOwner) 
+    function generateTicket() 
         public 
         payable 
-        userBoughtParameters(_ticketOwner)
-        setParametersToReady(_ticketOwner)
+        userBoughtParameters(msg.sender)
+        setParametersToReady(msg.sender)
         sellingIsActive
     {
-        _askForMuParameter(_ticketOwner);
-        _askForIParameter(_ticketOwner);
+        _askForMuParameter(msg.sender);
+        _askForIParameter(msg.sender);
     }
     
-    function sellTicket(address _ticketOwner) 
+    function sellTicket() 
         public 
         payable 
-        userBoughtTicket(_ticketOwner)
+        userBoughtTicket(msg.sender)
         sellingIsActive
     {
-        require(keccak256(userValues[_ticketOwner].mu)!=keccak256('') && keccak256(userValues[_ticketOwner].i)!=keccak256(''));
-        _askForTicket(_ticketOwner);
+        require(keccak256(userValues[msg.sender].mu)!=keccak256('') && keccak256(userValues[msg.sender].i)!=keccak256(''));
+        _askForTicket(msg.sender);
     }
     
     function setNewLucky7Numbers()                                      
@@ -74,14 +74,11 @@ contract Lucky7Store is Lucky7TicketFactory{
         toggleLucky7Setting();
         //Deliver Prizes
         //Deliver lot for enterprise
-        //Deliver lot for the project
+        _deliverPrizes();
         //Generate Lucky7Numbers
         _startLucky7NumbersGeneration();
         //Set off Lucky7NumbersSetting
     }
     
-    function who() public returns (address){
-        return msg.sender;
-    }
 }   
                                            
