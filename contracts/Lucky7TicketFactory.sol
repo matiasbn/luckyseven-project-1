@@ -1,11 +1,14 @@
 pragma solidity ^0.4.20;
 //import "./usingOraclize.sol";
 import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
-import "./SafeMath.sol";
 import "./Lucky7Admin.sol";
 
 
 contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
+    
+    function Lucky7TicketFactory() payable {
+        OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
+    }
     
     using SafeMath for uint256;
     
@@ -20,10 +23,10 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     }
     
     uint drawNumber = 0;
-    uint indexForLucky7Array = 0;
+    uint public indexForLucky7Array = 0;
     
     //Circuit breakers
-    bool internal settingLucky7Numbers = true;
+    bool public settingLucky7Numbers = false;
     
     function toggleLucky7Setting() public onlyOwner{
         settingLucky7Numbers = !settingLucky7Numbers;
@@ -161,7 +164,7 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
         lucky7TicketOwner[_i] = _ticketOwner;
         lucky7TicketDifference[_i] = _difference;
         lucky7TicketID[_i] = _ticketID;
-    }g
+    }
     
     function _setTicketQuery(address _parametersOwner) internal returns (string){
         string memory queryWolframA;

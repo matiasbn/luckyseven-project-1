@@ -1,11 +1,11 @@
 pragma solidity ^0.4.20;
-//import "./usingOraclize.sol";
-import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 import "./Ownable.sol";
 import "./SafeMath.sol";
 
 
 contract Lucky7Admin is Ownable{
+    
+    
     
     using SafeMath for uint256;
     
@@ -14,19 +14,19 @@ contract Lucky7Admin is Ownable{
     event walletModified(string parameter, address _oldValue, address _newValue);
 
     
-    string b = "1";
-    string n = "8";
-    string p = "1000"; 
-    string j = "20";
+    string public b = "1";
+    string public n = "8";
+    string public p = "1000"; 
+    string public j = "20";
     
-    uint numberOfLucky7Numbers = 7;
-    uint numberOfWinners = 3;
+    uint public numberOfLucky7Numbers = 7;
+    uint public numberOfWinners = 3;
     
-    uint generateTicketPrice = 0.0003 ether;
-    uint sellTicketPrice = 0.003 ether;
-    uint oraclizeGasLimit = 5000000 wei;
-    uint oraclizeCustomGasPrice = 4000000000 wei;
-    address enterpriseWallet = address(0x265a5c3dd46ec82e2744f1d0e9fb4ed75d56132a);
+    uint public generateTicketPrice = 0.0003 ether;
+    uint public sellTicketPrice = 0.003 ether;
+    uint public oraclizeGasLimit = 250000 wei;
+    uint public oraclizeCustomGasPrice = 40000000000 wei;
+    address public enterpriseWallet = address(0x265a5c3dd46ec82e2744f1d0e9fb4ed75d56132a);
     
     function modifyNumberOfLucky7Numbers(uint _newValue) public onlyOwner{
         uint oldValue = sellTicketPrice;
