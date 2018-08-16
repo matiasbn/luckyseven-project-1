@@ -79,9 +79,12 @@ App = {
         lucky7Instance = instance;
 
         // Execute adopt as a transaction by sending account
-        return lucky7Instance.askForMuParameter({from: account});
-      }).then(function(result) {
-         console.log(result);
+        return lucky7Instance.sellTicketPrice();
+      }).then(function(result){
+        var sellTicketPrice = parseInt(result);
+        return lucky7Instance.sellRandomTicket({from: account, value: sellTicketPrice});
+      }).then(function(result){
+        console.log(parseInt(result));
       }).catch(function(err) {
         console.log(err.message);
       });
