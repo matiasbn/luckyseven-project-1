@@ -1,13 +1,13 @@
 pragma solidity ^0.4.20;
-//import "./usingOraclize.sol";
-import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
+import "./usingOraclize.sol";
+//import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
 import "./Lucky7Admin.sol";
 
 
 contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     
     function Lucky7TicketFactory() payable {
-        OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
+        OAR = OraclizeAddrResolverI(0x6f485c8bf6fc43ea212e93bbf8ce046c7f1cb475);
     }
     
     using SafeMath for uint256;
@@ -16,17 +16,18 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     event newMuReceived(address parameterOwner, string muParameter);
     event newIReceived(address parameterOwner, string iParameter);
     event newTicketReceived(address parameterOwner, string newTicket);
+
     
     modifier oraclizeGasPriceCustomized{
         oraclize_setCustomGasPrice(oraclizeCustomGasPrice);
         _;
     }
     
-    uint drawNumber = 0;
+    uint public drawNumber = 0;
     uint public indexForLucky7Array = 0;
     
     //Circuit breakers
-    bool public settingLucky7Numbers = false;
+    bool public settingLucky7Numbers = true;
     
     function toggleLucky7Setting() public onlyOwner{
         settingLucky7Numbers = !settingLucky7Numbers;
@@ -62,15 +63,14 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
         uint ticketID;
         uint ticketValue;
         uint lucky7Number;
+        uint lucky7NumberID;
+        uint drawID;
     }
     
+    Lucky7Ticket[] public lucky7Tickets;
     Ticket[] public tickets;    
     Lucky7Number[7] public lucky7Numbers;
-    Lucky7Ticket[7] public lucky7Tickets;
-    //checkfordoublewinner
-    
-    mapping (uint => address) public ticketToOwner;
-    mapping (address => uint) ownerTicketCount;
+
     mapping (address => UserParametersValue) public userValues;
     mapping (bytes32 => address) muParameterID;
     mapping (bytes32 => address) iParameterID;
@@ -78,8 +78,7 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     mapping (uint => uint) public lucky7TicketDifference;
     mapping (uint => address) public lucky7TicketOwner;
     mapping (uint => uint) public lucky7TicketID;
-    mapping (uint => address) public ExactLucky7TicketOwner;
-    
+
     function _askForMuParameter(address _ticketOwner) oraclizeGasPriceCustomized{
         newOraclizeQuery("Asking for a new mu parameter...");
         bytes32 muID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
@@ -94,8 +93,7 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     
     function _askForTicket(address _ticketOwner) oraclizeGasPriceCustomized{
         newOraclizeQuery("Asking for a new ticket...");
-        string memory query = _setTicketQuery(_ticketOwner);
-        bytes32 userTicketID = oraclize_query("WolframAlpha", query, oraclizeGasLimit);
+        bytes32 userTicketID = oraclize_query("WolframAlpha", _setTicketQuery(_ticketOwner), oraclizeGasLimit);
         ticketID[userTicketID] = _ticketOwner;
     }
     
@@ -106,8 +104,6 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     
     function _insertTicket(address _ticketOwner) internal {
         uint id = tickets.push(Ticket(userValues[_ticketOwner].mu,userValues[_ticketOwner].i,userValues[_ticketOwner].ticketValue,_ticketOwner,drawNumber)) - 1;
-        ticketToOwner[id] = _ticketOwner;
-        ownerTicketCount[_ticketOwner]++;
         _checkForLucky7Ticket(id);
     }
     
@@ -115,34 +111,27 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
         lucky7Numbers[indexForLucky7Array] = Lucky7Number(userValues[_ticketOwner].mu,userValues[_ticketOwner].i,userValues[_ticketOwner].ticketValue,drawNumber);
         indexForLucky7Array++;
     }
-    
-    function _checkForLucky7Ticket(uint _ticketID) public/*internal*/ returns (uint256){
-        uint256 i;
+    //SafeMath
+    function _checkForLucky7Ticket(uint _ticketID) public/*internal*/{
+        uint i;
         uint difference;
-        uint lowerLucky7NumberDifference;
-        uint upperLucky7NumberDifference;
         
         if(tickets[_ticketID].ticketValue>lucky7Numbers[numberOfLucky7Numbers-1].ticketValue){
             i=numberOfLucky7Numbers-1;
             difference = tickets[_ticketID].ticketValue.sub(lucky7Numbers[i].ticketValue);
-            if(lucky7TicketOwner[i] == address(0x0) || difference<lucky7TicketDifference[i]){
-                _updateLucky7Ticket(i,ticketToOwner[_ticketID],difference,_ticketID);
-            }
+            
         }
         else if (tickets[_ticketID].ticketValue<lucky7Numbers[0].ticketValue){
             i=0;
             difference = lucky7Numbers[i].ticketValue.sub(tickets[_ticketID].ticketValue);
-            if(lucky7TicketOwner[i] == address(0x0) || difference<lucky7TicketDifference[i]){
-                _updateLucky7Ticket(i,ticketToOwner[_ticketID],difference,_ticketID);
-            }
         }
         else{
             while(tickets[_ticketID].ticketValue>lucky7Numbers[i].ticketValue){
                 i++;
             }
             
-            lowerLucky7NumberDifference = tickets[_ticketID].ticketValue.sub(lucky7Numbers[i-1].ticketValue);
-            upperLucky7NumberDifference = lucky7Numbers[i].ticketValue.sub(tickets[_ticketID].ticketValue);
+            uint lowerLucky7NumberDifference = tickets[_ticketID].ticketValue.sub(lucky7Numbers[i-1].ticketValue);
+            uint upperLucky7NumberDifference = lucky7Numbers[i].ticketValue.sub(tickets[_ticketID].ticketValue);
             
             if(upperLucky7NumberDifference>lowerLucky7NumberDifference){
                 i=i-1;
@@ -151,19 +140,13 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
             else{
                 difference = upperLucky7NumberDifference;
             }
-            
-            if(lucky7TicketOwner[i] == address(0x0) || difference<lucky7TicketDifference[i]){
-                _updateLucky7Ticket(i,ticketToOwner[_ticketID],difference,_ticketID);
-            }
         }
-        return i;
-    }
-    
-    function _updateLucky7Ticket(uint _i, address _ticketOwner, uint _difference, uint _ticketID) 
-        internal{
-        lucky7TicketOwner[_i] = _ticketOwner;
-        lucky7TicketDifference[_i] = _difference;
-        lucky7TicketID[_i] = _ticketID;
+        
+        if(lucky7TicketOwner[i] == address(0x0) || difference<lucky7TicketDifference[i]){
+            lucky7TicketOwner[i] = tickets[_ticketID].owner;
+            lucky7TicketDifference[i] = difference;
+            lucky7TicketID[i] = _ticketID;
+        }
     }
     
     function _setTicketQuery(address _parametersOwner) internal returns (string){

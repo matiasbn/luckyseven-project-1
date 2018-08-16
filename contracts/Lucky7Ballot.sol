@@ -4,18 +4,18 @@ import "./Lucky7TicketFactory.sol";
 
 contract Lucky7Ballot is Lucky7TicketFactory{
     
+    
+    uint public initialLucky7TicketPosition=0;
+    
     function Lucky7Ballot() payable {
         
     }
     
-    function _startLucky7NumbersGeneration() public onlyOwner{
-        indexForLucky7Array = 0;
-        _generateLucky7Number();
-    }
     
     function _generateLucky7Number() public onlyOwner{
         if(indexForLucky7Array == numberOfLucky7Numbers){
             _orderLucky7Numbers();
+            indexForLucky7Array = 0;
             toggleLucky7Setting();
         }
         else{
@@ -23,6 +23,21 @@ contract Lucky7Ballot is Lucky7TicketFactory{
             userValues[this].iReady = false;
             _generateTicket(this);
         }
+    }
+    
+    function setNewGame()                                      
+        public 
+        onlyOwner 
+    {
+        //Set initial index for Lucky7Tickets
+        initialLucky7TicketPosition=drawNumber*numberOfLucky7Numbers;
+        //Increase drawNumber
+        //Set on Lucky7NumbersSetting
+        toggleLucky7Setting();
+        //Deliver Prizes
+        //Deliver lot for enterprise
+        _orderLucky7Tickets();
+        _deliverPrizes();
     }
     
     function _orderLucky7Numbers() public onlyOwner{
@@ -48,17 +63,25 @@ contract Lucky7Ballot is Lucky7TicketFactory{
     
     function _orderLucky7Tickets() public onlyOwner{
         Lucky7Ticket memory smallest;
-        uint aux = 0;
+        uint aux;
         uint j;
-        for (uint i = 0; i < numberOfLucky7Numbers; i++) {
-            lucky7Tickets[i].difference=lucky7TicketDifference[i];
-            lucky7Tickets[i].owner=lucky7TicketOwner[i];
-            lucky7Tickets[i].ticketID=lucky7TicketID[i];
+        uint i;
+        for (i=0; i<numberOfLucky7Numbers; i++){
+            lucky7Tickets.push(
+                Lucky7Ticket(
+                    lucky7TicketDifference[i],
+                    lucky7TicketOwner[i],
+                    lucky7TicketID[i],
+                    tickets[lucky7TicketID[i]].ticketValue,
+                    lucky7Numbers[i].ticketValue,
+                    i,
+                    drawNumber)
+                    );
         }
-        for(i=0; i<numberOfLucky7Numbers; i++){
+        for(i=initialLucky7TicketPosition; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             aux = i;
             smallest = lucky7Tickets[i];
-            for (j=i+1; j<numberOfLucky7Numbers; j++){
+            for (j=i+1; j<numberOfLucky7Numbers+initialLucky7TicketPosition; j++){
                 if(smallest.difference>lucky7Tickets[j].difference){
                     smallest = lucky7Tickets[j];
                     aux = j;
@@ -80,16 +103,38 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         firstPrize = firstPrize.div(10);
         secondPrize = secondPrize.div(10);
         thirdPrize = thirdPrize.div(10);
-        _orderLucky7Tickets();
-        lucky7Tickets[0].owner.transfer(firstPrize);
-        lucky7Tickets[1].owner.transfer(secondPrize);
-        lucky7Tickets[2].owner.transfer(thirdPrize);
-        enterpriseWallet.transfer(this.balance);
+        uint i;
+        for(i=initialLucky7TicketPosition; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
+            if(lucky7Tickets[i].owner!=address(0x0)){
+                lucky7Tickets[i].owner.transfer(firstPrize);
+                break;
+            }
+        }
         
-    }
-    
-    function _balance() public view returns (uint256){
-        return this.balance;
+        for(i++; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
+            if(lucky7Tickets[i].owner!=address(0x0)){
+                lucky7Tickets[i].owner.transfer(secondPrize);
+                break;
+            }
+        }
+        
+        for(i++; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
+            if(lucky7Tickets[i].owner!=address(0x0)){
+                lucky7Tickets[i].owner.transfer(thirdPrize);
+                break;
+            }
+        }
+        drawNumber++;
+        enterpriseWallet.transfer(this.balance);
+        for(i=0; i<numberOfLucky7Numbers; i++){
+            lucky7TicketOwner[i] = address(0x0);
+            lucky7TicketDifference[i] = 0;
+            lucky7TicketID[i] = 0;
+            lucky7Numbers[i].mu="0";
+            lucky7Numbers[i].i="0";
+            lucky7Numbers[i].ticketValue=0;
+            lucky7Numbers[i].drawID=drawNumber;
+        }
     }
     
     function () public payable {

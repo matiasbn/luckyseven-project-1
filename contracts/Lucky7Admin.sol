@@ -4,9 +4,6 @@ import "./SafeMath.sol";
 
 
 contract Lucky7Admin is Ownable{
-    
-    
-    
     using SafeMath for uint256;
     
     event numberModified(string feeType, uint _oldValue, uint _newValue);
@@ -16,16 +13,16 @@ contract Lucky7Admin is Ownable{
     
     string public b = "1";
     string public n = "8";
-    string public p = "1000"; 
+    string public p = "10000"; 
     string public j = "20";
     
     uint public numberOfLucky7Numbers = 7;
     uint public numberOfWinners = 3;
     
-    uint public generateTicketPrice = 0.0003 ether;
-    uint public sellTicketPrice = 0.003 ether;
-    uint public oraclizeGasLimit = 250000 wei;
-    uint public oraclizeCustomGasPrice = 40000000000 wei;
+    uint public generateTicketPrice = 0.005 ether;
+    uint public sellTicketPrice = 0.012 ether;
+    uint public oraclizeGasLimit = 300000 wei;
+    uint public oraclizeCustomGasPrice = 4000000000 wei;
     address public enterpriseWallet = address(0x265a5c3dd46ec82e2744f1d0e9fb4ed75d56132a);
     
     function modifyNumberOfLucky7Numbers(uint _newValue) public onlyOwner{
