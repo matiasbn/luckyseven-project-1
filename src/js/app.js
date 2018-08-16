@@ -33,6 +33,7 @@ App = {
   },
 
   bindEvents: function() {
+    $(document).on('click', '.btn-random-ticket', App.randomTicket);
     $(document).on('click', '.btn-generate-ticket', App.generateTicket);
     $(document).on('click', '.btn-buy-ticket', App.buyTicket);
   },
@@ -55,6 +56,7 @@ App = {
       }).then(function(result) {
          console.log(result);
          var numbersTemplate = $('#numbersTemplate');
+         numbersTemplate.find('.account').text(account);
          numbersTemplate.find('.ticket').text(result[2]);
          numbersTemplate.find('.first-parameter').text(result[0]);
          numbersTemplate.find('.second-parameter').text(result[1]);
@@ -64,8 +66,8 @@ App = {
     });
   },
 
-  generateTicket: function() {
-    console.log("generateTicket");
+  randomTicket: function() {
+    event.preventDefault()
     var lucky7Instance;
 
     web3.eth.getAccounts(function(error, accounts) {
@@ -77,8 +79,6 @@ App = {
 
       App.contracts.Lucky7Store.deployed().then(function(instance) {
         lucky7Instance = instance;
-
-        // Execute adopt as a transaction by sending account
         return lucky7Instance.sellTicketPrice();
       }).then(function(result){
         var sellTicketPrice = parseInt(result);
@@ -91,11 +91,8 @@ App = {
     });
   },
 
-  buyTicket: function(event) {
-    event.preventDefault();
-
-    var petId = parseInt($(event.target).data('id'));
-
+  generateTicket: function(event) {
+    event.preventDefault()
     var lucky7Instance;
 
     web3.eth.getAccounts(function(error, accounts) {
@@ -105,13 +102,15 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.Lucky7.deployed().then(function(instance) {
+      App.contracts.Lucky7Store.deployed().then(function(instance) {
         lucky7Instance = instance;
-
-        // Execute adopt as a transaction by sending account
-        return lucky7Instance.adopt(petId, {from: account});
-      }).then(function(result) {
-        return App.markAdopted();
+        return lucky7Instance.generateTicketPrice();
+      }).then(function(result){
+        var generateTicketPrice = parseInt(result);
+        console.log(generateTicketPrice);
+        return lucky7Instance.generateRandomTicket({from: account, value: generateTicketPrice});
+      }).then(function(result){
+        console.log(parseInt(result));
       }).catch(function(err) {
         console.log(err.message);
       });
