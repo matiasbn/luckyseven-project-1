@@ -17,7 +17,7 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON('Lucky7Test.json', function(data) {
+    $.getJSON('Lucky7Store.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract
       var Lucky7Artifact = data;
       App.contracts.Lucky7Store = TruffleContract(Lucky7Artifact);

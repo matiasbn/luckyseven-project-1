@@ -5,12 +5,12 @@ import "../contracts/Lucky7TicketFactory.sol";
 contract TestLucky7TicketFactory{
 
   function testAskForMuParameter() {
-    Lucky7TicketFactory lucky7TicketFactory = Lucky7TicketFactory(DeployedAddresses.Lucky7TicketFactory());
-    address ticketOwner = address(0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1);
+    // Lucky7TicketFactory lucky7TicketFactory = Lucky7TicketFactory(DeployedAddresses.Lucky7TicketFactory());
+    // address ticketOwner = address(0x22d491bde2303f2f43325b2108d26f1eaba1e32b);
 
-    lucky7TicketFactory._askForMuParameter(ticketOwner);
+    // //lucky7TicketFactory._askForMuParameter(ticketOwner);
 
-    Assert.isNotEmpty(lucky7TicketFactory.userValues[ticketOwner].mu, "New value should be 6");
+    // Assert.isNotEmpty(lucky7TicketFactory.tickets[0].mu, "User mu parameter is empty");
   }
   // function modifyNumberOfLucky7Numbers(uint _newValue) public onlyOwner{
   //       uint oldValue = numberOfLucky7Numbers;

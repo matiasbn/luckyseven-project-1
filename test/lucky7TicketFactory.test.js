@@ -1,100 +1,137 @@
 var Lucky7TicketFactory = artifacts.require('Lucky7TicketFactory')
-
-contract('Lucky7TicketFactory', function(accounts) {
+contract('Lucky7TicketFactory', accounts => {
 
     const owner = accounts[0]
-
+    const user = accounts[1]
     it("should ask for a new mu paramater for the user", async() => {
-        const lucky7TicketFactory = await lucky7TicketFactory.deployed()
+        
+        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        await lucky7TicketFactory._askForMuParameter(user)
+        const eventWatcher = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
 
-        // var eventEmitted = false
+        log = await eventWatcher
+        assert.equal(log.event, 'NewMuReceived', 'NewMuReceived not emitted.')
+        assert.isNotNull(log.args.muParameter, 'Mu returned was null.')
 
-        // var event = supplyChain.ForSale()
-        // await event.watch((err, res) => {
-        //     sku = res.args.sku.toString(10)
-        //     eventEmitted = true
-        // })
-
-        // const name = "book"
-
-        // await supplyChain.addItem(name, price, {from: alice})
-
-        // const result = await supplyChain.fetchItem.call(sku)
-
-        // assert.equal(result[0], name, 'the name of the last added item does not match the expected value')
-        // assert.equal(result[2].toString(10), price, 'the price of the last added item does not match the expected value')
-        // assert.equal(result[3].toString(10), 0, 'the state of the item should be "For Sale", which should be declared first in the State Enum')
-        // assert.equal(result[4], alice, 'the address adding the item should be listed as the seller')
-        // assert.equal(result[5], emptyAddress, 'the buyer address should be set to 0 when an item is added')
-        // assert.equal(eventEmitted, true, 'adding an item should emit a For Sale event')
     })
 
-//     it("should allow someone to purchase an item", async() => {
-//         const supplyChain = await SupplyChain.deployed()
+    it("should ask for a new i paramater for the user", async() => {
+        
+        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        await lucky7TicketFactory._askForIParameter(user)
+        const eventWatcher = promisifyLogWatch(lucky7TicketFactory.NewIReceived({ fromBlock: 'latest' }))
 
-//         var eventEmitted = false
+        log = await eventWatcher
+        assert.equal(log.event, 'NewIReceived', 'NewIReceived not emitted.')
+        assert.isNotNull(log.args.iParameter, 'I returned was null.')
 
-//         var event = supplyChain.Sold()
-//         await event.watch((err, res) => {
-//             sku = res.args.sku.toString(10)
-//             eventEmitted = true
-//         })
+    })
 
-//         const amount = web3.toWei(2, "ether")
+    it("should ask for both parameters without convert it in a ticket", async() => {
+        //Let take advantage of the settingLucky7Numbers circuit breaker
+        //With this circuit breaker, while is true, after an i and mu parameters are received
+        //the callback function ask for a ticket
+        //If it where false, it will not pass the callback to ask for a ticket
 
-//         var aliceBalanceBefore = await web3.eth.getBalance(alice).toNumber()
-//         var bobBalanceBefore = await web3.eth.getBalance(bob).toNumber()
+        //Let start by setting the "settingLucky7Numbers" to false, because is true
+        //by default, this way the contract knows we are in the selling ticket phase
+        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        await lucky7TicketFactory.toggleLucky7Setting()
+        const settingLucky7Numbers= await lucky7TicketFactory.settingLucky7Numbers()
+        assert.equal(settingLucky7Numbers,false,'Should set the settingLucky7')
 
-//         await supplyChain.buyItem(sku, {from: bob, value: amount})
+        
+        await lucky7TicketFactory._askForMuParameter(user)
+        const eventWatcher1 = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
+        log1 = await eventWatcher1
+        assert.equal(log1.event, 'NewMuReceived', 'NewMuReceived not emitted.')
+        assert.isNotNull(log1.args.muParameter, 'Mu returned was null.')
 
-//         var aliceBalanceAfter = await web3.eth.getBalance(alice).toNumber()
-//         var bobBalanceAfter = await web3.eth.getBalance(bob).toNumber()
+        await lucky7TicketFactory._askForIParameter(user)
+        const eventWatcher2 = promisifyLogWatch(lucky7TicketFactory.NewIReceived({ fromBlock: 'latest' }))
+        log2 = await eventWatcher2
+        assert.equal(log2.event, 'NewIReceived', 'NewIReceived not emitted.')
+        assert.isNotNull(log2.args.iParameter, 'I returned was null.')
 
-//         const result = await supplyChain.fetchItem.call(sku)
 
-//         assert.equal(result[3].toString(10), 1, 'the state of the item should be "Sold", which should be declared second in the State Enum')
-//         assert.equal(result[5], bob, 'the buyer address should be set bob when he purchases an item')
-//         assert.equal(eventEmitted, true, 'adding an item should emit a Sold event')
-//         assert.equal(aliceBalanceAfter, aliceBalanceBefore + parseInt(price, 10), "alice's balance should be increased by the price of the item")
-//         assert.isBelow(bobBalanceAfter, bobBalanceBefore - price, "bob's balance should be reduced by more than the price of the item (including gas costs)")
-//     })
+        let userTicketValue = await lucky7TicketFactory.userValues(user)
+        userTicketValue = parseInt(userTicketValue[2])
+        assert.equal(userTicketValue,0,'Ticket was recieved')
 
-//     it("should allow the seller to mark the item as shipped", async() => {
-//         const supplyChain = await SupplyChain.deployed()
+    })
 
-//         var eventEmitted = false
 
-//         var event = supplyChain.Shipped()
-//         await event.watch((err, res) => {
-//             sku = res.args.sku.toString(10)
-//             eventEmitted = true
-//         })
+    it("should ask for both parameters converting the result in a Lucky7Number", async() => {
+        //Same as before, but not setting the settingLucky7Numbers to false
+        //This way, the callback function knows that we are on the 
+        //setting Lucky7Numbers phase
 
-//         await supplyChain.shipItem(sku, {from: alice})
 
-//         const result = await supplyChain.fetchItem.call(sku)
+        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        await lucky7TicketFactory._askForMuParameter(owner)
+        const eventWatcher1 = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
+        log1 = await eventWatcher1
+        assert.equal(log1.event, 'NewMuReceived', 'NewMuReceived not emitted.')
+        assert.isNotNull(log1.args.muParameter, 'Mu returned was null.')
 
-//         assert.equal(eventEmitted, true, 'adding an item should emit a Shipped event')
-//         assert.equal(result[3].toString(10), 2, 'the state of the item should be "Shipped", which should be declared third in the State Enum')
-//     })
+        await lucky7TicketFactory._askForIParameter(owner)
+        const eventWatcher2 = promisifyLogWatch(lucky7TicketFactory.NewIReceived({ fromBlock: 'latest' }))
+        log2 = await eventWatcher2
+        assert.equal(log2.event, 'NewIReceived', 'NewIReceived not emitted.')
+        assert.isNotNull(log2.args.iParameter, 'I returned was null.')
+        
+        //Check that the "new ticket" is emited
+        const eventWatcher3 = promisifyLogWatch(lucky7TicketFactory.NewTicketReceived({ fromBlock: 'latest' }))
+        log3 = await eventWatcher3
+        assert.equal(log3.event, 'NewTicketReceived', 'NewTicketReceived not emitted.')
+        assert.isNotNull(log3.args.newTicket, 'Lucky7Number received returned was null.')
+        //Check if the new ticket is saved for the owner
+        let userTicketValue = await lucky7TicketFactory.userValues(owner)
+        userTicketValue = parseInt(userTicketValue[2])
+        assert.notEqual(userTicketValue,0,'Ticket was not recieved')
 
-//     it("should allow the buyer to mark the item as received", async() => {
-//         const supplyChain = await SupplyChain.deployed()
+    })
 
-//         var eventEmitted = false
+    it("should set the WolframAlpha query correctly", async() => {
+        //First, lets ask for both parameters
+        //Then, lets call the _setTicketQuery function and check the output to be whats expected
 
-//         var event = supplyChain.Received()
-//         await event.watch((err, res) => {
-//             sku = res.args.sku.toString(10)
-//             eventEmitted = true
-//         })
+        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        let b = await lucky7TicketFactory.b() 
+        let n = await lucky7TicketFactory.n() 
+        let p = await lucky7TicketFactory.p() 
+        let j = await lucky7TicketFactory.j() 
 
-//         await supplyChain.receiveItem(sku, {from: bob})
+        await lucky7TicketFactory._askForMuParameter(owner)
+        const eventWatcher1 = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
+        log1 = await eventWatcher1
+        const mu = log1.args.muParameter
 
-//         const result = await supplyChain.fetchItem.call(sku)
+        await lucky7TicketFactory._askForIParameter(owner)
+        const eventWatcher2 = promisifyLogWatch(lucky7TicketFactory.NewIReceived({ fromBlock: 'latest' }))
+        log2 = await eventWatcher2
+        const i = log2.args.iParameter
 
-//         assert.equal(eventEmitted, true, 'adding an item should emit a Shipped event')
-//         assert.equal(result[3].toString(10), 3, 'the state of the item should be "Received", which should be declared fourth in the State Enum')
-//     })
+        const eventWatcher3 = promisifyLogWatch(lucky7TicketFactory.NewWolframQuery({ fromBlock: 'latest' }))
+        log3 = await eventWatcher3
+        const queryWolframFromContract = log3.args.description
+        //(mod((1/(10^n-mu))*10^p,10^(j+i))-mod((1/(10^n-mu))*10^p,10^(i)))/10^i
+        let queryWolframFromParameters = "(mod((1/(10^";
+        queryWolframFromParameters = queryWolframFromParameters.concat(n,"-",mu,"))*10^",p,",10^(",j,"+",i,"))-mod((1/(10^",n,"-",mu,"))*10^",p,",10^(",i,")))/10^",i)
 
+        assert.equal(queryWolframFromContract,queryWolframFromParameters,"The querys doesn't match")
+
+    })
 });
+
+function promisifyLogWatch(_event) {
+    return new Promise((resolve, reject) => {
+      _event.watch((error, log) => {
+        _event.stopWatching();
+        if (error !== null)
+          reject(error);
+  
+        resolve(log);
+      });
+    });
+}

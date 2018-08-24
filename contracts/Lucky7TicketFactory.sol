@@ -4,18 +4,19 @@ import "./usingOraclize.sol";
 import "./Lucky7Admin.sol";
 
 
-contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
+contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     
-    function Lucky7TicketFactory() payable {
-        OAR = OraclizeAddrResolverI(0xd3aa556287afe63102e5797bfddd2a1e8dbb3ea5);
+    function Lucky7TicketFactory() payable{
+        OAR = OraclizeAddrResolverI(0xc7d22a8737a85391928b09f1a0116bed0d44a56f);
     }
     
     using SafeMath for uint256;
     
-    event newOraclizeQuery(string description);
-    event newMuReceived(address parameterOwner, string muParameter);
-    event newIReceived(address parameterOwner, string iParameter);
-    event newTicketReceived(address parameterOwner, string newTicket);
+    event NewOraclizeQuery(string description);
+    event NewMuReceived(string muParameter);
+    event NewIReceived(string iParameter);
+    event NewTicketReceived(string newTicket);
+    event NewWolframQuery(string description);
 
     
     modifier oraclizeGasPriceCustomized{
@@ -79,20 +80,20 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     mapping (uint => address) public lucky7TicketOwner;
     mapping (uint => uint) public lucky7TicketID;
 
-    function _askForMuParameter(address _ticketOwner) oraclizeGasPriceCustomized{
-        newOraclizeQuery("Asking for a new mu parameter...");
+    function _askForMuParameter(address _ticketOwner) payable oraclizeGasPriceCustomized{
+        NewOraclizeQuery("Asking for a new mu parameter...");
         bytes32 muID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
         muParameterID[muID] = _ticketOwner;
     }
 
     function _askForIParameter(address _ticketOwner) oraclizeGasPriceCustomized{
-        newOraclizeQuery("Asking for a new i parameter...");
+        NewOraclizeQuery("Asking for a new i parameter...");
         bytes32 iID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
         iParameterID[iID] = _ticketOwner;
     }
     
     function _askForTicket(address _ticketOwner) oraclizeGasPriceCustomized{
-        newOraclizeQuery("Asking for a new ticket...");
+        NewOraclizeQuery("Asking for a new ticket...");
         bytes32 userTicketID = oraclize_query("WolframAlpha", _setTicketQuery(_ticketOwner), oraclizeGasLimit);
         ticketID[userTicketID] = _ticketOwner;
     }
@@ -150,23 +151,26 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
     }
     
     function _setTicketQuery(address _parametersOwner) internal returns (string){
-        string memory queryWolframA;
-        string memory queryWolframB;
-        //This line => mod((1/(10^n-mu))*10^217,10^(    
-        queryWolframA = strConcat("mod((1/(10^",n,"-",userValues[_parametersOwner].mu,"))*10^10000,10^(");
-        //This line => mod((1/(10^n-mu))*10^10000,10^(j+i))
-        queryWolframB = strConcat(queryWolframA,j,"+",userValues[_parametersOwner].i,"))");
-        //This line => mod((1/(10^n-mu))*10^10000,10^(j+i))-mod((1/(10^n-mu))*10^10000,10^(i))
-        queryWolframB = strConcat(queryWolframB,"-",queryWolframA,userValues[_parametersOwner].i,"))");
-        //This line => (mod((1/(10^n-mu))*10^10000,10^(j+i))-mod((1/(10^n-mu))*10^10000,10^(i)))/10^i
-        return strConcat("(",queryWolframB,")/10^",userValues[_parametersOwner].i);
+        string memory queryWolfram;
+        //This line => (mod((1/(10^n-mu))*10^    
+        queryWolfram = strConcat("(mod((1/(10^",n,"-",userValues[_parametersOwner].mu,"))*10^");
+        //This line => (mod((1/(10^n-mu))*10^p,10^(j+
+        queryWolfram = strConcat(queryWolfram,p,",10^(",j,"+");
+        //This line => (mod((1/(10^n-mu))*10^p,10^(j+i))-mod((1/(10^n-
+        queryWolfram = strConcat(queryWolfram,userValues[_parametersOwner].i,"))-mod((1/(10^",n,"-");
+        //This line => (mod((1/(10^n-mu))*10^p,10^(j+i))-mod((1/(10^n-mu))*10^p,10^
+        queryWolfram = strConcat(queryWolfram,userValues[_parametersOwner].mu,"))*10^",p,",10^");
+        //This line => (mod((1/(10^n-mu))*10^p,10^(j+i))-mod((1/(10^n-mu))*10^p,10^(i)))/10^i
+        queryWolfram = strConcat(queryWolfram,"(",userValues[_parametersOwner].i,")))/10^",userValues[_parametersOwner].i);
+        NewWolframQuery(queryWolfram);
+        return queryWolfram;
     }
     
     function __callback(bytes32 myid, string result) public{
         require(msg.sender == oraclize_cbAddress());
         if(muParameterID[myid]!=0 && userValues[muParameterID[myid]].muReady==false){
             userValues[muParameterID[myid]].mu=result;
-            newMuReceived(muParameterID[myid], result);
+            NewMuReceived(result);
             userValues[muParameterID[myid]].muReady=true;
             if(userValues[muParameterID[myid]].iReady == true && (userValues[muParameterID[myid]].userPaidTicket==true || settingLucky7Numbers==true )){
                 _askForTicket(muParameterID[myid]);
@@ -174,7 +178,7 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
         }
         else if (iParameterID[myid]!=0 && userValues[iParameterID[myid]].iReady==false){
             userValues[iParameterID[myid]].i=result;
-            newIReceived(iParameterID[myid], result);
+            NewIReceived(result);
             userValues[iParameterID[myid]].iReady=true;
             if(userValues[iParameterID[myid]].muReady == true && (userValues[iParameterID[myid]].userPaidTicket==true || settingLucky7Numbers==true )){
                 _askForTicket(iParameterID[myid]);
@@ -182,7 +186,7 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
         }
         else if (ticketID[myid]!=0 &&  (userValues[ticketID[myid]].userPaidTicket==true || settingLucky7Numbers==true )){
             userValues[ticketID[myid]].ticketValue=parseInt(result);
-            newTicketReceived(ticketID[myid], result);
+            NewTicketReceived(result);
             userValues[ticketID[myid]].userPaidTicket=false;
             if(settingLucky7Numbers==true){
                 _insertLucky7Number(ticketID[myid]);
@@ -192,5 +196,6 @@ contract Lucky7TicketFactory is usingOraclize, Lucky7Admin{
             }
         }
     }
-}   
-                                           
+
+    function() public payable{}
+} 
