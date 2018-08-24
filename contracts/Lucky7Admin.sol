@@ -17,26 +17,19 @@ contract Lucky7Admin is Ownable{
     string public j = "20";
     
     uint public numberOfLucky7Numbers = 7;
-    uint public numberOfWinners = 3;
     
     uint public generateTicketPrice = 0.005 ether;
     uint public sellTicketPrice = 0.012 ether;
     uint public oraclizeGasLimit = 300000 wei;
     uint public oraclizeCustomGasPrice = 4000000000 wei;
-    address public enterpriseWallet = address(0x265a5c3dd46ec82e2744f1d0e9fb4ed75d56132a);
+    address public enterpriseWallet = owner;
     
     function modifyNumberOfLucky7Numbers(uint _newValue) public onlyOwner{
-        uint oldValue = sellTicketPrice;
-        sellTicketPrice = _newValue;
+        uint oldValue = numberOfLucky7Numbers;
+        numberOfLucky7Numbers = _newValue;
         numberModified("Sell ticket price changed", oldValue, _newValue);
     }
-    
-    function modifyNumberOfWinners(uint _newValue) public onlyOwner{
-        uint oldValue = numberOfWinners;
-        numberOfWinners = _newValue;
-        numberModified("Number of winners changed", oldValue, _newValue);
-    }
-    
+        
     function modifySellTicketPrice(uint _newValue) public onlyOwner{
         uint oldValue = sellTicketPrice;
         sellTicketPrice = _newValue;
@@ -86,10 +79,14 @@ contract Lucky7Admin is Ownable{
         parameterModified("Parameter j modified", oldValue, _newValue);
     }
     
-    function modifyEnterprisePrize(address _newAddress) public onlyOwner{
+    function modifyEnterpriseWallet(address _newAddress) public onlyOwner{
         address oldAddress = enterpriseWallet;
         enterpriseWallet = _newAddress;
         walletModified("Enterprise wallet changed", oldAddress, _newAddress);
+    }
+    
+    function balance() public view onlyOwner returns(uint256){
+        return address(this).balance;
     }
 }   
                                            

@@ -31,7 +31,21 @@
         <!-- PETS LOAD HERE -->
       </div>
     </div>
-
+    <div id="mainTemplate" style="display: true;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-pet">
+          <div class="panel-heading">
+            <h3 class="panel-title"></h3>
+          </div>
+          <div class="panel-body">
+            <strong>Account</strong>: <span class="account" p style="font-size:12px">Account</span><br/>
+            <button class="btn btn-default btn-random-ticket" type="button" data-id="0">I'm feeling lucky</button><br/>
+            <button class="btn btn-default btn-generate-ticket" type="button" data-id="0">Generate Ticket</button><br/>
+            <button class="btn btn-default btn-buy-ticket" type="button" data-id="0">Buy Ticket</button><br/>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="numbersTemplate" style="display: true;">
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-pet">
@@ -39,18 +53,11 @@
             <h3 class="panel-title">Your last ticket</h3>
           </div>
           <div class="panel-body">
-            <!-- <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true"> -->
-            <br/><br/>
-            <strong>Account</strong>: <span class="account">Account</span><br/>
             <strong>Last bought ticket</strong>: <span class="ticket">Ticket</span><br/>
             <br/><br/>
-            <strong>First parameter</strong>: <span class="first-parameter">First parameter</span><br/>
-            <strong>Second parameter</strong>: <span class="second-parameter">Second parameter</span><br/>
-            <strong>Expected Ticket</strong>: <span class="expected-ticket">Expected Ticket</span><br/>  
-            <button class="btn btn-default btn-random-ticket" type="button" data-id="0">I'm feeling lucky</button>
-            <button class="btn btn-default btn-generate-ticket" type="button" data-id="0">Generate Ticket</button>
-            <button class="btn btn-default btn-buy-ticket" type="button" data-id="0">Buy Ticket</button>
-
+            <strong>First parameter(mu)</strong>: <span class="first-parameter">First parameter</span><br/>
+            <strong>Second parameter(i)</strong>: <span class="second-parameter">Second parameter</span><br/>
+            <strong>Expected Ticket</strong>: <span class="expected-ticket">Expected Ticket</span><br/>
           </div>
         </div>
       </div>
@@ -62,22 +69,37 @@
           <div class="panel-heading">
             <h3 class="panel-title">Lucky 7 Numbers</h3>
           </div>
-          <div class="panel-body">            <br/><br/>
-            <strong>First Number</strong>: <span class="firstNumber">First Number</span><br/>
-            <strong>Second Number</strong>: <span class="secondNumber">Second Number</span><br/>
-            <strong>Third Number</strong>: <span class="thirdNumber">Third Number</span><br/>
-            <strong>Fourth Number</strong>: <span class="fourthNumber">Fourth Number</span><br/>
-            <strong>Fifth Number</strong>: <span class="fifthNumber">Fifth Number</span><br/>
-            <strong>Sixth Number</strong>: <span class="sixthNumber">Sixth Number</span><br/>
-            <strong>Seventh Number</strong>: <span class="seventhNumber">Seventh Number</span><br/><br/>
-            <button class="btn btn-default btn-generate-ticket" type="button" data-id="0">Generate Ticket</button>
-            <button class="btn btn-default btn-buy-ticket" type="button" data-id="0">Buy Ticket</button>
-
+          <div class="panel-body"> 
+            <strong>First Number</strong>:<br/> <span class="firstNumber">First Number</span><br/>
+            <strong>Second Number</strong>:<br/> <span class="secondNumber">Second Number</span><br/>
+            <strong>Third Number</strong>:<br/> <span class="thirdNumber">Third Number</span><br/>
+            <strong>Fourth Number</strong>:<br/> <span class="fourthNumber">Fourth Number</span><br/>
+            <strong>Fifth Number</strong>:<br/> <span class="fifthNumber">Fifth Number</span><br/>
+            <strong>Sixth Number</strong>:<br/> <span class="sixthNumber">Sixth Number</span><br/>
+            <strong>Seventh Number</strong>:<br/> <span class="seventhNumber">Seventh Number</span><br/>
           </div>
         </div>
       </div>
     </div>
 
+    <div id="lucky7Tickets" style="display: true;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-pet">
+          <div class="panel-heading">
+            <h3 class="panel-title">Lucky 7 Tickets</h3>
+          </div>
+          <div class="panel-body"> 
+            <strong>First Ticket</strong>:<br/> <span class="firstTicket">First Ticket</span><br/>
+            <strong>Second Ticket</strong>:<br/> <span class="secondTicket">Second Ticket</span><br/>
+            <strong>Third Ticket</strong>:<br/> <span class="thirdTicket">Third Ticket</span><br/>
+            <strong>Fourth Ticket</strong>:<br/> <span class="fourthTicket">Fourth Ticket</span><br/>
+            <strong>Fifth Ticket</strong>:<br/> <span class="fifthTicket">Fifth Ticket</span><br/>
+            <strong>Sixth Ticket</strong>:<br/> <span class="sixthTicket">Sixth Ticket</span><br/>
+            <strong>Seventh Ticket</strong>:<br/> <span class="seventhTicket">Seventh Ticket</span><br/>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
