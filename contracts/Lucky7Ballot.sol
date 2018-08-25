@@ -6,6 +6,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
     
     
     uint public initialLucky7TicketPosition=0;
+    uint public currentTicketID=0;
     mapping (address => uint) public pendingWithdrawals;
 
 
@@ -144,6 +145,8 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         msg.sender.transfer(amount);
     }
 
+
+    //For front-end conection
     function getlucky7Numbers() public view returns (uint[7]) {
         uint[7] luckySevenNumbers;
         for(uint i=0; i<numberOfLucky7Numbers; i++){
@@ -165,6 +168,28 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         return luckySevenTickets;
     }
 
+    //For testing purposes
+    function insertCustomizedLucky7Number(uint _id, string _mu, string _i, uint _ticketValue,uint _drawNumber) public onlyOwner{
+        lucky7Numbers[_id] = Lucky7Number(_mu, _i, _ticketValue, _drawNumber);
+    }
+    
+
+    function insertCustomizedTicket(string _mu, string _i, uint _ticketValue,address _ticketOwner, uint _drawNumber) 
+        public 
+        onlyOwner 
+        returns (uint){
+            uint id = tickets.push(Ticket(_mu,_i,_ticketValue,_ticketOwner,drawNumber)) - 1;
+            return id;
+        }
+    
+    function setIndexForLucky7Array(uint _newValue) public onlyOwner{
+        indexForLucky7Array = _newValue;
+    }
+
+    function storeCurrenteTicketID (uint _id) public onlyOwner{
+
+    }
+    
     function () public payable {
         
     }

@@ -12,11 +12,11 @@ from random import randint
 start_time = time.time()
 b = 1
 n = 8
-mu =  5601
-# mu = randint(1000, 9999)
+# mu =  5601
+mu = randint(1000, 9999)
 p = 10000
-i = 2933
-# i = randint(1000, 9999)
+# i = 2933
+i = randint(1000, 9999)
 j = 20
 getcontext().prec = p
 

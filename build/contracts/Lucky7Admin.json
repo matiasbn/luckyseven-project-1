@@ -461,7 +461,7 @@
         "id": 30,
         "nodeType": "ImportDirective",
         "scope": 325,
-        "sourceUnit": 2118,
+        "sourceUnit": 2207,
         "src": "25:23:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -472,7 +472,7 @@
         "id": 31,
         "nodeType": "ImportDirective",
         "scope": 325,
-        "sourceUnit": 2212,
+        "sourceUnit": 2301,
         "src": "49:24:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -486,10 +486,10 @@
               "id": 32,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2117,
+              "referencedDeclaration": 2206,
               "src": "100:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$2117",
+                "typeIdentifier": "t_contract$_Ownable_$2206",
                 "typeString": "contract Ownable"
               }
             },
@@ -499,7 +499,7 @@
           }
         ],
         "contractDependencies": [
-          2117
+          2206
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -507,7 +507,7 @@
         "id": 324,
         "linearizedBaseContracts": [
           324,
-          2117
+          2206
         ],
         "name": "Lucky7Admin",
         "nodeType": "ContractDefinition",
@@ -519,10 +519,10 @@
               "id": 34,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2211,
+              "referencedDeclaration": 2300,
               "src": "119:8:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$2211",
+                "typeIdentifier": "t_contract$_SafeMath_$2300",
                 "typeString": "library SafeMath"
               }
             },
@@ -1243,7 +1243,7 @@
               "name": "owner",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 2035,
+              "referencedDeclaration": 2124,
               "src": "798:5:1",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -1463,7 +1463,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "874:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1733,7 +1733,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1122:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2003,7 +2003,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1358:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2273,7 +2273,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1612:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2543,7 +2543,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1854:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2813,7 +2813,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2105:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3083,7 +3083,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2313:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3353,7 +3353,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2521:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3623,7 +3623,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2729:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3893,7 +3893,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2946:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3970,7 +3970,7 @@
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 8253,
+                          "referencedDeclaration": 8342,
                           "src": "3219:4:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_Lucky7Admin_$324",
@@ -4048,7 +4048,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "3168:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -4141,7 +4141,7 @@
         "id": 30,
         "nodeType": "ImportDirective",
         "scope": 325,
-        "sourceUnit": 2118,
+        "sourceUnit": 2207,
         "src": "25:23:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4152,7 +4152,7 @@
         "id": 31,
         "nodeType": "ImportDirective",
         "scope": 325,
-        "sourceUnit": 2212,
+        "sourceUnit": 2301,
         "src": "49:24:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4166,10 +4166,10 @@
               "id": 32,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2117,
+              "referencedDeclaration": 2206,
               "src": "100:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$2117",
+                "typeIdentifier": "t_contract$_Ownable_$2206",
                 "typeString": "contract Ownable"
               }
             },
@@ -4179,7 +4179,7 @@
           }
         ],
         "contractDependencies": [
-          2117
+          2206
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -4187,7 +4187,7 @@
         "id": 324,
         "linearizedBaseContracts": [
           324,
-          2117
+          2206
         ],
         "name": "Lucky7Admin",
         "nodeType": "ContractDefinition",
@@ -4199,10 +4199,10 @@
               "id": 34,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2211,
+              "referencedDeclaration": 2300,
               "src": "119:8:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$2211",
+                "typeIdentifier": "t_contract$_SafeMath_$2300",
                 "typeString": "library SafeMath"
               }
             },
@@ -4923,7 +4923,7 @@
               "name": "owner",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 2035,
+              "referencedDeclaration": 2124,
               "src": "798:5:1",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -5143,7 +5143,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "874:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -5413,7 +5413,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1122:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -5683,7 +5683,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1358:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -5953,7 +5953,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1612:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -6223,7 +6223,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "1854:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -6493,7 +6493,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2105:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -6763,7 +6763,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2313:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -7033,7 +7033,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2521:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -7303,7 +7303,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2729:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -7573,7 +7573,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "2946:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -7650,7 +7650,7 @@
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 8253,
+                          "referencedDeclaration": 8342,
                           "src": "3219:4:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_Lucky7Admin_$324",
@@ -7728,7 +7728,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2065,
+                  "referencedDeclaration": 2154,
                   "src": "3168:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -7825,5 +7825,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-24T20:45:46.104Z"
+  "updatedAt": "2018-08-25T01:06:24.292Z"
 }

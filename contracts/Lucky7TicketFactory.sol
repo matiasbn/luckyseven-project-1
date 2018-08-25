@@ -17,8 +17,9 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     event NewIReceived(string iParameter);
     event NewTicketReceived(string newTicket);
     event NewWolframQuery(string description);
+    event NewLucky7Ticket(uint ticketID);
+    event NewLucky7Number(uint value);
 
-    
     modifier oraclizeGasPriceCustomized{
         oraclize_setCustomGasPrice(oraclizeCustomGasPrice);
         _;
@@ -111,6 +112,8 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     function _insertLucky7Number(address _ticketOwner) internal {
         lucky7Numbers[indexForLucky7Array] = Lucky7Number(userValues[_ticketOwner].mu,userValues[_ticketOwner].i,userValues[_ticketOwner].ticketValue,drawNumber);
         indexForLucky7Array++;
+        NewLucky7Number(userValues[_ticketOwner].ticketValue);
+
     }
     //SafeMath
     function _checkForLucky7Ticket(uint _ticketID) public/*internal*/{
@@ -147,6 +150,7 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
             lucky7TicketOwner[i] = tickets[_ticketID].owner;
             lucky7TicketDifference[i] = difference;
             lucky7TicketID[i] = _ticketID;
+            NewLucky7Ticket(_ticketID);
         }
     }
     
