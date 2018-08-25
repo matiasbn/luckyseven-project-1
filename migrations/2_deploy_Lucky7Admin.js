@@ -15,12 +15,12 @@ module.exports = function(deployer) {
     // from: owner,
     value: 1000000000000000000
     });
-  deployer.deploy(Lucky7Ballot,{
-    //gas: 13000000,
-    // value: 1000000000000000000
-    });
-  deployer.deploy(Lucky7Store,{
-    //gas: 13000000,
-    value: 1000000000000000000
-    });
+  // deployer.deploy(Lucky7Ballot,{
+  //   //gas: 13000000,
+  //   // value: 1000000000000000000
+  //   });
+  // deployer.deploy(Lucky7Store,{
+  //   //gas: 13000000,
+  //   value: 1000000000000000000
+  //   });
 };

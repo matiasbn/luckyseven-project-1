@@ -7,7 +7,7 @@ import "./Lucky7Admin.sol";
 contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     
     function Lucky7TicketFactory() payable{
-        OAR = OraclizeAddrResolverI(0xc7d22a8737a85391928b09f1a0116bed0d44a56f);
+        OAR = OraclizeAddrResolverI(0xde6ddB95052E8072DE64D814077148b95E43E1E0);
     }
     
     using SafeMath for uint256;
