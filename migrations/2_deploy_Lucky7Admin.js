@@ -10,11 +10,11 @@ module.exports = function(deployer) {
   //   //gas: 13000000,
   //   //value: 1000000000000000000
   //   });
-  // deployer.deploy(Lucky7TicketFactory,{
-  //   //gas: 13000000,
-  //   // from: owner,
-  //   // value: 1000000000000000000
-  //   });
+  deployer.deploy(Lucky7TicketFactory,{
+    //gas: 13000000,
+    // from: owner,
+    // value: 1000000000000000000
+    });
   deployer.deploy(Lucky7Ballot,{
     // gas: 4000000000,
     // value: 1000000000000000000

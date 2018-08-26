@@ -8,7 +8,7 @@ contract('Lucky7TicketFactory', accounts => {
     
     it("should ask for a new mu paramater for the user", async() => {
         
-        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: web3.toWei(1,"ether")})
         await lucky7TicketFactory._askForMuParameter(user)
         const eventWatcher = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
 
@@ -20,7 +20,7 @@ contract('Lucky7TicketFactory', accounts => {
 
     it("should ask for a new i paramater for the user", async() => {
         
-        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: web3.toWei(1,"ether")})
         await lucky7TicketFactory._askForIParameter(user2)
         const eventWatcher = promisifyLogWatch(lucky7TicketFactory.NewIReceived({ fromBlock: 'latest' }))
 
@@ -33,7 +33,7 @@ contract('Lucky7TicketFactory', accounts => {
     it("should set the WolframAlpha query correctly", async() => {
         //First, lets ask for both parameters
         //Then, lets call the _setTicketQuery function and check the output to be whats expected
-        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: web3.toWei(1,"ether")})
         let b = await lucky7TicketFactory.b() 
         let n = await lucky7TicketFactory.n() 
         let p = await lucky7TicketFactory.p() 
@@ -70,7 +70,7 @@ contract('Lucky7TicketFactory', accounts => {
         //To check
 
 
-        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: web3.toWei(1,"ether")})
         await lucky7TicketFactory._askForMuParameter(owner)
         const eventWatcher1 = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
         log1 = await eventWatcher1
@@ -104,7 +104,7 @@ contract('Lucky7TicketFactory', accounts => {
         
         //Let start by setting the "settingLucky7Numbers" to false, because is true
         //by default, this way the contract knows we are in the selling ticket phase
-        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: web3.toWei(1,"ether")})
         await lucky7TicketFactory.toggleLucky7Setting()
         const settingLucky7Numbers= await lucky7TicketFactory.settingLucky7Numbers()
         assert.equal(settingLucky7Numbers,false,'Should set the settingLucky7 to false')

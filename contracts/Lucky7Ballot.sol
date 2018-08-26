@@ -1,21 +1,62 @@
+/**
+  * @author Matias Barrios
+  * @version 1.0
+  */
+
+/** @title Lucky7Ballot. 
+  * This contract contains all the functions to start a new game and deliver prizes.
+  * Particularly contains function that have the business logic for generating Lucky7Numbers and Lucky7Tickets
+  * ordering them, deliver prizes and clean necessary arrays.
+*/
+
 pragma solidity ^0.4.20;
 
 import "./Lucky7TicketFactory.sol";
 
 contract Lucky7Ballot is Lucky7TicketFactory{
     
-    
-    uint public initialLucky7TicketPosition=0;
-    uint public currentTicketID=0;
-    address public lastFirstPrize = address(0);
-    address public lastSecondPrize = address(0);
-    address public lastThirdPrize = address(0);
-
-    mapping (address => uint) public pendingWithdrawals;
-
+    event NewPrizeStored(uint prizeAmoun, address prizeOwner);
 
     function Lucky7Ballot() payable {
         
+    }
+
+    /** @param initialLucky7TicketPosition is a uint used for the _orderLucky7Tickets function of this contract. 
+      * Because is necessary to store the information of previous games permanently is necessary then to know what it the starting point to store in the 
+      * lucky7TicketsArray array of the Lucky77TicketFactory.sol contract. 
+      * This way, the _orderLucky7Tickets function starts storing in the "initialLucky7TicketPosition" and finish storing in the 
+      * "numberOfLucky7Numbers+initialLucky7TicketPosition" position of the lucky7TicketsArray array. 
+      * Defaults to 0, and is getting incremented by "numberOfLucky7Numbers" value every time the setNewGame function of this contract is called.
+      * @param currentTicketID is a uint which points to the position in the ticketsArray array of the Lucky7TicketFactory contract where was pushed the last ticket
+      * inserted by the insertCustomizedTicket function of this contract. That function and this parameter are used for testing purposes only.
+      * @param lastFirstParameter is and address which stores the address of the last first prize winner. Is setted on the _deliverPrizes function of this contract 
+      * and is used to set to 0 the amount of the prize for the last first prize winner before start delivering prizes for security reasons.
+      * @param lastSecondParameter is and address which stores the address of the last second prize winner. Is setted on the _deliverPrizes function of this contract 
+      * and is used to set to 0 the amount of the prize for the last second prize winner before start delivering prizes for security reasons.
+      * @param lastThirdParameter is and address which stores the address of the last third prize winner. Is setted on the _deliverPrizes function of this contract 
+      * and is used to set to 0 the amount of the prize for the last third prize winner before start delivering prizes for security reasons.
+      * @param pendingWithdrawals is a mapping that points from an address to an uint. Is used for the _deliverPrizes function of this contract to store the 
+      * the correspondent prize with the correspondent winner. The prizes are setted to 0 every time the _deliverPrizes function is called for security reasons.
+      * To claim a prize, user have to call the withdraw function of this contract, so the prize is delivered and the amount for him prize is setted to 0 again.
+      */
+    uint public initialLucky7TicketPosition = 0;
+    uint public currentTicketID = 0;
+    address public lastFirstPrizeWinner = address(0);
+    address public lastSecondPrizeWinner = address(0);
+    address public lastThirdPrizeWinner = address(0);
+    mapping (address => uint) public pendingWithdrawals;
+
+
+    function setNewGame()                                      
+        public 
+        onlyOwner 
+    {
+        toggleLucky7Setting();
+        _orderLucky7Tickets();
+        _deliverPrizes();
+        _cleanMappings();
+        drawNumber++;
+        initialLucky7TicketPosition+=drawNumber*numberOfLucky7Numbers;
     }
     
     function _generateLucky7Number() public onlyOwner{
@@ -31,22 +72,6 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         }
     }
     
-    function setNewGame()                                      
-        public 
-        onlyOwner 
-    {
-        //Increase drawNumber
-        //Set on Lucky7NumbersSetting
-        toggleLucky7Setting();
-        //Deliver Prizes
-        //Deliver lot for enterprise
-        _orderLucky7Tickets();
-        _deliverPrizes();
-        drawNumber++;
-        //Set initial index for the Lucky7Tickets for the next game
-        initialLucky7TicketPosition+=drawNumber*numberOfLucky7Numbers;
-        _cleanMappings();
-    }
     
     function _orderLucky7Numbers() public onlyOwner{
         Lucky7Number memory smallest;
@@ -72,8 +97,9 @@ contract Lucky7Ballot is Lucky7TicketFactory{
     function _orderLucky7Tickets() public onlyOwner{
         Lucky7Ticket memory smallest;
         uint aux;
-        uint j;
         uint i;
+        uint j;
+        uint k;
         for (i=0; i<numberOfLucky7Numbers; i++){
             lucky7TicketsArray.push(
                 // struct Lucky7Ticket{
@@ -95,26 +121,28 @@ contract Lucky7Ballot is Lucky7TicketFactory{
                     drawNumber)
                     );
         }
-        for(i=initialLucky7TicketPosition; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
-            aux = i;
-            smallest = lucky7TicketsArray[i];
-            for (j=i+1; j<numberOfLucky7Numbers+initialLucky7TicketPosition; j++){
-                if(smallest.difference>lucky7TicketsArray[j].difference){
-                    smallest = lucky7TicketsArray[j];
-                    aux = j;
+        for(j=initialLucky7TicketPosition; j<numberOfLucky7Numbers+initialLucky7TicketPosition; j++){
+            aux = j;
+            smallest = lucky7TicketsArray[j];
+            emit NewPrizeStored(j,lucky7TicketsArray[j].owner);
+            for (k=j+1; k<numberOfLucky7Numbers+initialLucky7TicketPosition; k++){
+                if(smallest.difference>lucky7TicketsArray[k].difference){
+                    smallest = lucky7TicketsArray[k];
+                    aux = k;
                 }
             }
-            if(aux!=i){
-                lucky7TicketsArray[aux]=lucky7TicketsArray[i];
-                lucky7TicketsArray[i] = smallest;
+            if(aux!=j){
+                lucky7TicketsArray[aux]=lucky7TicketsArray[j];
+                lucky7TicketsArray[j] = smallest;
+
             }
         }
     }
 
     function _deliverPrizes() public onlyOwner{
-        pendingWithdrawals[lastFirstPrize] = 0;
-        pendingWithdrawals[lastSecondPrize] = 0;
-        pendingWithdrawals[lastThirdPrize] = 0;
+        pendingWithdrawals[lastFirstPrizeWinner] = 0;
+        pendingWithdrawals[lastSecondPrizeWinner] = 0;
+        pendingWithdrawals[lastThirdPrizeWinner] = 0;
         uint winnersPrize = address(this).balance.mul(7);
         winnersPrize = winnersPrize.div(10);
         uint firstPrize = winnersPrize.mul(6);
@@ -127,7 +155,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(i=initialLucky7TicketPosition; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             if(lucky7TicketsArray[i].owner!=address(0x0)){
                 pendingWithdrawals[lucky7TicketsArray[i].owner] += firstPrize;
-                lastFirstPrize = lucky7TicketsArray[i].owner;
+                lastFirstPrizeWinner = lucky7TicketsArray[i].owner;
                 break;
             }
         }
@@ -135,7 +163,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(i++; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             if(lucky7TicketsArray[i].owner!=address(0x0)){
                 pendingWithdrawals[lucky7TicketsArray[i].owner] += secondPrize;
-                lastSecondPrize = lucky7TicketsArray[i].owner;
+                lastSecondPrizeWinner = lucky7TicketsArray[i].owner;
                 break;
             }
         }
@@ -143,7 +171,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(i++; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             if(lucky7TicketsArray[i].owner!=address(0x0)){
                 pendingWithdrawals[lucky7TicketsArray[i].owner] += thirdPrize;
-                lastThirdPrize = lucky7TicketsArray[i].owner;
+                lastThirdPrizeWinner = lucky7TicketsArray[i].owner;
                 break;
             }
         }
@@ -213,6 +241,10 @@ contract Lucky7Ballot is Lucky7TicketFactory{
     
     function setIndexForLucky7Array(uint _newValue) public onlyOwner{
         indexForLucky7Array = _newValue;
+    }
+
+    function setInitialLucky7TicketPosition(uint _newValue) public onlyOwner{
+        initialLucky7TicketPosition = _newValue;
     }
     
     function () public payable {

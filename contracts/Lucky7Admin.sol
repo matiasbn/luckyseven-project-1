@@ -56,7 +56,7 @@ contract Lucky7Admin is Ownable{
     uint public generateTicketPrice = 0.005 ether;
     uint public sellTicketPrice = 0.012 ether;
     uint public oraclizeGasLimit = 300000 wei;
-    uint public oraclizeCustomGasPrice = 4000000000 wei;
+    uint public oraclizeCustomGasPrice = 40000000000 wei;
 
     /**
       * @param enterpriseWallet is the address of the wallet which will recieve 30% of the balance of this contract when the prizes are delivered
