@@ -15,6 +15,7 @@
     "lite-server": "^2.3.0"
   },
   "dependencies": {
+    "bignumber.js": "^7.2.1",
     "openzeppelin-solidity": "1.11.0",
     "truffle": "^4.1.13"
   },

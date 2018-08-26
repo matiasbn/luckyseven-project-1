@@ -8,7 +8,7 @@ contract('Lucky7TicketFactory', accounts => {
     
     it("should ask for a new mu paramater for the user", async() => {
         
-        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
         await lucky7TicketFactory._askForMuParameter(user)
         const eventWatcher = promisifyLogWatch(lucky7TicketFactory.NewMuReceived({ fromBlock: 'latest' }))
 
@@ -33,7 +33,7 @@ contract('Lucky7TicketFactory', accounts => {
     it("should set the WolframAlpha query correctly", async() => {
         //First, lets ask for both parameters
         //Then, lets call the _setTicketQuery function and check the output to be whats expected
-        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
         let b = await lucky7TicketFactory.b() 
         let n = await lucky7TicketFactory.n() 
         let p = await lucky7TicketFactory.p() 
@@ -64,6 +64,10 @@ contract('Lucky7TicketFactory', accounts => {
         //Same as before, but not setting the settingLucky7Numbers to false
         //This way, the callback function knows that we are on the 
         //setting Lucky7Numbers phase
+        //The value of the Lucky7Number can be checked with the mbn.py script of the
+        //python directory
+        //Just console.log() log1.args.muParameter, log2.args.iParameter and log3.args.newTicket
+        //To check
 
 
         const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
@@ -100,7 +104,7 @@ contract('Lucky7TicketFactory', accounts => {
         
         //Let start by setting the "settingLucky7Numbers" to false, because is true
         //by default, this way the contract knows we are in the selling ticket phase
-        const lucky7TicketFactory = await Lucky7TicketFactory.deployed()
+        const lucky7TicketFactory = await Lucky7TicketFactory.new({value: 100000000000000000})
         await lucky7TicketFactory.toggleLucky7Setting()
         const settingLucky7Numbers= await lucky7TicketFactory.settingLucky7Numbers()
         assert.equal(settingLucky7Numbers,false,'Should set the settingLucky7 to false')
