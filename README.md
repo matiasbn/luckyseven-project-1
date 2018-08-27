@@ -5,7 +5,8 @@ Win-win crowdfunding lottery.
 ## Getting Started
 
 To run this project locally is necesary to have some dependencies. 
-First, the project use Oraclize so is necessary to use 
+First, the project use Oraclize so is necessary to use ethereum-bridge.
+Second, the project use
 
 
 ### Prerequisites

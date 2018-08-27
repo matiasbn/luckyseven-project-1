@@ -1,3 +1,3 @@
 
 var address = String(process.argv[2])
-console.log("Lucky7FrontEndFunctions.at('"+address+"')")
+console.log("var contract = Lucky7FrontEndFunctions.at('"+address+"')")

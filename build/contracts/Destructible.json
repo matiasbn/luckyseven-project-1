@@ -124,7 +124,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 28,
-        "sourceUnit": 2323,
+        "sourceUnit": 2397,
         "src": "27:23:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -138,10 +138,10 @@
               "id": 3,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2322,
+              "referencedDeclaration": 2396,
               "src": "212:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$2322",
+                "typeIdentifier": "t_contract$_Ownable_$2396",
                 "typeString": "contract Ownable"
               }
             },
@@ -151,7 +151,7 @@
           }
         ],
         "contractDependencies": [
-          2322
+          2396
         ],
         "contractKind": "contract",
         "documentation": "@title Destructible\n@dev Base contract that can be destroyed by owner. All funds in contract will be sent to the owner.",
@@ -159,7 +159,7 @@
         "id": 27,
         "linearizedBaseContracts": [
           27,
-          2322
+          2396
         ],
         "name": "Destructible",
         "nodeType": "ContractDefinition",
@@ -180,7 +180,7 @@
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2240,
+                        "referencedDeclaration": 2314,
                         "src": "373:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -199,7 +199,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 8447,
+                      "referencedDeclaration": 8521,
                       "src": "360:12:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_$returns$__$",
@@ -241,7 +241,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2270,
+                  "referencedDeclaration": 2344,
                   "src": "344:9:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -308,7 +308,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 8447,
+                      "referencedDeclaration": 8521,
                       "src": "455:12:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_$returns$__$",
@@ -350,7 +350,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2270,
+                  "referencedDeclaration": 2344,
                   "src": "439:9:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -443,7 +443,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 28,
-        "sourceUnit": 2323,
+        "sourceUnit": 2397,
         "src": "27:23:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -457,10 +457,10 @@
               "id": 3,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2322,
+              "referencedDeclaration": 2396,
               "src": "212:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$2322",
+                "typeIdentifier": "t_contract$_Ownable_$2396",
                 "typeString": "contract Ownable"
               }
             },
@@ -470,7 +470,7 @@
           }
         ],
         "contractDependencies": [
-          2322
+          2396
         ],
         "contractKind": "contract",
         "documentation": "@title Destructible\n@dev Base contract that can be destroyed by owner. All funds in contract will be sent to the owner.",
@@ -478,7 +478,7 @@
         "id": 27,
         "linearizedBaseContracts": [
           27,
-          2322
+          2396
         ],
         "name": "Destructible",
         "nodeType": "ContractDefinition",
@@ -499,7 +499,7 @@
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2240,
+                        "referencedDeclaration": 2314,
                         "src": "373:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -518,7 +518,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 8447,
+                      "referencedDeclaration": 8521,
                       "src": "360:12:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_$returns$__$",
@@ -560,7 +560,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2270,
+                  "referencedDeclaration": 2344,
                   "src": "344:9:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -627,7 +627,7 @@
                       "name": "selfdestruct",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 8447,
+                      "referencedDeclaration": 8521,
                       "src": "455:12:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_$returns$__$",
@@ -669,7 +669,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 2270,
+                  "referencedDeclaration": 2344,
                   "src": "439:9:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -741,5 +741,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-08-27T14:28:24.696Z"
+  "updatedAt": "2018-08-27T17:51:14.449Z"
 }

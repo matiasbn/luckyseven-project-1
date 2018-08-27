@@ -38,7 +38,10 @@ App = {
 
   retrieveTicket: function(numbers, account) {
     var lucky7Instance;
-
+    var lastFirstPrizeWinner;
+    var lastSecondPrizeWinner;
+    var lastThirdPrizeWinner;
+    var usersLastPrize;
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log(error);
@@ -71,18 +74,6 @@ App = {
       }).then(function(generateTicketPrice) {
         var mainTemplate = $('#mainTemplate');
         mainTemplate.find('.generateTicketPrice').text(web3.fromWei(generateTicketPrice,"ether")+" ETH");
-        return lucky7Instance.getBalance.call();
-      }).then(function(accountBalance) {
-        console.log(parseFloat(web3.fromWei(accountBalance,"ether")))
-        var totalPrize = 0.7*accountBalance
-        var firstPrize = totalPrize*0.6
-        var secondPrize = totalPrize*0.3
-        var thirdPrize = totalPrize*0.1
-        var mainTemplate = $('#mainTemplate');
-        mainTemplate.find('.totalPrize').text(web3.fromWei(totalPrize,"ether")+" ETH");
-        mainTemplate.find('.firstPrize').text(web3.fromWei(firstPrize,"ether")+" ETH");
-        mainTemplate.find('.secondPrize').text(web3.fromWei(secondPrize,"ether")+" ETH");
-        mainTemplate.find('.thirdPrize').text(web3.fromWei(thirdPrize,"ether")+" ETH");
         return lucky7Instance.getlucky7Numbers.call();
       }).then(function(lucky7Numbers) {
         for (i = 0; i < lucky7Numbers.length; i++) {
@@ -98,7 +89,7 @@ App = {
         numbersTemplate.find('.fifthNumber').text(lucky7Numbers[4]);
         numbersTemplate.find('.sixthNumber').text(lucky7Numbers[5]);
         numbersTemplate.find('.seventhNumber').text(lucky7Numbers[6]);
-        return lucky7Instance.getlucky7Tickets.call();
+        return lucky7Instance.getlucky7TicketsValue.call();
       }).then(function(lucky7Tickets){
         for (i = 0; i < lucky7Tickets.length; i++) {
           if (lucky7Tickets[i] == 0){
@@ -146,6 +137,68 @@ App = {
         ownerTemplate.find('.fifthOwner').text(lucky7TicketOwner[4]);
         ownerTemplate.find('.sixthOwner').text(lucky7TicketOwner[5]);
         ownerTemplate.find('.seventhOwner').text(lucky7TicketOwner[6]);
+        
+        return lucky7Instance.lastFirstPrizeWinner();
+      }).then(function(lastWinner){
+        lastFirstPrizeWinner = lastWinner
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastFirstOwner').text(lastFirstPrizeWinner);
+        return lucky7Instance.getLastLucky7Difference(lastFirstPrizeWinner);
+      }).then(function(difference){
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastFirstDifference').text(difference);
+        return lucky7Instance.lastFirstPrizeAmount();
+      }).then(function(amount){
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastFirstAmount').text(web3.fromWei(amount,"ether")+" ETH");
+        
+        return lucky7Instance.lastSecondPrizeWinner();
+      }).then(function(winner){
+        lastSecondPrizeWinner = winner
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastSecondOwner').text(winner);
+        return lucky7Instance.getLastLucky7Difference(winner);
+      }).then(function(difference){
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastSecondDifference').text(difference);
+        return lucky7Instance.lastSecondPrizeAmount();
+      }).then(function(amount){
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastSecondAmount').text(web3.fromWei(amount,"ether")+" ETH");
+        
+        return lucky7Instance.lastThirdPrizeWinner();
+      }).then(function(lastWinner){
+        lastThirdPrizeWinner = lastWinner
+        var lastTemplate = $('#lastWinners');
+        lastTemplate.find('.lastThirdOwner').text(lastWinner);
+        return lucky7Instance.getLastLucky7Difference(lastWinner);
+      }).then(function(difference){
+          var lastTemplate = $('#lastWinners');
+          lastTemplate.find('.lastThirdDifference').text(difference);
+          return lucky7Instance.lastThirdPrizeAmount();
+      }).then(function(amount){
+          var lastTemplate = $('#lastWinners');
+          lastTemplate.find('.lastThirdAmount').text(web3.fromWei(amount,"ether")+" ETH");
+          return lucky7Instance.pendingWithdrawals(lastFirstPrizeWinner);
+      }).then(function(amount){
+        usersLastPrize=parseFloat(web3.fromWei(amount,"ether"))
+        return lucky7Instance.pendingWithdrawals(lastSecondPrizeWinner);
+      }).then(function(amount){
+        usersLastPrize=usersLastPrize + parseFloat(web3.fromWei(amount,"ether"))
+        return lucky7Instance.pendingWithdrawals(lastThirdPrizeWinner);
+      }).then(function(amount){
+        usersLastPrize=usersLastPrize + parseFloat(web3.fromWei(amount,"ether"))
+        return lucky7Instance.getBalance.call();
+      }).then(function(accountBalance) {
+        var totalPrize = 0.7*(parseFloat(web3.fromWei(accountBalance,"ether"))-usersLastPrize)
+        var firstPrize = totalPrize*0.6
+        var secondPrize = totalPrize*0.3
+        var thirdPrize = totalPrize*0.1
+        var mainTemplate = $('#mainTemplate');
+        mainTemplate.find('.totalPrize').text(totalPrize+" ETH");
+        mainTemplate.find('.firstPrize').text(firstPrize+" ETH");
+        mainTemplate.find('.secondPrize').text(secondPrize+" ETH");
+        mainTemplate.find('.thirdPrize').text(thirdPrize+" ETH");
       }).catch(function(err) {
         console.log(err.message);
       });
@@ -169,8 +222,6 @@ App = {
       }).then(function(result){
         var sellTicketPrice = parseInt(result);
         return lucky7Instance.sellRandomTicket({from: account, value: sellTicketPrice});
-      }).then(function(result){
-        console.log(parseInt(result));
       }).catch(function(err) {
         console.log(err.message);
       });

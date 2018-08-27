@@ -33,21 +33,28 @@ contract Lucky7Ballot is Lucky7TicketFactory{
       * Defaults to 0, and is getting incremented by "numberOfLucky7Numbers" value every time the setNewGame function of this contract is called.
       * @param currentTicketID is a uint which points to the position in the ticketsArray array of the Lucky7TicketFactory contract where was pushed the last ticket
       * inserted by the insertCustomizedTicket function of this contract. That function and this parameter are used for testing purposes only.
-      * @param lastFirstParameter is and address which stores the address of the last first prize winner. Is setted on the _deliverPrizes function of this contract 
+      * @param lastFirstPrizeWinner is and address which stores the address of the last first prize winner. Is setted on the _deliverPrizes function of this contract 
       * and is used to set to 0 the amount of the prize for the last first prize winner before start delivering prizes for security reasons.
-      * @param lastSecondParameter is and address which stores the address of the last second prize winner. Is setted on the _deliverPrizes function of this contract 
+      * @param lastSecondPrizeWinner is and address which stores the address of the last second prize winner. Is setted on the _deliverPrizes function of this contract 
       * and is used to set to 0 the amount of the prize for the last second prize winner before start delivering prizes for security reasons.
-      * @param lastThirdParameter is and address which stores the address of the last third prize winner. Is setted on the _deliverPrizes function of this contract 
+      * @param lastThirdPrizeWinner is and address which stores the address of the last third prize winner. Is setted on the _deliverPrizes function of this contract 
       * and is used to set to 0 the amount of the prize for the last third prize winner before start delivering prizes for security reasons.
+      * @param lastFirstPrizeAmount is and uint which stores the amount of the last first prize. Is setted on the _deliverPrizes function of this contract.
+      * @param lastSecondPrizeAmount is and uint which stores the uint of the last second prize winner. Is setted on the _deliverPrizes function of this contract.
+      * @param lastThirdPrizeAmount is and uint which stores the uint of the last third prize winner. Is setted on the _deliverPrizes function of this contract.
       * @param pendingWithdrawals is a mapping that points from an address to an uint. Is used for the _deliverPrizes function of this contract to store the 
       * the correspondent prize with the correspondent winner. The prizes are setted to 0 every time the _deliverPrizes function is called for security reasons.
       * To claim a prize, user have to call the withdraw function of this contract, so the prize is delivered and the amount for him prize is setted to 0 again.
+      
       */
     uint public initialLucky7TicketPosition = 0;
     uint public currentTicketID = 0;
     address public lastFirstPrizeWinner = address(0);
     address public lastSecondPrizeWinner = address(0);
     address public lastThirdPrizeWinner = address(0);
+    uint public lastFirstPrizeAmount = 0;
+    uint public lastSecondPrizeAmount = 0;
+    uint public lastThirdPrizeAmount = 0;
     mapping (address => uint) public pendingWithdrawals;
 
     /** @dev setNewGame is a function designed to call all the functions necessary to start a new game. First, it activate the settingLucky7Numbers circuit breaker.
@@ -208,6 +215,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(i=initialLucky7TicketPosition; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             if(lucky7TicketsArray[i].owner!=address(0x0)){
                 pendingWithdrawals[lucky7TicketsArray[i].owner] += firstPrize;
+                lastFirstPrizeAmount = firstPrize;
                 lastFirstPrizeWinner = lucky7TicketsArray[i].owner;
                 break;
             }
@@ -216,6 +224,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(i++; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             if(lucky7TicketsArray[i].owner!=address(0x0)){
                 pendingWithdrawals[lucky7TicketsArray[i].owner] += secondPrize;
+                lastSecondPrizeAmount = secondPrize;
                 lastSecondPrizeWinner = lucky7TicketsArray[i].owner;
                 break;
             }
@@ -224,6 +233,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(i++; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
             if(lucky7TicketsArray[i].owner!=address(0x0)){
                 pendingWithdrawals[lucky7TicketsArray[i].owner] += thirdPrize;
+                lastThirdPrizeAmount = thirdPrize;
                 lastThirdPrizeWinner = lucky7TicketsArray[i].owner;
                 break;
             }

@@ -35,7 +35,7 @@ contract Lucky7FrontEndFunctions is Lucky7Store{
     /** @dev Function to get the lucky7Tickets, i.e. the mapping which contains the Lucky7Tickets
       * @return an array containing the value of the Lucky7Ticket, i.e. the value of the user ticket
       */
-    function getlucky7Tickets() public view returns (uint[7]) {
+    function getlucky7TicketsValue() public view returns (uint[7]) {
         uint[7] memory luckySevenTickets;
         for(uint i=0; i<numberOfLucky7Numbers; i++){
             if(lucky7TicketOwner[i]!=address(0x0)){
@@ -75,5 +75,22 @@ contract Lucky7FrontEndFunctions is Lucky7Store{
             luckySevenTicketOwner[i] = lucky7TicketOwner[i];
         }
         return luckySevenTicketOwner;
+    }
+
+    /** @dev Function to get the difference of the Lucky7Ticket that belogs to an user.
+      * @param _lucky7TicketOwner is the owner which we want to know the difference
+      */
+    function getLastLucky7Difference(address _lucky7TicketOwner) public view returns (uint) {
+        uint difference;
+        if(drawNumber>0){
+          for(uint i=(drawNumber-1)*numberOfLucky7Numbers; i<drawNumber*numberOfLucky7Numbers; i++){
+            if(lucky7TicketsArray[i].owner == _lucky7TicketOwner){
+              difference = lucky7TicketsArray[i].difference;
+              break;
+            }
+          }
+        }
+        
+        return difference;
     }
 }
