@@ -246,7 +246,7 @@ contract('Lucky7Store', accounts => {
         assert.notEmpty(firstStateMuParameter,'mu parameter is empty at first state')
         assert.notEmpty(firstStateIParameter,'i parameter is empty at first state')
         assert.notEqual(firstStateTicket,0,'ticket is 0 at first state')
-    
+        
         //Now i'm going to call the generateRandomTicket function to buy a generate a random ticket (without buying it).
         //Once called, i'm going to wait for the NewMuReceived and NewIReceived event and check if the mu parameter and i parameter are not the same
         //as before, and if the ticket is the same as before, i.e. parameters were received but the ticket did not changed.
@@ -259,7 +259,7 @@ contract('Lucky7Store', accounts => {
         let secondStateTicket = secondStateUserParameters[2]
         assert.notEqual(secondStateMuParameter,firstStateMuParameter,'mu parameters are equal')
         assert.notEqual(secondStateIParameter,firstStateIParameter,'i parameters are equal')
-        assert.equal(secondStateTicket,firstStateTicket,'tickets are not equal')
+        assert.equal(parseInt(secondStateTicket),parseInt(firstStateTicket),'tickets are not equal')
     })
 });
 

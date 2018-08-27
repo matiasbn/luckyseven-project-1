@@ -15,7 +15,7 @@ contract('Lucky7Ballot', accounts => {
         //For this test, we will call the _generateLucky7Number function
         //Once the Lucky7Number is obtained, it should be stored and saved on the first position
         //of the lucky7Number array of the Lucky7Factory contract and indexForLucky7Array should increase in 1
-        const lucky7Ballot = await Lucky7Ballot.new({value: 100000000000000000})
+        const lucky7Ballot = await Lucky7Ballot.new({value: web3.toWei(1,"ether")})
         let indexForLucky7Array = await lucky7Ballot.indexForLucky7Array()
 
         //Check if indexForLucky7Array is initialized on 0
@@ -69,7 +69,7 @@ contract('Lucky7Ballot', accounts => {
         //This ticket value can be generated with the mbn.py of the python directory of this project
         //Because numbers of 20 digits are considered BigNumbers for Javascript i'll test with
         //smaller numbers,i.e. 14 digits. The result is the same
-        const lucky7Ballot = await Lucky7Ballot.new({value: 100000000000000000})
+        const lucky7Ballot = await Lucky7Ballot.new({value: web3.toWei(1,"ether")})
         await lucky7Ballot.insertCustomizedLucky7Number(0,"0","0",99008528368191,0)
         await lucky7Ballot.insertCustomizedLucky7Number(1,"0","0",23532579469038,0)
         await lucky7Ballot.insertCustomizedLucky7Number(2,"0","0",69776513144870,0)

@@ -19,7 +19,7 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     /** @dev The constructor needs to set the @param OAR parameter to use oraclize on localhost.
       */
     function Lucky7TicketFactory() payable{
-        OAR = OraclizeAddrResolverI(0x6f485c8bf6fc43ea212e93bbf8ce046c7f1cb475);
+        OAR = OraclizeAddrResolverI(0x194d2f57a1c9a154736973c8c6977811ad7ca358);
     }
     
     using SafeMath for uint256;
@@ -238,6 +238,7 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
         queryWolfram = strConcat(queryWolfram,userValues[_parametersOwner].mu,"))*10^",p,",10^");
         //This line => (mod((1/(10^n-mu))*10^p,10^(j+i))-mod((1/(10^n-mu))*10^p,10^(i)))/10^i
         queryWolfram = strConcat(queryWolfram,"(",userValues[_parametersOwner].i,")))/10^",userValues[_parametersOwner].i);
+        emit NewWolframQuery(queryWolfram);
         return queryWolfram;
     }
 
