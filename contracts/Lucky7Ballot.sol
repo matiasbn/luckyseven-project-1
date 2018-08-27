@@ -17,6 +17,14 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         
     }
 
+    /** @dev This modifier is meant to block the Lucky7Number generation when the game is on course
+      * Is used to block the action of the _generateLucky7Number function of this contract if the circuit breaker
+      * is not 
+      */
+    modifier gameNotInCourse(){
+        require(settingLucky7Numbers==true);
+        _;
+    }
     /** @param initialLucky7TicketPosition is a uint used for the _orderLucky7Tickets function of this contract. 
       * Because is necessary to store the information of previous games permanently is necessary then to know what it the starting point to store in the 
       * lucky7TicketsArray array of the Lucky77TicketFactory.sol contract. 
@@ -69,7 +77,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
       * Then it sets the indexForLucky7Array to 0 so the next time a new game is setted, this function starts storing the Lucky7Numbers from the position 0, to finally shut off
       * the settingLucky7Numbers circuit breaker to allow users to start buying tickets.
       */
-    function _generateLucky7Number() public onlyOwner{
+    function _generateLucky7Number() public onlyOwner gameNotInCourse{
         if(indexForLucky7Array == numberOfLucky7Numbers){
             _orderLucky7Numbers();
             indexForLucky7Array = 0;
@@ -252,31 +260,6 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         uint amount = pendingWithdrawals[msg.sender];
         pendingWithdrawals[msg.sender] = 0;
         msg.sender.transfer(amount);
-    }
-
-
-    /** @dev This two functions are used to retrieve the values of the Lucky7Tickets and Lucky7Numbers to use them
-      * in the front end of the game.
-      */
-    function getlucky7Numbers() public view returns (uint[7]) {
-        uint[7] luckySevenNumbers;
-        for(uint i=0; i<numberOfLucky7Numbers; i++){
-            luckySevenNumbers[i]=lucky7NumbersArray[i].ticketValue;
-        }
-        return luckySevenNumbers;
-    }
-
-    function getlucky7Tickets() public view returns (uint[7]) {
-        uint[7] memory luckySevenTickets;
-        for(uint i=0; i<numberOfLucky7Numbers; i++){
-            if(lucky7TicketOwner[i]!=address(0x0)){
-                luckySevenTickets[i] = ticketsArray[lucky7TicketID[i]].ticketValue;
-            }
-            else{
-                luckySevenTickets[i]=0;
-            }
-        }
-        return luckySevenTickets;
     }
 
     /** @dev This four functions are purely designed for testing purposes and are going to be erased when the contract

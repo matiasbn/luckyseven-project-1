@@ -28,36 +28,55 @@
       </div>
 
       <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
       </div>
     </div>
     <div id="mainTemplate" style="display: true;">
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h3 class="panel-title"></h3>
+            <h3 class="panel-title">Important information</h3>
           </div>
           <div class="panel-body">
-            <strong>Account</strong>: <span class="account" p style="font-size:12px">Account</span><br/>
-            <button class="btn btn-default btn-random-ticket" type="button" data-id="0">I'm feeling lucky</button><br/>
+            <strong>Your account</strong>: <span class="account" p style="font-size:12px">Account</span><br/>
+            <strong>Game ID</strong>: <span class="gameID" p style="font-size:12px">GameID</span><br/>
+            <strong>Generate ticket price</strong>: <span class="generateTicketPrice" p style="font-size:12px">Generate ticket price</span><br/>
+            <strong>Sell ticket price</strong>: <span class="sellTicketPrice" p style="font-size:12px">Sell ticket price</span><br/>
+            <strong>Total Prize</strong>: <span class="totalPrize" p style="font-size:12px">Total Prize</span><br/>
+            <strong>First Prize</strong>: <span class="firstPrize" p style="font-size:12px">First Prize</span><br/>
+            <strong>Second Prize</strong>: <span class="secondPrize" p style="font-size:12px">Second Prize</span><br/>
+            <strong>Third Prize</strong>: <span class="thirdPrize" p style="font-size:12px">Third Prize</span><br/>
+            <strong>Your current prize:</strong><br/> <span class="userPrize" p style="font-size:12px">Prize</span><br/>
+            <button class="btn btn-default btn-claim-prize" type="button" data-id="0">Claim your prize!</button><br/>            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="purchasedParameters" style="display: true;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-pet">
+          <div class="panel-heading">
+            <h3 class="panel-title">Your purchased parameters</h3>
+          </div>
+          <div class="panel-body">
+            <strong>First parameter(mu)</strong>: <span class="first-parameter">First parameter</span><br/>
+            <strong>Second parameter(i)</strong>: <span class="second-parameter">Second parameter</span><br/>
             <button class="btn btn-default btn-generate-ticket" type="button" data-id="0">Generate Ticket</button><br/>
             <button class="btn btn-default btn-buy-ticket" type="button" data-id="0">Buy Ticket</button><br/>
           </div>
         </div>
       </div>
     </div>
-    <div id="numbersTemplate" style="display: true;">
+
+    <div id="userTicketsTemplate" style="display: true;">
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h3 class="panel-title">Your last ticket</h3>
+            <h3 class="panel-title">Your tickets</h3>
           </div>
           <div class="panel-body">
-            <strong>Last bought ticket</strong>: <span class="ticket">Ticket</span><br/>
-            <br/><br/>
-            <strong>First parameter(mu)</strong>: <span class="first-parameter">First parameter</span><br/>
-            <strong>Second parameter(i)</strong>: <span class="second-parameter">Second parameter</span><br/>
-            <strong>Expected Ticket</strong>: <span class="expected-ticket">Expected Ticket</span><br/>
+            <strong>Last purchased ticket</strong>: <span class="ticket">Ticket</span><br/>
+            <button class="btn btn-default btn-random-ticket" type="button" data-id="0">I'm feeling lucky</button><br/>
           </div>
         </div>
       </div>
@@ -67,7 +86,7 @@
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h3 class="panel-title">Lucky 7 Numbers</h3>
+            <h3 class="panel-title">Lucky7 Numbers</h3>
           </div>
           <div class="panel-body"> 
             <strong>First Number</strong>:<br/> <span class="firstNumber">First Number</span><br/>
@@ -86,7 +105,7 @@
       <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="panel panel-default panel-pet">
           <div class="panel-heading">
-            <h3 class="panel-title">Lucky 7 Tickets</h3>
+            <h3 class="panel-title">Lucky7 Tickets</h3>
           </div>
           <div class="panel-body"> 
             <strong>First Ticket</strong>:<br/> <span class="firstTicket">First Ticket</span><br/>
@@ -99,6 +118,43 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div id="lucky7Difference" style="display: true;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-pet">
+          <div class="panel-heading">
+            <h3 class="panel-title">Lucky7 Tickets Differences</h3>
+          </div>
+          <div class="panel-body"> 
+            <strong>First Lucky7Ticket Difference</strong>:<br/> <span class="firstDifference">First Lucky7Ticket Difference</span><br/>
+            <strong>Second Lucky7Ticket Difference</strong>:<br/> <span class="secondDifference">Second Lucky7Ticket Difference</span><br/>
+            <strong>Third Lucky7Ticket Difference</strong>:<br/> <span class="thirdDifference">Third Lucky7Ticket Difference</span><br/>
+            <strong>Fourth Lucky7Ticket Difference</strong>:<br/> <span class="fourthDifference">Fourth Lucky7Ticket Difference</span><br/>
+            <strong>Fifth Lucky7Ticket Difference</strong>:<br/> <span class="fifthDifference">Fifth Lucky7Ticket Difference</span><br/>
+            <strong>Sixth Lucky7Ticket Difference</strong>:<br/> <span class="sixthDifference">Sixth Lucky7Ticket Difference</span><br/>
+            <strong>Seventh Lucky7Ticket Difference</strong>:<br/> <span class="seventhDifference">Seventh Lucky7Ticket Difference</span><br/>
+          </div>
+        </div>
+      </div>
+      
+      <div id="lucky7Owner" style="display: true;">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="panel panel-default panel-pet">
+            <div class="panel-heading">
+              <h3 class="panel-title">Lucky7 Tickets Owners</h3>
+            </div>
+            <div class="panel-body"> 
+              <strong>First Lucky7Ticket Owner</strong>:<br/> <span class="firstOwner" p style="font-size:12px">First Lucky7Ticket Owner</span><br/>
+              <strong>Second Lucky7Ticket Owner</strong>:<br/> <span class="secondOwner" p style="font-size:12px">Second Lucky7Ticket Owner</span><br/>
+              <strong>Third Lucky7Ticket Owner</strong>:<br/> <span class="thirdOwner" p style="font-size:12px">Third Lucky7Ticket Owner</span><br/>
+              <strong>Fourth Lucky7Ticket Owner</strong>:<br/> <span class="fourthOwner" p style="font-size:12px">Fourth Lucky7Ticket Owner</span><br/>
+              <strong>Fifth Lucky7Ticket Owner</strong>:<br/> <span class="fifthOwner" p style="font-size:12px">Fifth Lucky7Ticket Owner</span><br/>
+              <strong>Sixth Lucky7Ticket Owner</strong>:<br/> <span class="sixthOwner" p style="font-size:12px">Sixth Lucky7Ticket Owner</span><br/>
+              <strong>Seventh Lucky7Ticket Owner</strong>:<br/> <span class="seventhOwner" p style="font-size:12px">Seventh Lucky7Ticket Owner</span><br/>
+            </div>
+          </div>
+        </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

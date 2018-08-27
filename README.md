@@ -1,10 +1,12 @@
 # Lucky7
 
-Win-win crowdfunding system
+Win-win crowdfunding lottery.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+To run this project locally is necesary to have some dependencies. 
+First, the project use Oraclize so is necessary to use 
+
 
 ### Prerequisites
 

@@ -8,21 +8,28 @@
   * Inherits from Lucky7Admin and usingOraclize to do the oraclize querys. 
 */
 
-
 pragma solidity ^0.4.20;
 import "./usingOraclize.sol";
 import "./Lucky7Admin.sol";
 
-
 contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
+    /** @dev SafeMath library is used for the _checkForLucky7Ticket of this contract. 
+      */
+    using SafeMath for uint256;
     
-    /** @dev The constructor needs to set the @param OAR parameter to use oraclize on localhost.
+    /** @dev The constructor needs to set the OAR, Oraclize Address Resolver
+      * OAR is the Oraclize Address Resolver to use oraclize on localhost
       */
     function Lucky7TicketFactory() payable{
-        OAR = OraclizeAddrResolverI(0x194d2f57a1c9a154736973c8c6977811ad7ca358);
+        OAR = OraclizeAddrResolverI(0xd1a269d9b0dfb66cfdaf89cf0c6e6f8df0615ad0);
     }
     
-    using SafeMath for uint256;
+    /** @dev This function is to change the OAR without compiling again and deploying again
+      * Used only for testing purposes.
+      */
+    function changeOAR(address _newOAR){
+        OAR = OraclizeAddrResolverI(_newOAR);
+    }
     
     /**@dev The events are used mainly for testing purposes
       */
