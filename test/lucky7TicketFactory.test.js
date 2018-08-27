@@ -129,9 +129,6 @@ contract('Lucky7TicketFactory', accounts => {
     })
 });
 
-    
-    
-
 function promisifyLogWatch(_event) {
     return new Promise((resolve, reject) => {
       _event.watch((error, log) => {

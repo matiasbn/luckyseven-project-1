@@ -238,7 +238,6 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
         queryWolfram = strConcat(queryWolfram,userValues[_parametersOwner].mu,"))*10^",p,",10^");
         //This line => (mod((1/(10^n-mu))*10^p,10^(j+i))-mod((1/(10^n-mu))*10^p,10^(i)))/10^i
         queryWolfram = strConcat(queryWolfram,"(",userValues[_parametersOwner].i,")))/10^",userValues[_parametersOwner].i);
-        emit NewWolframQuery(queryWolfram);
         return queryWolfram;
     }
 

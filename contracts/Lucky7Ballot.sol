@@ -13,9 +13,6 @@ pragma solidity ^0.4.20;
 import "./Lucky7TicketFactory.sol";
 
 contract Lucky7Ballot is Lucky7TicketFactory{
-    
-    event NewPrizeStored(uint prizeAmoun, address prizeOwner);
-
     function Lucky7Ballot() payable {
         
     }
@@ -66,7 +63,7 @@ contract Lucky7Ballot is Lucky7TicketFactory{
     
     /** @dev _generateLucky7Number is the function that is actually used to generate the Lucky7Numbers. It have the business logic for generating the Lucky7Numbers, i.e. if 
       * the indexForLucky7Array is different than the numberOfLucky7Numbers, then sets the muReady and iReady booleans of the UserParametersValue struct of the 
-      * Lucky7TicketFactory contract to true and calls for the _generateTicket function of the Lucky7TicketFactory contract. This way it can ask for both mu and i parameters
+      * Lucky7TicketFactory contract to true and calls for the _askForMuParameter and _askForIParameter function of the Lucky7TicketFactory contract. This way it can ask for both mu and i parameters
       * to oraclize and when the oraclize respond with both, ask for a ticket which is going to be a Lucky7Number.
       * If the indexForLucky7Array is equal to the numberOfLucky7Numbers, then proceed to order the Lucky7Numbers through the _orderLucky7Numbers function of this contract.
       * Then it sets the indexForLucky7Array to 0 so the next time a new game is setted, this function starts storing the Lucky7Numbers from the position 0, to finally shut off
@@ -162,7 +159,6 @@ contract Lucky7Ballot is Lucky7TicketFactory{
         for(j=initialLucky7TicketPosition; j<numberOfLucky7Numbers+initialLucky7TicketPosition; j++){
             aux = j;
             smallest = lucky7TicketsArray[j];
-            emit NewPrizeStored(j,lucky7TicketsArray[j].owner);
             for (k=j+1; k<numberOfLucky7Numbers+initialLucky7TicketPosition; k++){
                 if(smallest.difference>lucky7TicketsArray[k].difference){
                     smallest = lucky7TicketsArray[k];

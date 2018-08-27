@@ -97,39 +97,10 @@ contract Lucky7Admin is Ownable{
         emit numberModified("Oraclize custom gas price changed", oldValue, _newValue);
     }
     
-    function modifyParameterB(string _newValue) public onlyOwner{
-        string memory oldValue = b;
-        b = _newValue;
-        emit parameterModified("Parameter b modified", oldValue, _newValue);
-    }
-    
-    function modifyParameterN(string _newValue) public onlyOwner{
-        string memory oldValue = n;
-        n = _newValue;
-        emit parameterModified("Parameter n modified", oldValue, _newValue);
-    }
-    
-    function modifyParameterP(string _newValue) public onlyOwner{
-        string memory oldValue = p;
-        p = _newValue;
-        emit parameterModified("Parameter p modified", oldValue, _newValue);
-    }
-    
-    function modifyParameterJ(string _newValue) public onlyOwner{
-        string memory oldValue = j;
-        j = _newValue;
-        emit parameterModified("Parameter j modified", oldValue, _newValue);
-    }
-    
     function modifyEnterpriseWallet(address _newAddress) public onlyOwner{
         address oldAddress = enterpriseWallet;
         enterpriseWallet = _newAddress;
         emit walletModified("Enterprise wallet changed", oldAddress, _newAddress);
-    }
-    
-    /**@dev Used for Remix testing */
-    function balance() public view returns(uint256){
-        return address(this).balance;
     }
 }   
                                            

@@ -48,42 +48,6 @@ contract('Lucky7Admin', function(accounts) {
 
         assert.equal(result, price, 'the new value does not match with the oraclizeCustomGasPrice value')
     })
-    
-    it("should change the b parameter value", async() => {
-        const lucky7Admin = await Lucky7Admin.deployed()
-        const value = "7"
-        await lucky7Admin.modifyParameterB(value, {from: owner})
-        const result = await lucky7Admin.b()
-
-        assert.equal(result, value, 'the new value does not match with the b parameter value')
-    })
-
-    it("should change the n parameter value", async() => {
-        const lucky7Admin = await Lucky7Admin.deployed()
-        const value = "7"
-        await lucky7Admin.modifyParameterN(value, {from: owner})
-        const result = await lucky7Admin.n()
-
-        assert.equal(result, value, 'the new value does not match with the n parameter value')
-    })
-
-    it("should change the p parameter value", async() => {
-        const lucky7Admin = await Lucky7Admin.deployed()
-        const value = "7"
-        await lucky7Admin.modifyParameterP(value, {from: owner})
-        const result = await lucky7Admin.p()
-
-        assert.equal(result, value, 'the new value does not match with the p parameter value')
-    })
-
-    it("should change the j parameter value", async() => {
-        const lucky7Admin = await Lucky7Admin.deployed()
-        const value = "7"
-        await lucky7Admin.modifyParameterJ(value, {from: owner})
-        const result = await lucky7Admin.j()
-
-        assert.equal(result, value, 'the new value does not match with the j parameter value')
-    })
 
     it("should change the enterprize wallet address value", async() => {
         const lucky7Admin = await Lucky7Admin.deployed()
