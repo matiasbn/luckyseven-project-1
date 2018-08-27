@@ -4,10 +4,12 @@ Win-win crowdfunding lottery.
 
 ## Getting Started
 
-To run this project locally is necesary to have some dependencies. 
-First, the project use Oraclize so is necessary to use ethereum-bridge.
-Second, the project use
+To run this project locally is necesary to have ethereum-bridge, because it uses Oraclize.
+First, clone the project
 
+```
+git clone https://github.com/matiasbn/luckyseven
+```
 
 ### Prerequisites
 
