@@ -16,8 +16,10 @@
   },
   "dependencies": {
     "bignumber.js": "^7.2.1",
+    "ethereum-bridge": "^0.6.1",
+    "ganache-cli": "^6.1.8",
     "openzeppelin-solidity": "1.11.0",
-    "truffle": "^4.1.13"
+    "truffle": "^4.1.14"
   },
   "keywords": [],
   "description": ""
