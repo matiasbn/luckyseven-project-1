@@ -68,6 +68,8 @@ npm install -g ethereum-bridge
 npm install -g ganache-cli
 npm install -g truffle
 ```
+Remember to "sudo" if necessary.
+
 Once that's done, proceed to clone the repository:
 
 ```
@@ -244,7 +246,9 @@ You'll have a revert exception. This is because the generateLucky7Number() does 
 
 You have to fund the contract by sending it some ether, e.g. by sending ETH with Metamask to the contract address.
 
-That's it!, don't forget the cycle:
+That's it!
+
+### The project-running cycle
 1. Ganache-cli with -d parameter.
 
 2. Ethereum-bridge on the ethereum-bridge directory. Copy and paste the OAR on the constructor of the Lucky7TicketFactory contract.
@@ -271,7 +275,7 @@ That's it!, don't forget the cycle:
 
 To properly run the tests, is necessary some considerations:
 
-1. Exagerate the block gas limit and Ether fund for the accounts. This is because the tests have several storages due to avoid waiting for the Lucky7Numbers and the Tickets. This two actions are tested when is proper to, but not in every test.
+1. Exagerate the block gas limit and Ether fund for the accounts. This is because the tests have several storages due to avoid waiting for the Lucky7Numbers and the Tickets by inserting them with . This two actions are tested when is proper to, but not in every test.
 ```
 ganache-cli -d -l 40000000 -e 10000
 ```
@@ -297,9 +301,7 @@ This will run just the Lucky7TicketFactory. This is important because in some oc
 
 3. The tests take a lot of time. This is because the waiting for the oraclize querys to be resolved. Please be patient.
 
-4. There's a contract called Lucky7FrontEndFunctions. This contract would not be tested because all of it functions are intended to retrieve information from the blockchain easily. All them are _view and none of them are part of the business logic of the project.
-
-5. run the ethereum-bridge un dev mode
+4. run the ethereum-bridge un dev mode
 ```
 ethereum-bridge ./ethereum-bridge -H localhost -p 8545 -a 1 --dev 
 ```
@@ -313,7 +315,7 @@ Again, __DO __NOT __TRY:
 truffle test
 ```
 
-because is likely to get stucked. Test every contract by separate.
+because is likely to get stuck. Test every contract by separate.
 
 ## Libraries
 

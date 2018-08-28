@@ -5,7 +5,6 @@
 
 /** @title Lucky7FrontFunctions. 
   * This contract contains all the functions to interact with front end.
-  * Is not going to be tested.
 */
 
 pragma solidity ^0.4.20;
