@@ -290,7 +290,7 @@ truffle test ./test/lucky7TicketFactory.test.js
 ```
 Then:
 ```
-truffle test ./test/lucky7Ballot.test.js
+truffle test ./test/lucky7Ballot.test.js 
 ```
 Then:
 ```
