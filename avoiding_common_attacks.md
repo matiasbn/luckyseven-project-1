@@ -21,3 +21,7 @@ That's why i choose to set to 0 the pendingWithdrawals everytime a new game is s
 ### Integer Underflow or Overflow
 
 The contracts of this project are oriented basically to ask for random numbers and compare them. Asking for the numbers is not a problem, but to "compare" them is. Due to Solidity language 
+
+### Oraclize RANDOM.org entropy source
+
+Was

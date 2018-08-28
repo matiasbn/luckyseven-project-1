@@ -6,7 +6,7 @@ Decentralized lottery-based crowdfunding system on Ethereum Blockchain.
 
 This development is the first part of the Lucky7 Lottery project.
 Lucky7 Lottery is a descentralized lottery-based crowdfounding system on blockchain.
-More details of it can be found in the [White Paper](https://ipfs.infura.io/ipfs/QmPpSmFMUVcLR78ekAL4PJHgRUVjWzKBgzRutYkVSgQQ8V).
+More details of it can be found in the [White Paper(SOON)](https://ipfs.infura.io/ipfs/QmeC8TMMzfroX8Xa9sfXhY6uvGU5oeFLRHBKc3gADLg94N).
 
 
 It uses Oraclize to ask for random numbers which operates as paramaters of a Pseudo-Random Number Generator (PRNG), and to execute the PRNG offchain and store the result on chain.
@@ -37,7 +37,7 @@ All the above empowered by Blockchain, to make a "fair play" contract and transp
 
 Lucky7 Lottery is planned to be a win-win crowdfounding system. Once it gains traction and active players, part of the contract balance is going to be dedicated to fund projects postuled by people and voted through tokens.
 The tokens are going to be delivered to players according to "how close was the ticket you purchased to a Lucky7Number".
-The prizes for ALL projects are going to be proportional to how many tokens were delivered in a certain game and how many tokens they earned, i.e. the prize of a certain project is (amount of tokens gained for that the project)/(amount of tokens delivered to all projects in game N)* (x% of the contract balance). That's what's going to give value to the tokens. More details in the [White Paper](https://ipfs.infura.io/ipfs/QmPpSmFMUVcLR78ekAL4PJHgRUVjWzKBgzRutYkVSgQQ8V).
+The prizes for ALL projects are going to be proportional to how many tokens were delivered in a certain game and how many tokens they earned, i.e. the prize of a certain project is (amount of tokens gained for that the project)/(amount of tokens delivered to all projects in game N)* (x% of the contract balance). That's what's going to give value to the tokens. More details in the [White Paper(SOON)](https://ipfs.infura.io/ipfs/QmeC8TMMzfroX8Xa9sfXhY6uvGU5oeFLRHBKc3gADLg94N).
 
 Don't like any project? sell your token, for ETH for example, and buy another Ticket (or ice cream, you decide).
 
@@ -62,8 +62,13 @@ Thanks Blockchain!
 [Metamask](https://metamask.io/) to have interact with the dApp.
 
 ### Installing
-
-Easy as cloning this repository.
+Install the prerequisites:
+```
+npm install -g ethereum-bridge
+npm install -g ganache-cli
+npm install -g truffle
+```
+Once that's done, proceed to clone the repository:
 
 ```
 git clone https://github.com/matiasbn/luckyseven/
@@ -76,20 +81,11 @@ First, start by running ganache-cli. Use it with the -d parameter to set it "det
 ganache-cli -d
 ```
 
-
 This way, everytime you run it, it will create the same accounts with the same mnemonic phrase to not lose the connection between Metamask and ganache-cli. Keep using this line for subsequents ganache-cli callings.
 
-Once is running, is time to run ethereum-bridge.
-
-Go to the ethereum-bridge directory and run the next line:
-
+Once is running, is time to run ethereum-bridge. The next command will call the ethereum-bridge on localhost, port 8545, using the account 1 (your second account of ganache). The result should be something like this:
 ```
-./ethereum-bridge -H localhost -p 8545 -a 1
-```
-It will call the ethereum-bridge on localhost, port 8545, using the account 1 (your second account of ganache). The result should be something like this:
-```
-cd ethereum-bridge/
-./ethereum-bridge -H localhost -p 8545 -a 1
+ethereum-bridge -H localhost -p 8545 -a 1
 Please wait...
 [2018-08-27T21:19:29.650Z] INFO you are running ethereum-bridge -version: 0.6.1
 [2018-08-27T21:19:29.654Z] INFO saving logs to: ./bridge.log
@@ -163,14 +159,15 @@ Copy it an paste it in the truffle console window and hit enter:
 truffle(development)> var contract = Lucky7FrontEndFunctions.at('0x5b1869d9a4c187f2eaa108f3062412ecf0526b24')
 ```
 
-Now you can access easy to the contract functions, which will save you a lot of time typing. You'll have to do this EVERYTIME you migrate a new contract.
+Now you can access easy to the contract functions, which will save you a lot of time typing. You'll have to call auxiliaryScript.js EVERYTIME you migrate a new contract.
+You can as well do it manually, but i think this way is faster. You choose.
 
 Open (another) console windows, go to the luckyseven directory and run:
 ```
 npm run dev
 ```
 
-It will open yout browser and redirect you directly to the dApp page.
+It will open your browser and redirect you directly to the dApp page.
 You should see something like this:
 ![dApp front end](https://ipfs.infura.io/ipfs/QmZmRBM66VWGerrsE9XkdPadsNcopdWrfibxtwoNAp2UPN) 
 
@@ -300,20 +297,37 @@ This will run just the Lucky7TicketFactory. This is important because in some oc
 
 3. The tests take a lot of time. This is because the waiting for the oraclize querys to be resolved. Please be patient.
 
-4. There's a contract called Lucky7FrontEndFunctions. This contract would not be tested because all of are intended to retrieve information from the blockchain easily. All them are view and none of them are part of the business logic of the project.
+4. There's a contract called Lucky7FrontEndFunctions. This contract would not be tested because all of it functions are intended to retrieve information from the blockchain easily. All them are _view and none of them are part of the business logic of the project.
 
 5. run the ethereum-bridge un dev mode
 ```
 ethereum-bridge ./ethereum-bridge -H localhost -p 8545 -a 1 --dev 
 ```
 
-All the tests were tested (LOL) and all they are passing.
+All the tests were tested and all they are passing.
 
-The explanation for every test is written inside every test file, in the test directory
+The explanation for every test is written inside every test file, in the test directory of the project.
 
-##Libraries
+Again, __DO __NOT __TRY:
+```
+truffle test
+```
 
-The contracts use the SafeMath contract of the OpenZeppelin project to avoid Integer Underflow/Overflow. Particularly, it is used on the checkForLucky7Ticket function of the Lucky7TicketFactory contract to add and substract values. It was a good way to check if the difference was 0, to check if the Ticket was a ExactLucky7Number.
+because is likely to get stucked. Test every contract by separate.
+
+## Libraries
+
+The contracts use the SafeMath contract of the OpenZeppelin project to avoid Integer Underflow/Overflow problems. Particularly, it is used on the checkForLucky7Ticket function of the Lucky7TicketFactory contract to add and substract values. It was a good way to check if the difference was 0, to check if the Ticket was a ExactLucky7Number.
+
+## mbn.py
+
+In later deployments, the PRNG is going to be presented. By noew, the file mbn.py of the directory python contains a function where mu and i can be replaced. If you ran a generateLucky7Number or a sellRandomTicket function, you can take the parameters and replace them in the file, then run :
+```
+python mbn.py
+```
+and the result is (and should) be the same as the Ticket or Lucky7Number generated. Due to complications of implementing Big Numbers on Javascript, this was not implemented n the front end. Therefore it is absolutely necessary to implement this function when the project gets in production, because people NEEDS to know the result of them new purchased parameters before purchasing the ticket, and telling them to run a python file is not the better idea. Either way, the PRNG is easily implementable; three code lines for the case of python, which manage the Big Numbers internally.
+
+This file can be used as a PRNG itself for various purposes, e.g. to generate Lucky7Numbers and insert them artificially through the insertCustomizedLucky7Number function of the Lucky7Ballot contract.
 
 ## Authors
 
