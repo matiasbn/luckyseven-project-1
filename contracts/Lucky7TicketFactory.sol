@@ -21,7 +21,7 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
       * OAR is the Oraclize Address Resolver to use oraclize on localhost
       */
     function Lucky7TicketFactory() payable{
-        OAR = OraclizeAddrResolverI(0xd1a269d9b0dfb66cfdaf89cf0c6e6f8df0615ad0);
+        OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
     }
     
     /** @dev This function is to change the OAR without compiling again and deploying again
