@@ -66,14 +66,14 @@ Thanks Blockchain!
 Easy as cloning this repository.
 
 ```
-Awesome-Mega-Computer-of-Matias:luckyseven git clone https://github.com/matiasbn/luckyseven/
+git clone https://github.com/matiasbn/luckyseven/
 ```
 
 ### Running the project
 
 First, start by running ganache-cli. Use it with the -d parameter to set it "deterministic".
 ```
-Awesome-Mega-Computer-of-Matias:luckyseven$ ganache-cli -d
+ganache-cli -d
 ```
 
 
@@ -84,12 +84,12 @@ Once is running, is time to run ethereum-bridge.
 Go to the ethereum-bridge directory and run the next line:
 
 ```
-Awesome-Mega-Computer-of-Matias:ethereum-bridge$ ./ethereum-bridge -H localhost -p 8545 -a 1
+./ethereum-bridge -H localhost -p 8545 -a 1
 ```
 It will call the ethereum-bridge on localhost, port 8545, using the account 1 (your second account of ganache). The result should be something like this:
 ```
-Awesome-Mega-Computer-of-Matias:luckyseven$ cd ethereum-bridge/
-Awesome-Mega-Computer-of-Matias:luckyseven$ ./ethereum-bridge -H localhost -p 8545 -a 1
+cd ethereum-bridge/
+./ethereum-bridge -H localhost -p 8545 -a 1
 Please wait...
 [2018-08-27T21:19:29.650Z] INFO you are running ethereum-bridge -version: 0.6.1
 [2018-08-27T21:19:29.654Z] INFO saving logs to: ./bridge.log
@@ -126,7 +126,7 @@ At this point you should be running 2 consoles windows. Don't close them. Neithe
 
 Go to a command line (again, you see, 3 consoles, that's why is good to use an integrated code editor-console view), go to luckyseven directory and run:
 ```
-Awesome-Mega-Computer-of-Matias:luckyseven$ truffle console
+truffle console
 ```
 It will connect to ganache-cli. Then run:
 
@@ -149,10 +149,10 @@ Running migration: 2_deploy_Lucky7.js
 Saving artifacts...
 ```
 
-Copy the address of the Lucky7FrontEndFunctions (0x5b1869d9a4c187f2eaa108f3062412ecf0526b24 in this case), go to a different console:
+Copy the address of the Lucky7FrontEndFunctions (0x5b1869d9a4c187f2eaa108f3062412ecf0526b24 in this case), go to a different console and run the next on the luckyseven directory:
 
 ```
-Awesome-Mega-Computer-of-Matias:luckyseven$ node auxiliaryScript.js 0x5b1869d9a4c187f2eaa108f3062412ecf0526b24
+node auxiliaryScript.js 0x5b1869d9a4c187f2eaa108f3062412ecf0526b24
 ```
 Replacing my address by your contract address. It should prompt something like this:
 ```
@@ -167,11 +167,11 @@ Now you can access easy to the contract functions, which will save you a lot of 
 
 Open (another) console windows, go to the luckyseven directory and run:
 ```
-Awesome-Mega-Computer-of-Matias:luckyseven$ npm run dev
+npm run dev
 ```
 
 It will open yout browser and redirect you directly to the dApp page.
-You should see something like this https://ipfs.infura.io/ipfs/QmZmRBM66VWGerrsE9XkdPadsNcopdWrfibxtwoNAp2UPN:
+You should see something like this:
 ![dApp front end](https://ipfs.infura.io/ipfs/QmZmRBM66VWGerrsE9XkdPadsNcopdWrfibxtwoNAp2UPN) 
 
 Among other (for now) cryptic fields.
@@ -302,44 +302,64 @@ This will run just the Lucky7TicketFactory. This is important because in some oc
 
 4. There's a contract called Lucky7FrontEndFunctions. This contract would not be tested because all of are intended to retrieve information from the blockchain easily. All them are view and none of them are part of the business logic of the project.
 
+5. run the ethereum-bridge un dev mode
+```
+Awesome-Mega-Computer-of-Matias: matiasbarrios$ ethereum-bridge ./ethereum-bridge -H localhost -p 8545 -a 1 --dev 
+```
+
 All the tests were tested (LOL) and all they are passing.
 
 The explanation for every test is written inside every test file, in the test directory
-### Break down into end to end tests
 
-Explain what these tests test and why
+## Design Pattern Requirements
+### Circuit breakers
+The project includes 2 circuit breakers. This are translated in two modifiers:
 
+1. To stop selling tickets while the setting Lucky7Numbers phase is happening:
 ```
-Give an example
+modifier sellingIsActive {
+        require(settingLucky7Numbers==false);
+        _;
+    }
 ```
+This modifier is in the Lucky7Store contract and is related to the sellRandomTicket, generateRandomTicket, and sellGeneratedTicket functions.
 
-### And coding style tests
-
-Explain what these tests test and why
-
+2. To stop the possible generation of Lucky7Numbers while a game is in curse:
 ```
-Give an example
+modifier gameNotInCourse(){
+        require(settingLucky7Numbers==true);
+        _;
+    }
 ```
+This modifier is in the Lucky7Ballot contract and is related to the generateLuckyNumber which generates the Lucky7Numbers. The settingLucky7Numbers value is changed once the setNewGame of the Lucky7Ballot contract is called, i.e. when a new game is setted and is necessary to set the new Lucky7Numbers.
 
-## Deployment
+### [Withdrawal from contracts](https://solidity.readthedocs.io/en/v0.4.24/common-patterns.html#withdrawal-from-contracts) and not sending ETH to 0
+When the setNewGame function of the Lucky7Ballot is called, it then calls the deliverPrizes function, which deliver the prizes for the best Lucky7Tickets. It proceed to check that the owner of those Lucky7Tickets is not an address 0, and then store the prizes on the pendingWithdrawals mapping. This way we avoid a DoS with (Unexpected) revert attack; the winners have to claim for them prizes instead of being automatically delivered.
 
-Add additional notes about how to deploy this on a live system
+### Lucky7Admin functions
+The Lucky7Admin contract contains all the parameters to control the game, and functions to modify them. With the time, the price of the ETHER is going to change, so the price have to be updated regularly. That's why there's functions to modify the prices for selling and generating ticket, and for the oraclize querys (gas limit and price).
 
-## Versioning
+### Cleaning the previous winners
+This design pattern is better illustrated with an example.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Case: 10 ETH for the winners, Player1 prize is 6 ETH, Player2 is 3 ETH and Player 1 is ETH.
+Until the players don't claim they're prizes, the ETH is going to be on the balance of the contract. Let's suppose none of them claimed them prizes.
 
+Next game, the accumulated prize was 90 ETH, so added to the first lot, are 100 ETH.
+
+The prizes are calculated over the balance of the contract, so now the balance is 100 and Player4 prize is 60 ETH, Player5 prize is 30 ETH and Player6 prize is 10 ETH.
+
+Player1 claims it prize (6 ETH, 94 ETH in the balance), Player2 too (3 ETH, 91 ETH),then Player3 (1 ETH, 90 ETH), then Player5 (30 ETH, 60 ETH) and then Player6 (10 ETH, 50 ETH)). 
+
+Now, when Player4 tries to claim it prize, it would be unfeasibleand and would be reverted (because, Player4 prize is 60 ETH and balance is 50 ETH). 
+
+That's why i choose to set to 0 the pendingWithdrawals everytime a new game is setted, because the games are going to be resetted every 1 week, more than enogh time to claim the prizes. (and be honest, 30 ETH!!!, GIVE ME THAT RIGHT NOW!!!)
+
+
+## Security tools/Common attacks
+### Withdrawal from contract
+As told, choosing a Withdrawal from contract pattern let me avoid the DoS with (Unexpected) revert attack. If i weren't aware of it, everytime i
 ## Authors
 
 * **Matías Barrios** 
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
