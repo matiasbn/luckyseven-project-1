@@ -16,15 +16,12 @@ App = {
 
   initContract: function() {
     $.getJSON('../build/contracts/Lucky7FrontEndFunctions.json', function(data) {
-      console.log("in1")
       // Get the necessary contract artifact file and instantiate it with truffle-contract
       var Lucky7Artifact = data;
       App.contracts.Lucky7Store = TruffleContract(Lucky7Artifact);
-      console.log("in2")
-      
+     
       // Set the provider for our contract
       App.contracts.Lucky7Store.setProvider(App.web3Provider);
-      console.log("in3")
       // Use our contract to retrieve and mark the adopted pets
       return App.retrieveTicket();
     });
