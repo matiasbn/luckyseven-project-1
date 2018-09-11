@@ -337,7 +337,7 @@ The project can be recently found deployed to Rinkeby testnet.
 
 You can get Rinkeby ETH from [The Rinkeby faucet](https://faucet.rinkeby.io/).
 
-Front end is deployed and working at IPFS in [this link](https://ipfs.infura.io/ipfs/QmXoKWUoE5f6dZK8st3a7QiLDB1E8sJ9y4p1QgSq8vSkjo/src/)
+Front end is deployed and working at IPFS in [this link](https://ipfs.infura.io/ipfs/QmXoKWUoE5f6dZK8st3a7QiLDB1E8sJ9y4p1QgSq8vSkjo/src/).
 
 ## Authors
 
