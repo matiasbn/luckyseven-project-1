@@ -339,6 +339,10 @@ You can get Rinkeby ETH from [The Rinkeby faucet](https://faucet.rinkeby.io/).
 
 Front end is deployed and working at IPFS in [this link](https://ipfs.infura.io/ipfs/QmXoKWUoE5f6dZK8st3a7QiLDB1E8sJ9y4p1QgSq8vSkjo/src/).
 
+## The story behind the PRNG
+
+I wrote an article on [Medium](https://medium.com/@matias.barriosn/how-i-realized-as-an-adult-that-ive-been-studying-number-theory-since-i-was-a-kid-a8b49ea57a87) about how i get to the PRNG. Read it and give me some claps.
+
 ## Authors
 
 * **Matías Barrios** 
