@@ -5,22 +5,13 @@ def Mbn(b, n, mu, i, j,p):
     return RCF
 
 from decimal import *
-import collections
-import time
-from random import randint
 
-start_time = time.time()
 b = 1
 n = 8
-# mu =  7192
-mu = randint(1000, 9999)
-p = 10000
-# i = 5877
-i = randint(1000, 9999)
-j = 20
+mu =  7
+p = 200
+i = 10
+j = 128
 getcontext().prec = p
 
 print Mbn(b, n, mu, i, j,p)
-
-
-print("--- %s seconds ---" % (time.time() - start_time))
