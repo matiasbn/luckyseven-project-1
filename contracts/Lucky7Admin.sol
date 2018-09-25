@@ -10,10 +10,34 @@
   */
 
 pragma solidity ^0.4.20;
-import "./Ownable.sol";
-import "./SafeMath.sol";
+
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract Lucky7Admin is Ownable{
+
+    /** @dev Whitelist to accept changes over all contracts
+      */
+    mapping(address => bool) public whitelist;
+
+   /** @dev The constructor is used to set the whitelist above.
+       Every parameter is for each contract.
+       All them are known, so they're going to be hardcoded. 
+     */
+    // constructor(
+    //   address _lucky7TicketFactoryAddress,
+    //   address _lucky7Ballot,
+    //   address _lucky7Store,
+    //   address _lucky7Storage,
+    //   address _lucky7FrontEndFunctions
+    // ) 
+    //   public
+    // {
+    //   whitelist[_lucky7TicketFactoryAddress]=true;
+    //   whitelist[_lucky7Ballot]=true;
+    //   whitelist[_lucky7Store]=true;
+    //   whitelist[_lucky7Storage]=true;
+    //   whitelist[_lucky7FrontEndFunctions]=true;
+    // }
 
     /** @dev event to register the change of a number */
     event numberModified(string describe, uint _oldValue, uint _newValue);
@@ -34,12 +58,6 @@ contract Lucky7Admin is Ownable{
     string public n = "8";
     string public p = "10000"; 
     string public j = "20";
-    
-    /** @param numberOfLucky7Numbers is the parameter that indicates the number of Lucky7Numbers which are going to be generated
-      * before letting users start buying a ticket. Is used for other functions to shutdown a circuit breaker, lookup in arrays and
-      * order the Lucky7Numbers
-      */
-    uint public numberOfLucky7Numbers = 7;
     
     /**
       * @dev This parameters control the prices of the system
@@ -67,12 +85,7 @@ contract Lucky7Admin is Ownable{
       * @dev The next functions are self explanatory
       * Everyone emits an event to register changes, so there is a register of evolution of the game in the time
      */
-    function modifyNumberOfLucky7Numbers(uint _newValue) public onlyOwner{
-        uint oldValue = numberOfLucky7Numbers;
-        numberOfLucky7Numbers = _newValue;
-        emit numberModified("Sell ticket price changed", oldValue, _newValue);
-    }
-        
+    
     function modifySellTicketPrice(uint _newValue) public onlyOwner{
         uint oldValue = sellTicketPrice;
         sellTicketPrice = _newValue;

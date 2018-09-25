@@ -9,7 +9,7 @@ module.exports = {
             host: "127.0.0.1",
             port: 8545, // Using ganache as development network
             network_id: "*",
-          //   gas: 400000000
+            // gas: 75000000,
         },
         rinkeby: {
             provider: function() {

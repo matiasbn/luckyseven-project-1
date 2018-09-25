@@ -1,0 +1,3396 @@
+{
+  "contractName": "Lucky7Library",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_lucky7AdminAddress",
+          "type": "address"
+        }
+      ],
+      "name": "oraclizeCustomGasPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_lucky7AdminAddress",
+          "type": "address"
+        }
+      ],
+      "name": "oraclizeGasLimit",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_lucky7AdminAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getParameters",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_lucky7StorageAddress",
+          "type": "address"
+        }
+      ],
+      "name": "indexForLucky7Array",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_lucky7StorageAddress",
+          "type": "address"
+        }
+      ],
+      "name": "numberOfLucky7Numbers",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x610786610030600b82828239805160001a6073146000811461002057610022565bfe5b5030600052607381538281f300730000000000000000000000000000000000000000301460806040526004361061006a5763ffffffff60e060020a60003504166323913b85811461006f5780633d579ff8146100a257806359c96c11146100c3578063c50f7fbd1461028e578063dbc6ac88146102af575b600080fd5b81801561007b57600080fd5b50610090600160a060020a03600435166102d0565b60408051918252519081900360200190f35b8180156100ae57600080fd5b50610090600160a060020a0360043516610347565b8180156100cf57600080fd5b506100e4600160a060020a036004351661038b565b6040518080602001806020018060200180602001858103855289818151815260200191508051906020019080838360005b8381101561012d578181015183820152602001610115565b50505050905090810190601f16801561015a5780820380516001836020036101000a031916815260200191505b5085810384528851815288516020918201918a019080838360005b8381101561018d578181015183820152602001610175565b50505050905090810190601f1680156101ba5780820380516001836020036101000a031916815260200191505b50858103835287518152875160209182019189019080838360005b838110156101ed5781810151838201526020016101d5565b50505050905090810190601f16801561021a5780820380516001836020036101000a031916815260200191505b50858103825286518152865160209182019188019080838360005b8381101561024d578181015183820152602001610235565b50505050905090810190601f16801561027a5780820380516001836020036101000a031916815260200191505b509850505050505050505060405180910390f35b81801561029a57600080fd5b50610090600160a060020a03600435166106d2565b8180156102bb57600080fd5b50610090600160a060020a0360043516610716565b60008082905080600160a060020a03166350b9c4286040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd5b505af1158015610328573d6000803e3d6000fd5b505050506040513d602081101561033e57600080fd5b50519392505050565b60008082905080600160a060020a03166359f9fe826040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd5b606080606080600060608060608089945084600160a060020a0316634df7e3d06040518163ffffffff1660e060020a028152600401600060405180830381600087803b1580156103da57600080fd5b505af11580156103ee573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052602081101561041757600080fd5b81019080805164010000000081111561042f57600080fd5b8201602081018481111561044257600080fd5b815164010000000081118282018710171561045c57600080fd5b5050929190505050935084600160a060020a0316632e52d6066040518163ffffffff1660e060020a028152600401600060405180830381600087803b1580156104a457600080fd5b505af11580156104b8573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f1916820160405260208110156104e157600080fd5b8101908080516401000000008111156104f957600080fd5b8201602081018481111561050c57600080fd5b815164010000000081118282018710171561052657600080fd5b5050929190505050925084600160a060020a0316639ae8886a6040518163ffffffff1660e060020a028152600401600060405180830381600087803b15801561056e57600080fd5b505af1158015610582573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f1916820160405260208110156105ab57600080fd5b8101908080516401000000008111156105c357600080fd5b820160208101848111156105d657600080fd5b81516401000000008111828201871017156105f057600080fd5b5050929190505050915084600160a060020a031663b582ec5f6040518163ffffffff1660e060020a028152600401600060405180830381600087803b15801561063857600080fd5b505af115801561064c573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052602081101561067557600080fd5b81019080805164010000000081111561068d57600080fd5b820160208101848111156106a057600080fd5b81516401000000008111828201871017156106ba57600080fd5b50979e969d50949b5093995093975050505050505050565b60008082905080600160a060020a0316639ac2bf916040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd5b60008082905080600160a060020a031663c56969ab6040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd00a165627a7a723058209945c6e5dc4c13a74920fdacf7269d2a6858b51b00c737fc60ed1f81ef6cb5080029",
+  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361061006a5763ffffffff60e060020a60003504166323913b85811461006f5780633d579ff8146100a257806359c96c11146100c3578063c50f7fbd1461028e578063dbc6ac88146102af575b600080fd5b81801561007b57600080fd5b50610090600160a060020a03600435166102d0565b60408051918252519081900360200190f35b8180156100ae57600080fd5b50610090600160a060020a0360043516610347565b8180156100cf57600080fd5b506100e4600160a060020a036004351661038b565b6040518080602001806020018060200180602001858103855289818151815260200191508051906020019080838360005b8381101561012d578181015183820152602001610115565b50505050905090810190601f16801561015a5780820380516001836020036101000a031916815260200191505b5085810384528851815288516020918201918a019080838360005b8381101561018d578181015183820152602001610175565b50505050905090810190601f1680156101ba5780820380516001836020036101000a031916815260200191505b50858103835287518152875160209182019189019080838360005b838110156101ed5781810151838201526020016101d5565b50505050905090810190601f16801561021a5780820380516001836020036101000a031916815260200191505b50858103825286518152865160209182019188019080838360005b8381101561024d578181015183820152602001610235565b50505050905090810190601f16801561027a5780820380516001836020036101000a031916815260200191505b509850505050505050505060405180910390f35b81801561029a57600080fd5b50610090600160a060020a03600435166106d2565b8180156102bb57600080fd5b50610090600160a060020a0360043516610716565b60008082905080600160a060020a03166350b9c4286040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd5b505af1158015610328573d6000803e3d6000fd5b505050506040513d602081101561033e57600080fd5b50519392505050565b60008082905080600160a060020a03166359f9fe826040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd5b606080606080600060608060608089945084600160a060020a0316634df7e3d06040518163ffffffff1660e060020a028152600401600060405180830381600087803b1580156103da57600080fd5b505af11580156103ee573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052602081101561041757600080fd5b81019080805164010000000081111561042f57600080fd5b8201602081018481111561044257600080fd5b815164010000000081118282018710171561045c57600080fd5b5050929190505050935084600160a060020a0316632e52d6066040518163ffffffff1660e060020a028152600401600060405180830381600087803b1580156104a457600080fd5b505af11580156104b8573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f1916820160405260208110156104e157600080fd5b8101908080516401000000008111156104f957600080fd5b8201602081018481111561050c57600080fd5b815164010000000081118282018710171561052657600080fd5b5050929190505050925084600160a060020a0316639ae8886a6040518163ffffffff1660e060020a028152600401600060405180830381600087803b15801561056e57600080fd5b505af1158015610582573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f1916820160405260208110156105ab57600080fd5b8101908080516401000000008111156105c357600080fd5b820160208101848111156105d657600080fd5b81516401000000008111828201871017156105f057600080fd5b5050929190505050915084600160a060020a031663b582ec5f6040518163ffffffff1660e060020a028152600401600060405180830381600087803b15801561063857600080fd5b505af115801561064c573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f19168201604052602081101561067557600080fd5b81019080805164010000000081111561068d57600080fd5b820160208101848111156106a057600080fd5b81516401000000008111828201871017156106ba57600080fd5b50979e969d50949b5093995093975050505050505050565b60008082905080600160a060020a0316639ac2bf916040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd5b60008082905080600160a060020a031663c56969ab6040518163ffffffff1660e060020a028152600401602060405180830381600087803b15801561031457600080fd00a165627a7a723058209945c6e5dc4c13a74920fdacf7269d2a6858b51b00c737fc60ed1f81ef6cb5080029",
+  "sourceMap": "261:1498:3:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
+  "deployedSourceMap": "261:1498:3:-;;;;;;;;;;;;-1:-1:-1;;;261:1498:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;572:204;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;572:204:3;-1:-1:-1;;;;;572:204:3;;;;;;;;;;;;;;;;;;;;;1458:226;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1458:226:3;-1:-1:-1;;;;;1458:226:3;;;;;780:383;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;780:383:3;-1:-1:-1;;;;;780:383:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;780:383:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;780:383:3;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;780:383:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;780:383:3;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;780:383:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;780:383:3;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;780:383:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;352:216;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;352:216:3;-1:-1:-1;;;;;352:216:3;;;;;1229:225;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1229:225:3;-1:-1:-1;;;;;1229:225:3;;;;;572:204;643:4;654:31;700:19;654:66;;733:19;-1:-1:-1;;;;;733:36:3;;:38;;;;;-1:-1:-1;;;733:38:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;733:38:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;733:38:3;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;733:38:3;;572:204;-1:-1:-1;;;572:204:3:o;1458:226::-;1536:4;1547:35;1599:21;1547:74;;1634:21;-1:-1:-1;;;;;1634:43:3;;:45;;;;;-1:-1:-1;;;1634:45:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;780:383:3;848:6;855;862;869;882:31;954:15;1001;1048;1095;928:19;882:66;;972:19;-1:-1:-1;;;;;972:21:3;;:23;;;;;-1:-1:-1;;;972:23:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;972:23:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;972:23:3;;;;;;39:16:-1;36:1;17:17;2:54;101:4;972:23:3;80:15:-1;;;-1:-1;;76:31;65:43;;120:4;113:20;13:2;5:11;;2:2;;;29:1;26;19:12;2:2;972:23:3;;;;;;20:11:-1;15:3;12:20;9:2;;;45:1;42;35:12;9:2;64:21;;126:4;117:14;;142:31;;;139:2;;;186:1;183;176:12;139:2;218:10;;268:11;251:29;;293:43;;;290:58;-1:-1;239:118;236:2;;;370:1;367;360:12;236:2;0:382;;972:23:3;;;;;;954:41;;1019:19;-1:-1:-1;;;;;1019:21:3;;:23;;;;;-1:-1:-1;;;1019:23:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1019:23:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1019:23:3;;;;;;39:16:-1;36:1;17:17;2:54;101:4;1019:23:3;80:15:-1;;;-1:-1;;76:31;65:43;;120:4;113:20;13:2;5:11;;2:2;;;29:1;26;19:12;2:2;1019:23:3;;;;;;20:11:-1;15:3;12:20;9:2;;;45:1;42;35:12;9:2;64:21;;126:4;117:14;;142:31;;;139:2;;;186:1;183;176:12;139:2;218:10;;268:11;251:29;;293:43;;;290:58;-1:-1;239:118;236:2;;;370:1;367;360:12;236:2;0:382;;1019:23:3;;;;;;1001:41;;1066:19;-1:-1:-1;;;;;1066:21:3;;:23;;;;;-1:-1:-1;;;1066:23:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1066:23:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1066:23:3;;;;;;39:16:-1;36:1;17:17;2:54;101:4;1066:23:3;80:15:-1;;;-1:-1;;76:31;65:43;;120:4;113:20;13:2;5:11;;2:2;;;29:1;26;19:12;2:2;1066:23:3;;;;;;20:11:-1;15:3;12:20;9:2;;;45:1;42;35:12;9:2;64:21;;126:4;117:14;;142:31;;;139:2;;;186:1;183;176:12;139:2;218:10;;268:11;251:29;;293:43;;;290:58;-1:-1;239:118;236:2;;;370:1;367;360:12;236:2;0:382;;1066:23:3;;;;;;1048:41;;1113:19;-1:-1:-1;;;;;1113:21:3;;:23;;;;;-1:-1:-1;;;1113:23:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1113:23:3;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1113:23:3;;;;;;39:16:-1;36:1;17:17;2:54;101:4;1113:23:3;80:15:-1;;;-1:-1;;76:31;65:43;;120:4;113:20;13:2;5:11;;2:2;;;29:1;26;19:12;2:2;1113:23:3;;;;;;20:11:-1;15:3;12:20;9:2;;;45:1;42;35:12;9:2;64:21;;126:4;117:14;;142:31;;;139:2;;;186:1;183;176:12;139:2;218:10;;268:11;251:29;;293:43;;;290:58;-1:-1;239:118;236:2;;;370:1;367;360:12;236:2;-1:-1;1150:1:3;;1152;;-1:-1:-1;1154:1:3;;-1:-1:-1;1113:23:3;;-1:-1:-1;780:383:3;;-1:-1:-1;;;;;;;;780:383:3:o;352:216::-;429:4;440:31;486:19;440:66;;519:19;-1:-1:-1;;;;;519:42:3;;:44;;;;;-1:-1:-1;;;519:44:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;1229:225:3;1305:4;1316:35;1368:21;1316:74;;1403:21;-1:-1:-1;;;;;1403:41:3;;:43;;;;;-1:-1:-1;;;1403:43:3;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12",
+  "source": "/**\n  * @author Matias Barrios\n  * @version 1.0.0\n  */\n\n/** @title Lucky7GetValues. \n  * This contract contains all the functions to generate get values between contracts.\n*/\n\npragma solidity ^0.4.24;\nimport \"./Lucky7Admin.sol\";\nimport \"./Lucky7Storage.sol\";\n\n\nlibrary Lucky7Library{  \n    \n  /** @dev Functions to get values from Lucky7Admin\n    */\n  function oraclizeCustomGasPrice(address _lucky7AdminAddress) public returns (uint){\n    Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);\n    return lucky7AdminContract.oraclizeCustomGasPrice();\n  }\n\n  function oraclizeGasLimit(address _lucky7AdminAddress) public returns (uint){\n    Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);\n    return lucky7AdminContract.oraclizeGasLimit();\n  }\n\n  function getParameters(address _lucky7AdminAddress) public returns (string,string,string,string){\n    Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);\n    string memory b = lucky7AdminContract.b();\n    string memory n = lucky7AdminContract.n();\n    string memory p = lucky7AdminContract.p();\n    string memory j = lucky7AdminContract.j();\n    return (b,n,p,j);\n  }\n\n\n  /** @dev Functions to get values from Lucky7Storage\n    */\n  function indexForLucky7Array(address _lucky7StorageAddress) public returns (uint){\n    Lucky7Storage lucky7StorageContract = Lucky7Storage(_lucky7StorageAddress);\n    return lucky7StorageContract.indexForLucky7Array();\n  \n  } \n  function numberOfLucky7Numbers(address _lucky7StorageAddress) public returns (uint){\n    Lucky7Storage lucky7StorageContract = Lucky7Storage(_lucky7StorageAddress);\n    return lucky7StorageContract.numberOfLucky7Numbers();\n  } \n  \n  /** @dev Functions to store information into Lucky7Storage \n    */\n} ",
+  "sourcePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Library.sol",
+  "ast": {
+    "absolutePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Library.sol",
+    "exportedSymbols": {
+      "Lucky7Library": [
+        299
+      ]
+    },
+    "id": 300,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 174,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "176:24:3"
+      },
+      {
+        "absolutePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Admin.sol",
+        "file": "./Lucky7Admin.sol",
+        "id": 175,
+        "nodeType": "ImportDirective",
+        "scope": 300,
+        "sourceUnit": 171,
+        "src": "201:27:3",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Storage.sol",
+        "file": "./Lucky7Storage.sol",
+        "id": 176,
+        "nodeType": "ImportDirective",
+        "scope": 300,
+        "sourceUnit": 1465,
+        "src": "229:29:3",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 299,
+        "linearizedBaseContracts": [
+          299
+        ],
+        "name": "Lucky7Library",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 193,
+              "nodeType": "Block",
+              "src": "434:134:3",
+              "statements": [
+                {
+                  "assignments": [
+                    184
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 184,
+                      "name": "lucky7AdminContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 194,
+                      "src": "440:31:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                        "typeString": "contract Lucky7Admin"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 183,
+                        "name": "Lucky7Admin",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 170,
+                        "src": "440:11:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 188,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 186,
+                        "name": "_lucky7AdminAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 178,
+                        "src": "486:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 185,
+                      "name": "Lucky7Admin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 170,
+                      "src": "474:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Admin_$170_$",
+                        "typeString": "type(contract Lucky7Admin)"
+                      }
+                    },
+                    "id": 187,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "474:32:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                      "typeString": "contract Lucky7Admin"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "440:66:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 189,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 184,
+                        "src": "519:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 190,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "oraclizeCustomGasPrice",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 56,
+                      "src": "519:42:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 191,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "519:44:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 182,
+                  "id": 192,
+                  "nodeType": "Return",
+                  "src": "512:51:3"
+                }
+              ]
+            },
+            "documentation": "@dev Functions to get values from Lucky7Admin",
+            "id": 194,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "oraclizeCustomGasPrice",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 179,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 178,
+                  "name": "_lucky7AdminAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 194,
+                  "src": "384:27:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 177,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "384:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "383:29:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 182,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 181,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 194,
+                  "src": "429:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 180,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "429:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "428:6:3"
+            },
+            "scope": 299,
+            "src": "352:216:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 211,
+              "nodeType": "Block",
+              "src": "648:128:3",
+              "statements": [
+                {
+                  "assignments": [
+                    202
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 202,
+                      "name": "lucky7AdminContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 212,
+                      "src": "654:31:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                        "typeString": "contract Lucky7Admin"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 201,
+                        "name": "Lucky7Admin",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 170,
+                        "src": "654:11:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 206,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 204,
+                        "name": "_lucky7AdminAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 196,
+                        "src": "700:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 203,
+                      "name": "Lucky7Admin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 170,
+                      "src": "688:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Admin_$170_$",
+                        "typeString": "type(contract Lucky7Admin)"
+                      }
+                    },
+                    "id": 205,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "688:32:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                      "typeString": "contract Lucky7Admin"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "654:66:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 207,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 202,
+                        "src": "733:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 208,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "oraclizeGasLimit",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 53,
+                      "src": "733:36:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 209,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "733:38:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 200,
+                  "id": 210,
+                  "nodeType": "Return",
+                  "src": "726:45:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 212,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "oraclizeGasLimit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 197,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 196,
+                  "name": "_lucky7AdminAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 212,
+                  "src": "598:27:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 195,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "598:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "597:29:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 200,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 199,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 212,
+                  "src": "643:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 198,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "643:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "642:6:3"
+            },
+            "scope": 299,
+            "src": "572:204:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 261,
+              "nodeType": "Block",
+              "src": "876:287:3",
+              "statements": [
+                {
+                  "assignments": [
+                    226
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 226,
+                      "name": "lucky7AdminContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "882:31:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                        "typeString": "contract Lucky7Admin"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 225,
+                        "name": "Lucky7Admin",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 170,
+                        "src": "882:11:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 230,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 228,
+                        "name": "_lucky7AdminAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 214,
+                        "src": "928:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 227,
+                      "name": "Lucky7Admin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 170,
+                      "src": "916:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Admin_$170_$",
+                        "typeString": "type(contract Lucky7Admin)"
+                      }
+                    },
+                    "id": 229,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "916:32:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                      "typeString": "contract Lucky7Admin"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "882:66:3"
+                },
+                {
+                  "assignments": [
+                    232
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 232,
+                      "name": "b",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "954:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 231,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "954:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 236,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 233,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "972:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 234,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "b",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 35,
+                      "src": "972:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 235,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "972:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "954:41:3"
+                },
+                {
+                  "assignments": [
+                    238
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 238,
+                      "name": "n",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "1001:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 237,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1001:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 242,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 239,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "1019:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 240,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "n",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 38,
+                      "src": "1019:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 241,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1019:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1001:41:3"
+                },
+                {
+                  "assignments": [
+                    244
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 244,
+                      "name": "p",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "1048:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 243,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1048:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 248,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 245,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "1066:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 246,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "p",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 41,
+                      "src": "1066:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 247,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1066:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1048:41:3"
+                },
+                {
+                  "assignments": [
+                    250
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 250,
+                      "name": "j",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "1095:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 249,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1095:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 254,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 251,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "1113:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 252,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "j",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 44,
+                      "src": "1113:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 253,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1113:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1095:41:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "id": 255,
+                        "name": "b",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 232,
+                        "src": "1150:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 256,
+                        "name": "n",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 238,
+                        "src": "1152:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 257,
+                        "name": "p",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 244,
+                        "src": "1154:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 258,
+                        "name": "j",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 250,
+                        "src": "1156:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      }
+                    ],
+                    "id": 259,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1149:9:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_string_memory_ptr_$",
+                      "typeString": "tuple(string memory,string memory,string memory,string memory)"
+                    }
+                  },
+                  "functionReturnParameters": 224,
+                  "id": 260,
+                  "nodeType": "Return",
+                  "src": "1142:16:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 262,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "getParameters",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 215,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 214,
+                  "name": "_lucky7AdminAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "803:27:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 213,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "803:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "802:29:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 224,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 217,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "848:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 216,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "848:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 219,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "855:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 218,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "855:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 221,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "862:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 220,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "862:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 223,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "869:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 222,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "869:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "847:29:3"
+            },
+            "scope": 299,
+            "src": "780:383:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 279,
+              "nodeType": "Block",
+              "src": "1310:144:3",
+              "statements": [
+                {
+                  "assignments": [
+                    270
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 270,
+                      "name": "lucky7StorageContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 280,
+                      "src": "1316:35:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                        "typeString": "contract Lucky7Storage"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 269,
+                        "name": "Lucky7Storage",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 1464,
+                        "src": "1316:13:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 274,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 272,
+                        "name": "_lucky7StorageAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 264,
+                        "src": "1368:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 271,
+                      "name": "Lucky7Storage",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1464,
+                      "src": "1354:13:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Storage_$1464_$",
+                        "typeString": "type(contract Lucky7Storage)"
+                      }
+                    },
+                    "id": 273,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1354:36:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                      "typeString": "contract Lucky7Storage"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1316:74:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 275,
+                        "name": "lucky7StorageContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 270,
+                        "src": "1403:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "id": 276,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "indexForLucky7Array",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 396,
+                      "src": "1403:41:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 277,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1403:43:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 268,
+                  "id": 278,
+                  "nodeType": "Return",
+                  "src": "1396:50:3"
+                }
+              ]
+            },
+            "documentation": "@dev Functions to get values from Lucky7Storage",
+            "id": 280,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "indexForLucky7Array",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 265,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 264,
+                  "name": "_lucky7StorageAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 280,
+                  "src": "1258:29:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 263,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1258:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1257:31:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 268,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 267,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 280,
+                  "src": "1305:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 266,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1305:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1304:6:3"
+            },
+            "scope": 299,
+            "src": "1229:225:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 297,
+              "nodeType": "Block",
+              "src": "1541:143:3",
+              "statements": [
+                {
+                  "assignments": [
+                    288
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 288,
+                      "name": "lucky7StorageContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 298,
+                      "src": "1547:35:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                        "typeString": "contract Lucky7Storage"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 287,
+                        "name": "Lucky7Storage",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 1464,
+                        "src": "1547:13:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 292,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 290,
+                        "name": "_lucky7StorageAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 282,
+                        "src": "1599:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 289,
+                      "name": "Lucky7Storage",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1464,
+                      "src": "1585:13:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Storage_$1464_$",
+                        "typeString": "type(contract Lucky7Storage)"
+                      }
+                    },
+                    "id": 291,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1585:36:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                      "typeString": "contract Lucky7Storage"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1547:74:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 293,
+                        "name": "lucky7StorageContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 288,
+                        "src": "1634:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "id": 294,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "numberOfLucky7Numbers",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 402,
+                      "src": "1634:43:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 295,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1634:45:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 286,
+                  "id": 296,
+                  "nodeType": "Return",
+                  "src": "1627:52:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 298,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "numberOfLucky7Numbers",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 283,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 282,
+                  "name": "_lucky7StorageAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 298,
+                  "src": "1489:29:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 281,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1489:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1488:31:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 286,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 285,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 298,
+                  "src": "1536:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 284,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1536:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1535:6:3"
+            },
+            "scope": 299,
+            "src": "1458:226:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 300,
+        "src": "261:1498:3"
+      }
+    ],
+    "src": "176:1584:3"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Library.sol",
+    "exportedSymbols": {
+      "Lucky7Library": [
+        299
+      ]
+    },
+    "id": 300,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 174,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "176:24:3"
+      },
+      {
+        "absolutePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Admin.sol",
+        "file": "./Lucky7Admin.sol",
+        "id": 175,
+        "nodeType": "ImportDirective",
+        "scope": 300,
+        "sourceUnit": 171,
+        "src": "201:27:3",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/matiasbarrios/Desktop/Proyecto Consensys/luckyseven/contracts/Lucky7Storage.sol",
+        "file": "./Lucky7Storage.sol",
+        "id": 176,
+        "nodeType": "ImportDirective",
+        "scope": 300,
+        "sourceUnit": 1465,
+        "src": "229:29:3",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 299,
+        "linearizedBaseContracts": [
+          299
+        ],
+        "name": "Lucky7Library",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 193,
+              "nodeType": "Block",
+              "src": "434:134:3",
+              "statements": [
+                {
+                  "assignments": [
+                    184
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 184,
+                      "name": "lucky7AdminContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 194,
+                      "src": "440:31:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                        "typeString": "contract Lucky7Admin"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 183,
+                        "name": "Lucky7Admin",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 170,
+                        "src": "440:11:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 188,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 186,
+                        "name": "_lucky7AdminAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 178,
+                        "src": "486:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 185,
+                      "name": "Lucky7Admin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 170,
+                      "src": "474:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Admin_$170_$",
+                        "typeString": "type(contract Lucky7Admin)"
+                      }
+                    },
+                    "id": 187,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "474:32:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                      "typeString": "contract Lucky7Admin"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "440:66:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 189,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 184,
+                        "src": "519:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 190,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "oraclizeCustomGasPrice",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 56,
+                      "src": "519:42:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 191,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "519:44:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 182,
+                  "id": 192,
+                  "nodeType": "Return",
+                  "src": "512:51:3"
+                }
+              ]
+            },
+            "documentation": "@dev Functions to get values from Lucky7Admin",
+            "id": 194,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "oraclizeCustomGasPrice",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 179,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 178,
+                  "name": "_lucky7AdminAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 194,
+                  "src": "384:27:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 177,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "384:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "383:29:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 182,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 181,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 194,
+                  "src": "429:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 180,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "429:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "428:6:3"
+            },
+            "scope": 299,
+            "src": "352:216:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 211,
+              "nodeType": "Block",
+              "src": "648:128:3",
+              "statements": [
+                {
+                  "assignments": [
+                    202
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 202,
+                      "name": "lucky7AdminContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 212,
+                      "src": "654:31:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                        "typeString": "contract Lucky7Admin"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 201,
+                        "name": "Lucky7Admin",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 170,
+                        "src": "654:11:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 206,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 204,
+                        "name": "_lucky7AdminAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 196,
+                        "src": "700:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 203,
+                      "name": "Lucky7Admin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 170,
+                      "src": "688:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Admin_$170_$",
+                        "typeString": "type(contract Lucky7Admin)"
+                      }
+                    },
+                    "id": 205,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "688:32:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                      "typeString": "contract Lucky7Admin"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "654:66:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 207,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 202,
+                        "src": "733:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 208,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "oraclizeGasLimit",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 53,
+                      "src": "733:36:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 209,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "733:38:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 200,
+                  "id": 210,
+                  "nodeType": "Return",
+                  "src": "726:45:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 212,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "oraclizeGasLimit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 197,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 196,
+                  "name": "_lucky7AdminAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 212,
+                  "src": "598:27:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 195,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "598:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "597:29:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 200,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 199,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 212,
+                  "src": "643:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 198,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "643:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "642:6:3"
+            },
+            "scope": 299,
+            "src": "572:204:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 261,
+              "nodeType": "Block",
+              "src": "876:287:3",
+              "statements": [
+                {
+                  "assignments": [
+                    226
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 226,
+                      "name": "lucky7AdminContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "882:31:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                        "typeString": "contract Lucky7Admin"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 225,
+                        "name": "Lucky7Admin",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 170,
+                        "src": "882:11:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 230,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 228,
+                        "name": "_lucky7AdminAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 214,
+                        "src": "928:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 227,
+                      "name": "Lucky7Admin",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 170,
+                      "src": "916:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Admin_$170_$",
+                        "typeString": "type(contract Lucky7Admin)"
+                      }
+                    },
+                    "id": 229,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "916:32:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                      "typeString": "contract Lucky7Admin"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "882:66:3"
+                },
+                {
+                  "assignments": [
+                    232
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 232,
+                      "name": "b",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "954:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 231,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "954:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 236,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 233,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "972:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 234,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "b",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 35,
+                      "src": "972:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 235,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "972:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "954:41:3"
+                },
+                {
+                  "assignments": [
+                    238
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 238,
+                      "name": "n",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "1001:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 237,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1001:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 242,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 239,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "1019:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 240,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "n",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 38,
+                      "src": "1019:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 241,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1019:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1001:41:3"
+                },
+                {
+                  "assignments": [
+                    244
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 244,
+                      "name": "p",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "1048:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 243,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1048:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 248,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 245,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "1066:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 246,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "p",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 41,
+                      "src": "1066:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 247,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1066:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1048:41:3"
+                },
+                {
+                  "assignments": [
+                    250
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 250,
+                      "name": "j",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 262,
+                      "src": "1095:15:3",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string"
+                      },
+                      "typeName": {
+                        "id": 249,
+                        "name": "string",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1095:6:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage_ptr",
+                          "typeString": "string"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 254,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 251,
+                        "name": "lucky7AdminContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 226,
+                        "src": "1113:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Admin_$170",
+                          "typeString": "contract Lucky7Admin"
+                        }
+                      },
+                      "id": 252,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "j",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 44,
+                      "src": "1113:21:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_string_memory_$",
+                        "typeString": "function () view external returns (string memory)"
+                      }
+                    },
+                    "id": 253,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1113:23:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_memory",
+                      "typeString": "string memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1095:41:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "id": 255,
+                        "name": "b",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 232,
+                        "src": "1150:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 256,
+                        "name": "n",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 238,
+                        "src": "1152:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 257,
+                        "name": "p",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 244,
+                        "src": "1154:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "id": 258,
+                        "name": "j",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 250,
+                        "src": "1156:1:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      }
+                    ],
+                    "id": 259,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1149:9:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_string_memory_ptr_$_t_string_memory_ptr_$",
+                      "typeString": "tuple(string memory,string memory,string memory,string memory)"
+                    }
+                  },
+                  "functionReturnParameters": 224,
+                  "id": 260,
+                  "nodeType": "Return",
+                  "src": "1142:16:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 262,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "getParameters",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 215,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 214,
+                  "name": "_lucky7AdminAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "803:27:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 213,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "803:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "802:29:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 224,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 217,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "848:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 216,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "848:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 219,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "855:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 218,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "855:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 221,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "862:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 220,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "862:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 223,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 262,
+                  "src": "869:6:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 222,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "869:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "847:29:3"
+            },
+            "scope": 299,
+            "src": "780:383:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 279,
+              "nodeType": "Block",
+              "src": "1310:144:3",
+              "statements": [
+                {
+                  "assignments": [
+                    270
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 270,
+                      "name": "lucky7StorageContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 280,
+                      "src": "1316:35:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                        "typeString": "contract Lucky7Storage"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 269,
+                        "name": "Lucky7Storage",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 1464,
+                        "src": "1316:13:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 274,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 272,
+                        "name": "_lucky7StorageAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 264,
+                        "src": "1368:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 271,
+                      "name": "Lucky7Storage",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1464,
+                      "src": "1354:13:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Storage_$1464_$",
+                        "typeString": "type(contract Lucky7Storage)"
+                      }
+                    },
+                    "id": 273,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1354:36:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                      "typeString": "contract Lucky7Storage"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1316:74:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 275,
+                        "name": "lucky7StorageContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 270,
+                        "src": "1403:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "id": 276,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "indexForLucky7Array",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 396,
+                      "src": "1403:41:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 277,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1403:43:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 268,
+                  "id": 278,
+                  "nodeType": "Return",
+                  "src": "1396:50:3"
+                }
+              ]
+            },
+            "documentation": "@dev Functions to get values from Lucky7Storage",
+            "id": 280,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "indexForLucky7Array",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 265,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 264,
+                  "name": "_lucky7StorageAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 280,
+                  "src": "1258:29:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 263,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1258:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1257:31:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 268,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 267,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 280,
+                  "src": "1305:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 266,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1305:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1304:6:3"
+            },
+            "scope": 299,
+            "src": "1229:225:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 297,
+              "nodeType": "Block",
+              "src": "1541:143:3",
+              "statements": [
+                {
+                  "assignments": [
+                    288
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 288,
+                      "name": "lucky7StorageContract",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 298,
+                      "src": "1547:35:3",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                        "typeString": "contract Lucky7Storage"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 287,
+                        "name": "Lucky7Storage",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 1464,
+                        "src": "1547:13:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 292,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 290,
+                        "name": "_lucky7StorageAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 282,
+                        "src": "1599:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 289,
+                      "name": "Lucky7Storage",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1464,
+                      "src": "1585:13:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_contract$_Lucky7Storage_$1464_$",
+                        "typeString": "type(contract Lucky7Storage)"
+                      }
+                    },
+                    "id": 291,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1585:36:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                      "typeString": "contract Lucky7Storage"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1547:74:3"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 293,
+                        "name": "lucky7StorageContract",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 288,
+                        "src": "1634:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_Lucky7Storage_$1464",
+                          "typeString": "contract Lucky7Storage"
+                        }
+                      },
+                      "id": 294,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "numberOfLucky7Numbers",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 402,
+                      "src": "1634:43:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$__$returns$_t_uint256_$",
+                        "typeString": "function () view external returns (uint256)"
+                      }
+                    },
+                    "id": 295,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1634:45:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 286,
+                  "id": 296,
+                  "nodeType": "Return",
+                  "src": "1627:52:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 298,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "numberOfLucky7Numbers",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 283,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 282,
+                  "name": "_lucky7StorageAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 298,
+                  "src": "1489:29:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 281,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1489:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1488:31:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 286,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 285,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 298,
+                  "src": "1536:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 284,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1536:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1535:6:3"
+            },
+            "scope": 299,
+            "src": "1458:226:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 300,
+        "src": "261:1498:3"
+      }
+    ],
+    "src": "176:1584:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {
+    "1537748316335": {
+      "events": {},
+      "links": {},
+      "address": "0x82b657bfe8e6cb47e4e82b5c46d7be4f3f96f45f",
+      "transactionHash": "0xad6363be55f44ca03f2d58647923645b22fc425a541630156882bc4837d5d75a"
+    }
+  },
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-09-25T12:27:11.514Z"
+}
