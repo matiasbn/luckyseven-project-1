@@ -121,7 +121,7 @@ contract Lucky7Storage is Whitelist{
       * before letting users start buying a ticket. Is used for other functions to shutdown a circuit breaker, lookup in arrays and
       * order the Lucky7Numbers
       */
-    uint public numberOfLucky7Numbers = 7;
+    uint public numberOfLucky7Numbers = 3;
 
     /** @param initialLucky7TicketPosition is a uint used for the _orderLucky7Tickets function of this contract. 
       * Because is necessary to store the information of previous games permanently is necessary then to know what it the starting point to store in the 
@@ -168,7 +168,9 @@ contract Lucky7Storage is Whitelist{
       * At this point, the Lucky7Numbers are ordered by them values in ascedant order.
       * This function uses the SafeMath library to avoid integer underflow or overflow, or to check that the difference is not 0, which is a special case.
       */
-    function _checkForLucky7Ticket(uint _ticketID) public{
+    function _checkForLucky7Ticket(uint _ticketID) 
+        public
+    {
         uint i;
         uint difference;
         /** @dev First it checks if the ticket is bigger than the last Lucky7Number.
@@ -258,7 +260,10 @@ contract Lucky7Storage is Whitelist{
       * If none of them is smaller than it, then jumps to the next Lucky7Number. It then starts comparing it (the i+1 for this case) with the subsequents number. If one of 
       * them is smaller, changes positions and starts comparing the new one with the subsequents. 
       */
-    function _orderLucky7Numbers() public onlyOwner{
+    function _orderLucky7Numbers() 
+        public 
+        // onlyOwner
+    {
         Lucky7Number memory smallest;
         uint aux;
         uint j;
@@ -297,7 +302,10 @@ contract Lucky7Storage is Whitelist{
       * Then, it order the Lucky7Tickets depending on them difference value of the Lucky7Ticket struct of the Lucky7TicketFactory contract. The order logic is the same defined
       * in the _orderLucky7Numbers function of this contract (the above function).
       */
-    function _orderLucky7Tickets() public onlyOwner{
+    function _orderLucky7Tickets() 
+        public 
+        // onlyOwner
+    {
         Lucky7Ticket memory smallest;
         uint aux;
         uint i;
@@ -348,7 +356,9 @@ contract Lucky7Storage is Whitelist{
       * ExactLucky7TicketID. This, because for new games the old winners needs to been cleaned up.
       */
     //Should clean 
-    function _cleanMappings() public{
+    function _cleanMappings() 
+        public
+    {
         for(uint i=0; i<numberOfLucky7Numbers; i++){
             lucky7TicketDifference[i]=0;
             lucky7TicketOwner[i]=0;
@@ -370,7 +380,7 @@ contract Lucky7Storage is Whitelist{
 
     function storageTicket(string _mu, string _i, uint _ticketValue, address _owner)
         public    
-        onlyOwner
+        //onlyOwner
         returns(uint)
     {
         uint id = ticketsArray.push(Ticket(_mu, _i,_ticketValue,_owner,drawNumber)) - 1;
@@ -386,14 +396,17 @@ contract Lucky7Storage is Whitelist{
         emit NewLucky7Number(_ticketValue);
     }
 
-    function increaseCounters() public onlyOwner{
+    function increaseCounters() 
+        public 
+        // onlyOwner
+    {
         drawNumber++;
         initialLucky7TicketPosition+=drawNumber*numberOfLucky7Numbers;
     }
 
     function setWinners(uint _firstPrize, uint _secondPrize, uint _thirdPrize, uint _fourthPrize, uint _fifthPrize, uint _sixthPrize, uint _seventhPrize)   
         public 
-        onlyOwner 
+        // onlyOwner 
         returns(address,address,address,address,address,address,address)
     {
         uint i;
@@ -463,7 +476,10 @@ contract Lucky7Storage is Whitelist{
         return(winners[0],winners[1],winners[2],winners[3],winners[4],winners[5],winners[6]);
     }
 
-    function setIndexForLucky7ArrayToZero() public onlyOwner{
+    function setIndexForLucky7ArrayToZero() 
+        public 
+        // onlyOwner
+    {
         indexForLucky7Array = 0;
     }
 }

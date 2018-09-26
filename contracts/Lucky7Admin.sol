@@ -17,27 +17,6 @@ contract Lucky7Admin is Ownable{
 
     /** @dev Whitelist to accept changes over all contracts
       */
-    mapping(address => bool) public whitelist;
-
-   /** @dev The constructor is used to set the whitelist above.
-       Every parameter is for each contract.
-       All them are known, so they're going to be hardcoded. 
-     */
-    // constructor(
-    //   address _lucky7TicketFactoryAddress,
-    //   address _lucky7Ballot,
-    //   address _lucky7Store,
-    //   address _lucky7Storage,
-    //   address _lucky7FrontEndFunctions
-    // ) 
-    //   public
-    // {
-    //   whitelist[_lucky7TicketFactoryAddress]=true;
-    //   whitelist[_lucky7Ballot]=true;
-    //   whitelist[_lucky7Store]=true;
-    //   whitelist[_lucky7Storage]=true;
-    //   whitelist[_lucky7FrontEndFunctions]=true;
-    // }
 
     /** @dev event to register the change of a number */
     event numberModified(string describe, uint _oldValue, uint _newValue);

@@ -55,6 +55,7 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
     event NewIReceived(string iParameter);
     event NewTicketReceived(string newTicket);
     event NewWolframQuery(string description);
+    event NewValue(uint value);
     
     /** @dev This modifier is used to set the gas price on the functions which do oraclize querys.
       *  It uses the oraclizeCustomGasPrice of the Lucky7Admin contract.
@@ -130,6 +131,7 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       */
     function _askForMuParameter(address _ticketOwner) public oraclizeGasPriceCustomized{
         uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
+        emit NewValue(oraclizeGasLimit);
         emit NewOraclizeQuery("Asking for a new mu parameter...");
         bytes32 muID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
         muParameterID[muID] = _ticketOwner;
@@ -207,8 +209,9 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
         uint indexForLucky7Array = Lucky7Library.indexForLucky7Array(lucky7StorageAddress);
         uint numberOfLucky7Numbers = Lucky7Library.numberOfLucky7Numbers(lucky7StorageAddress);
         if(indexForLucky7Array == numberOfLucky7Numbers){
-            lucky7StorageAddress.call(bytes4(sha3("_orderLucky7Numbers()")));
-            lucky7StorageAddress.call(bytes4(sha3("setIndexForLucky7ArrayToZero()")));
+            Lucky7Storage lucky7StorageContract = Lucky7Storage(lucky7StorageAddress);
+            lucky7StorageContract._orderLucky7Numbers();
+            lucky7StorageContract.setIndexForLucky7ArrayToZero();
             toggleLucky7Setting();
         }
         else{
@@ -261,6 +264,7 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
           * storageTicket function. Both functions are on the Lucky7Storage contract.
           */
         else if (newTicketID[myid]!=0 &&  (userValues[newTicketID[myid]].userPaidTicket==true || settingLucky7Numbers==true )){
+            Lucky7Storage lucky7StorageContract = Lucky7Storage(lucky7StorageAddress);
             userValues[newTicketID[myid]].ticketValue=parseInt(result);
             emit NewTicketReceived(result);
             userValues[newTicketID[myid]].userPaidTicket=false;
@@ -280,27 +284,30 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
                 //         );
             }
             else{
-                lucky7StorageAddress.call(
-                    bytes4(
-                        sha3(
-                            "storageTicket(string,string,uint,address)")), 
-                            userValues[newTicketID[myid]].mu,
-                            userValues[newTicketID[myid]].i,
-                            userValues[newTicketID[myid]].ticketValue,
-                            newTicketID[myid]
-                        );
+                lucky7StorageContract.storageTicket(
+                    userValues[newTicketID[myid]].mu, 
+                    userValues[newTicketID[myid]].i, 
+                    userValues[newTicketID[myid]].ticketValue,
+                    newTicketID[myid]
+                    );
             }
         }
     }
-    function testCall() public {
-        lucky7StorageAddress.call(
-                    bytes4(
-                        sha3(
-                            "storageLucky7Number(string,string,uint)")), 
-                            "1",
-                            "2",
-                            1234567890
-                        );
-    }
+    // function testCall(address addressContract) public {
+    //     // lucky7StorageAddress.call(
+    //     //             bytes4(
+    //     //                 sha3(
+    //     //                     "storageLucky7Number(string,string,uint)")), 
+    //     //                     "1",
+    //     //                     "2",
+    //     //                     1234567890
+    //     //                 );
+    //     Lucky7Storage lucky7StorageContract = Lucky7Storage(addressContract);
+    //     lucky7StorageContract.storageLucky7Number(
+    //                 "1", 
+    //                 "2", 
+    //                 123
+    //                 );
+    // }
     function() public payable{}
 } 
