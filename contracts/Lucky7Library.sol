@@ -4,12 +4,13 @@
   */
 
 /** @title Lucky7GetValues. 
-  * This contract contains all the functions to generate get values between contracts.
+  * This contract contains all the functions to get values between contracts.
 */
 
 pragma solidity ^0.4.24;
 import "./Lucky7Admin.sol";
 import "./Lucky7Storage.sol";
+import "./Lucky7TicketFactory.sol";
 
 
 library Lucky7Library{  
@@ -24,6 +25,21 @@ library Lucky7Library{
   function oraclizeGasLimit(address _lucky7AdminAddress) public returns (uint){
     Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);
     return lucky7AdminContract.oraclizeGasLimit();
+  }
+  
+  function sellTicketPrice(address _lucky7AdminAddress) public returns (uint){
+    Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);
+    return lucky7AdminContract.sellTicketPrice();
+  }
+
+  function generateTicketPrice(address _lucky7AdminAddress) public returns (uint){
+    Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);
+    return lucky7AdminContract.generateTicketPrice();
+  }
+
+  function enterpriseWallet(address _lucky7AdminAddress) public returns (address){
+    Lucky7Admin lucky7AdminContract = Lucky7Admin(_lucky7AdminAddress);
+    return lucky7AdminContract.enterpriseWallet();
   }
 
   function getParameters(address _lucky7AdminAddress) public returns (string,string,string,string){
@@ -41,13 +57,19 @@ library Lucky7Library{
   function indexForLucky7Array(address _lucky7StorageAddress) public returns (uint){
     Lucky7Storage lucky7StorageContract = Lucky7Storage(_lucky7StorageAddress);
     return lucky7StorageContract.indexForLucky7Array();
-  
   } 
+
   function numberOfLucky7Numbers(address _lucky7StorageAddress) public returns (uint){
     Lucky7Storage lucky7StorageContract = Lucky7Storage(_lucky7StorageAddress);
     return lucky7StorageContract.numberOfLucky7Numbers();
   } 
   
-  /** @dev Functions to store information into Lucky7Storage 
+  /** @dev Functions to get values from Lucky7TicketFactory 
     */
+
+  function settingLucky7Numbers(address _lucky7TicketFactoryAddress) public returns (bool){
+    Lucky7TicketFactory lucky7TicketFactoryContract = Lucky7TicketFactory(_lucky7TicketFactoryAddress);
+    return lucky7TicketFactoryContract.settingLucky7Numbers();
+  }
+
 } 

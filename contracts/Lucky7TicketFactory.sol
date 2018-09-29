@@ -31,23 +31,22 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
     /** @dev The constructor needs to set the OAR, Oraclize Address Resolver
       * OAR is the Oraclize Address Resolver to use oraclize on localhost
       */
-    function Lucky7TicketFactory(address _lucky7AdminAddress,address _lucky7StorageAddress) payable{
+    function Lucky7TicketFactory(address _lucky7AdminAddress,address _lucky7StorageAddress) public payable{
         OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
         lucky7AdminAddress = _lucky7AdminAddress;
         lucky7StorageAddress = _lucky7StorageAddress;
     }
 
-    /** @dev Invoke both Lucky7Admin and Lucky7Storage contracts. 
-      */
-    Lucky7Admin lucky7AdminContract = Lucky7Admin(lucky7AdminAddress);
-    Lucky7Storage lucky7StorageContract = Lucky7Storage(lucky7StorageAddress);
     /** @dev This function is to change the OAR without compiling again and deploying again
       * Used only for testing purposes.
       */
-    function changeOAR(address _newOAR){
+    function changeOAR(address _newOAR)
+        public
+        //onlyOwner
+    {
         OAR = OraclizeAddrResolverI(_newOAR);
     }
-    
+
     /**@dev The events are used mainly for testing purposes
       */
     event NewOraclizeQuery(string description);
@@ -97,6 +96,7 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       * @param iReady is a boolean value used for the oraclize's callback function to verify if the i parameter for the current ticket was already setted.
       * @param userPaidTicket is a boolean value to verify if the user which is calling for the oraclize query actually paid for the ticket or is just generating
       * parameters to choose a ticket.
+      * @param userState is an enum to let other contracts verify that the info for the user is not empty.
     */
     struct UserParametersValue{
         string mu;
@@ -129,7 +129,10 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       * First, it emit an event to register the query. Then it do the query and save the bytes32 value generated to the muID.
       * Finally it associate this muID with the _ticketOwner through the muParameterID mapping, so the oraclize's callback function know it is a mu petition and it belongs to the _ticketOwner user.
       */
-    function _askForMuParameter(address _ticketOwner) public oraclizeGasPriceCustomized{
+    function _askForMuParameter(address _ticketOwner) 
+        public 
+        oraclizeGasPriceCustomized
+    {
         uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
         emit NewValue(oraclizeGasLimit);
         emit NewOraclizeQuery("Asking for a new mu parameter...");
@@ -142,7 +145,10 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       * First, it emit an event to register the query. Then it do the query and save the bytes32 value generated to the iID.
       * Finally it associate this iID with the _ticketOwner through the iParameterID mapping, so the oraclize's callback function know it is a i petition and it belongs to the _ticketOwner user.
       */
-    function _askForIParameter(address _ticketOwner) public oraclizeGasPriceCustomized{
+    function _askForIParameter(address _ticketOwner) 
+        public 
+        oraclizeGasPriceCustomized
+    {
         uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
         emit NewOraclizeQuery("Asking for a new i parameter...");
         bytes32 iID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
@@ -156,7 +162,10 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       * is a ticket petition and it belongs to the _ticketOwner user. Inside the oraclize_query function it calls the _setTicketQuery function, so it generate the query 
       * depending on the UserParametersValue struct of the _ticketOwner user.
       */
-    function _askForTicket(address _ticketOwner) public oraclizeGasPriceCustomized{
+    function _askForTicket(address _ticketOwner) 
+        public 
+        oraclizeGasPriceCustomized
+    {
         uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
         emit NewOraclizeQuery("Asking for a new ticket...");
         bytes32 userTicketID = oraclize_query("WolframAlpha", _setTicketQuery(_ticketOwner), oraclizeGasLimit);
@@ -169,7 +178,10 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       * the usingOraclize contract to concat the parts with the parameters of the user.
       * Every line explains how the query is getting it shape. The meaning of this query is going to be explained on the paper of the project.
       */
-    function _setTicketQuery(address _parametersOwner) internal returns (string){
+    function _setTicketQuery(address _parametersOwner) 
+        internal 
+        returns (string)
+    {
         string memory b;
         string memory n;
         string memory p;
@@ -192,7 +204,10 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
 
     /** @dev _generateTicket is used for another contract. Invokes _askForMuParameter and _askForIparameter
       */
-    function _generateTicket(address _ticketOwner) public {
+    function _generateTicket(address _ticketOwner) 
+        public
+        //onlyOwner 
+    {
         _askForMuParameter(_ticketOwner);
         _askForIParameter(_ticketOwner);
     }
@@ -205,7 +220,11 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
       * Then it sets the indexForLucky7Array to 0 so the next time a new game is setted, this function starts storing the Lucky7Numbers from the position 0, to finally shut off
       * the settingLucky7Numbers circuit breaker to allow users to start buying tickets.
       */
-    function _generateLucky7Number() public onlyOwner gameNotInCourse{
+    function _generateLucky7Number() 
+        public 
+        // onlyOwner 
+        gameNotInCourse
+    {
         uint indexForLucky7Array = Lucky7Library.indexForLucky7Array(lucky7StorageAddress);
         uint numberOfLucky7Numbers = Lucky7Library.numberOfLucky7Numbers(lucky7StorageAddress);
         if(indexForLucky7Array == numberOfLucky7Numbers){
@@ -274,14 +293,6 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
                     userValues[newTicketID[myid]].i, 
                     userValues[newTicketID[myid]].ticketValue
                     );
-                // lucky7StorageAddress.call(
-                //     bytes4(
-                //         keccak256(
-                //             "storageLucky7Number(string,string,uint)")), 
-                //             userValues[newTicketID[myid]].mu,
-                //             userValues[newTicketID[myid]].i,
-                //             userValues[newTicketID[myid]].ticketValue
-                //         );
             }
             else{
                 lucky7StorageContract.storageTicket(
@@ -293,21 +304,37 @@ contract Lucky7TicketFactory is usingOraclize,Ownable{
             }
         }
     }
-    // function testCall(address addressContract) public {
-    //     // lucky7StorageAddress.call(
-    //     //             bytes4(
-    //     //                 sha3(
-    //     //                     "storageLucky7Number(string,string,uint)")), 
-    //     //                     "1",
-    //     //                     "2",
-    //     //                     1234567890
-    //     //                 );
-    //     Lucky7Storage lucky7StorageContract = Lucky7Storage(addressContract);
-    //     lucky7StorageContract.storageLucky7Number(
-    //                 "1", 
-    //                 "2", 
-    //                 123
-    //                 );
-    // }
+
+    /** @dev Functions to set booleans of the UsersParametersValue to true or false 
+      */
+
+    function bothToFalse(address _ticketOwner)
+        public
+        //onlyOwner
+    {
+        userValues[_ticketOwner].muReady = false;
+        userValues[_ticketOwner].iReady = false;
+    }
+
+    function paidTicketToTrue(address _ticketOwner)
+        public
+        //onlyOwner
+    {
+        userValues[_ticketOwner].userPaidTicket = true;
+    
+    }
+
+    function userParametersEmpty(address _ticketOwner)
+        public
+        view
+        returns(bool)
+    {
+        if(keccak256(userValues[_ticketOwner].mu)==keccak256("") && keccak256(userValues[_ticketOwner].i)==keccak256("")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     function() public payable{}
 } 

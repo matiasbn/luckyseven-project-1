@@ -15,11 +15,20 @@ import "openzeppelin-solidity/contracts/access/Whitelist.sol";
 import "./Lucky7Library.sol";
 
 contract Lucky7Storage is Whitelist{
+
     using SafeMath for uint256;
+
+    /** 
+    ---------------------------------------- EVENTS ----------------------------------------
+    */
     /**@dev The events are used mainly for testing purposes
       */
     event NewLucky7Ticket(uint ticketID);
     event NewLucky7Number(uint value);
+
+    /** 
+    ---------------------------------------- STRUCTS ----------------------------------------
+    */
 
     /** @pdev Ticket is a struct to store information of the tickets. It information is stored permanently through the tickets array.
       * @param mu is a parameter of the pseudo-random number generator (PRNG).
@@ -72,6 +81,10 @@ contract Lucky7Storage is Whitelist{
         uint drawID;
     }
     
+    /** 
+    ---------------------------------------- ARRAYS ----------------------------------------
+    */
+
     /** @dev The next two arrays are used to store information of the game permanently.
       * @param lucky7TicketsArray stores the Lucky7Tickets once a new game is setted.
       * @param ticketsArray stores the tickets everytime a user buys a ticket.
@@ -82,6 +95,10 @@ contract Lucky7Storage is Whitelist{
     /** @param lucky7NumbersArray stores the Lucky7Numbers for the current draw. Once a new game is called, it is cleand to 0 to be reused. 
       */
     Lucky7Number[7] public lucky7NumbersArray;
+
+    /** 
+    ---------------------------------------- MAPPINGS ----------------------------------------
+    */
 
     /** @dev The next three mapping are used to state the Lucky7Ticket values while a game is on course. This is because is expensive to look up on the Lucky7Ticket
       * struct everytime a new ticket is inserted in the tickets array.
@@ -96,6 +113,7 @@ contract Lucky7Storage is Whitelist{
     mapping (uint => uint) public lucky7TicketDifference;
     mapping (uint => address) public lucky7TicketOwner;
     mapping (uint => uint) public lucky7TicketID;
+    mapping (address => uint) public pendingWithdrawals;
 
     /** @dev The next three mappings are used to storage ExactLucky7Ticket, i.e. tickets which difference with a Lucky7Number is 0 
       * They follow the same logic as the previous three mapings. They're setted for future development, because this project is meant to emit tokens and ExactLucky7Tickets
@@ -105,6 +123,10 @@ contract Lucky7Storage is Whitelist{
     mapping (uint => uint) public ExactLucky7TicketValue;
     mapping (uint => address) public ExactLucky7TicketOwner;
     mapping (uint => uint) public ExactLucky7TicketID;
+
+    /** 
+    ---------------------------------------- UINTS ----------------------------------------
+    */
 
     /** @param drawNumber is the number of the current draw. Is used to help storage Lucky7Tickets, look up for current game winners and others functions.
       * Is incremented by 1 everytime a new game is setted.
@@ -121,7 +143,7 @@ contract Lucky7Storage is Whitelist{
       * before letting users start buying a ticket. Is used for other functions to shutdown a circuit breaker, lookup in arrays and
       * order the Lucky7Numbers
       */
-    uint public numberOfLucky7Numbers = 3;
+    uint public numberOfLucky7Numbers = 2;
 
     /** @param initialLucky7TicketPosition is a uint used for the _orderLucky7Tickets function of this contract. 
       * Because is necessary to store the information of previous games permanently is necessary then to know what it the starting point to store in the 
@@ -147,13 +169,6 @@ contract Lucky7Storage is Whitelist{
       */
     uint public initialLucky7TicketPosition = 0;
     uint public currentTicketID = 0;
-    address public lastFirstPrizeWinner = address(0);
-    address public lastSecondPrizeWinner = address(0);
-    address public lastThirdPrizeWinner = address(0);
-    address public lastFourthPrizeWinner = address(0);
-    address public lastFifthPrizeWinner = address(0);
-    address public lastSixthPrizeWinner = address(0);
-    address public lastSeventhPrizeWinner = address(0);
     uint public lastFirstPrizeAmount = 0;
     uint public lastSecondPrizeAmount = 0;
     uint public lastThirdPrizeAmount = 0;
@@ -161,7 +176,22 @@ contract Lucky7Storage is Whitelist{
     uint public lastFifthPrizeAmount = 0;
     uint public lastSixthPrizeAmount = 0;
     uint public lastSeventhPrizeAmount = 0;
-    mapping (address => uint) public pendingWithdrawals;
+
+    /** 
+    ---------------------------------------- ADDRESSES ----------------------------------------
+    */
+
+    address public lastFirstPrizeWinner = address(0);
+    address public lastSecondPrizeWinner = address(0);
+    address public lastThirdPrizeWinner = address(0);
+    address public lastFourthPrizeWinner = address(0);
+    address public lastFifthPrizeWinner = address(0);
+    address public lastSixthPrizeWinner = address(0);
+    address public lastSeventhPrizeWinner = address(0);
+
+    /** 
+    ---------------------------------------- ORDER AND CHECK FUNCTIONS ----------------------------------------
+    */
 
      /** @dev _checkForLucky7Ticket is a function that check if a ticket recently inserted in the ticketsArray is a Lucky7Ticket.
       * @param _ticketID is the ticket which is going to be checked.
@@ -351,6 +381,36 @@ contract Lucky7Storage is Whitelist{
         }
     }
 
+    /** 
+    ---------------------------------------- STORAGE FUNCTIONS ----------------------------------------
+    */
+
+    /** @dev Storage functions.
+    *  Functions created to be called through other contracts to storage data in this contract.
+    */
+
+    function storageTicket(string _mu, string _i, uint _ticketValue, address _owner)
+        public    
+        //onlyOwner
+        returns(uint)
+    {
+        uint id = ticketsArray.push(Ticket(_mu, _i,_ticketValue,_owner,drawNumber)) - 1;
+        return id;
+    }
+
+    function storageLucky7Number(string _mu, string _i, uint _ticketValue)
+        public 
+        //onlyOwner
+    {
+        lucky7NumbersArray[indexForLucky7Array] = Lucky7Number(_mu, _i, _ticketValue, drawNumber);
+        indexForLucky7Array++;
+        emit NewLucky7Number(_ticketValue);
+    }
+
+    /** 
+    ---------------------------------------- BALLOT FUNCTIONS ----------------------------------------
+    */
+
     /** @dev _cleanMappings is a function used by the setNewGame function of this contract to clean the necessary mappings, 
       * i.e. lucky7TicketDifference, lucky7TicketOwner, lucky7TicketID, lucky7NumbersArray, ExactLucky7TicketValue, ExactLucky7TicketOwner and
       * ExactLucky7TicketID. This, because for new games the old winners needs to been cleaned up.
@@ -372,34 +432,6 @@ contract Lucky7Storage is Whitelist{
             ExactLucky7TicketID[i]=0;
         }
         indexForExactLucky7Ticket =0;
-    }
-
-    /** @dev Storage functions.
-      *  Functions created to be called through other contracts to storage data in this contract.
-      */
-
-    function storageTicket(string _mu, string _i, uint _ticketValue, address _owner)
-        public    
-        //onlyOwner
-        returns(uint)
-    {
-        uint id = ticketsArray.push(Ticket(_mu, _i,_ticketValue,_owner,drawNumber)) - 1;
-        return id;
-    }
-
-    function storageLucky7Number(string _mu, string _i, uint _ticketValue)
-        public 
-        //onlyOwner
-    {
-        lucky7NumbersArray[indexForLucky7Array] = Lucky7Number(_mu, _i, _ticketValue, drawNumber);
-        indexForLucky7Array++;
-        emit NewLucky7Number(_ticketValue);
-    }
-
-    function increaseCounters() 
-        public 
-        // onlyOwner
-    {
         drawNumber++;
         initialLucky7TicketPosition+=drawNumber*numberOfLucky7Numbers;
     }
@@ -407,8 +439,14 @@ contract Lucky7Storage is Whitelist{
     function setWinners(uint _firstPrize, uint _secondPrize, uint _thirdPrize, uint _fourthPrize, uint _fifthPrize, uint _sixthPrize, uint _seventhPrize)   
         public 
         // onlyOwner 
-        returns(address,address,address,address,address,address,address)
     {
+        pendingWithdrawals[lastFirstPrizeWinner] = 0;
+        pendingWithdrawals[lastSecondPrizeWinner] = 0;
+        pendingWithdrawals[lastThirdPrizeWinner] = 0;
+        pendingWithdrawals[lastFourthPrizeWinner] = 0;
+        pendingWithdrawals[lastFifthPrizeWinner] = 0;
+        pendingWithdrawals[lastSixthPrizeWinner] = 0;
+        pendingWithdrawals[lastSeventhPrizeWinner] = 0;
         uint i;
         address[7] memory winners;
         for(i=initialLucky7TicketPosition; i<numberOfLucky7Numbers+initialLucky7TicketPosition; i++){
@@ -473,7 +511,6 @@ contract Lucky7Storage is Whitelist{
                 break;
             }
         }
-        return(winners[0],winners[1],winners[2],winners[3],winners[4],winners[5],winners[6]);
     }
 
     function setIndexForLucky7ArrayToZero() 
@@ -482,4 +519,52 @@ contract Lucky7Storage is Whitelist{
     {
         indexForLucky7Array = 0;
     }
+    
+    function setPendingWithdrawalToZero(address _withdrawalOwner) 
+        public 
+        // onlyOwner
+    {
+        pendingWithdrawals[_withdrawalOwner] = 0;
+    }
+
+
+    /** 
+    ---------------------------------------- TEST FUNCTIONS ----------------------------------------
+    */
+
+    /** @dev This four functions are purely designed for testing purposes and are going to be erased when the contract
+      * is deployed to test or main net. They're straight forward and don't need any explanaiton.
+      * They're setted to onlyOwner to be sure that, in case of forgetting to erase them, no user is capable to use them
+      * maliciously.
+      */
+    function insertCustomizedLucky7Number(uint _id, string _mu, string _i, uint _ticketValue,uint _drawNumber) 
+        public 
+        onlyOwner
+    {
+        lucky7NumbersArray[_id] = Lucky7Number(_mu, _i, _ticketValue, _drawNumber);
+    }
+    
+    function insertCustomizedTicket(string _mu, string _i, uint _ticketValue,address _ticketOwner, uint _drawNumber) 
+        public 
+        onlyOwner 
+        returns (uint)
+    {
+        uint id = ticketsArray.push(Ticket(_mu,_i,_ticketValue,_ticketOwner,_drawNumber)) - 1;
+        currentTicketID = id;
+    }
+    
+    function setIndexForLucky7Array(uint _newValue) 
+        public 
+        onlyOwner
+    {
+        indexForLucky7Array = _newValue;
+    }
+
+    function setInitialLucky7TicketPosition(uint _newValue) 
+        public 
+        onlyOwner
+    {
+        initialLucky7TicketPosition = _newValue;
+    }
+    
 }
