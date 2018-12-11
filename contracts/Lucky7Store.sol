@@ -9,27 +9,47 @@
 */
 
 pragma solidity ^0.4.20;
+import "./Lucky7Library.sol";
+import "./Lucky7Admin.sol";
+import "./Lucky7Storage.sol";
+import "./Lucky7TicketFactory.sol";
 import "./Lucky7Ballot.sol";
-import "./Destructible.sol";
 
-contract Lucky7Store is Lucky7Ballot, Destructible{
+contract Lucky7Store is Lucky7Ballot{
+    /** @dev Library to read messages 
+      */
+    using Lucky7Library for *;
+
+    /** @dev Address of the contracts to call functions
+      */
+    address lucky7AdminAddress;
+    address lucky7StorageAddress;
+    address lucky7TicketFactoryAddress;
+    
     /** @dev Constructor to make the contract payable
       */
-    function Lucky7Store() payable public{
-        
+    function Lucky7Store(address _lucky7AdminAddress, address _lucky7StorageAddress, address _lucky7TicketFactoryAddress) public payable {
+        lucky7AdminAddress = _lucky7AdminAddress;
+        lucky7StorageAddress = _lucky7StorageAddress;
+        lucky7TicketFactoryAddress = _lucky7TicketFactoryAddress;
     }
     /** @dev userBoughtTicket is a modifier to check if the user paid the necessary amount to buy a ticket.
       */
     modifier userBoughtTicket(address _ticketOwner){
-        require(msg.value >= sellTicketPrice);
-        userValues[_ticketOwner].userPaidTicket = true;
+        require(msg.value >= Lucky7Library.sellTicketPrice(lucky7AdminAddress));
+        uint oraclizePrice = 2*Lucky7Library.oraclizeCustomGasPrice(lucky7AdminAddress)*Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
+        lucky7TicketFactoryAddress.transfer(oraclizePrice);
+        Lucky7TicketFactory lucky7TicketFactoryContract = Lucky7TicketFactory(lucky7TicketFactoryAddress);
+        lucky7TicketFactoryContract.paidTicketToTrue(_ticketOwner);
         _;
     }
     
     /** @dev userBoughtParameters is a modifier to check if the user paid the necessary amount to buy parameters, i.e. generate a ticket without buying it.
       */
     modifier userBoughtParameters(address _ticketOwner){
-        require(msg.value >= generateTicketPrice);
+        require(msg.value >= Lucky7Library.generateTicketPrice(lucky7AdminAddress));
+        uint oraclizePrice = 2*Lucky7Library.oraclizeCustomGasPrice(lucky7AdminAddress)*Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
+        lucky7TicketFactoryAddress.transfer(oraclizePrice);
         _;
     }
     
@@ -37,8 +57,8 @@ contract Lucky7Store is Lucky7Ballot, Destructible{
       * This way, the user can call for new parameters or buy ticket without being rejected by teh oraclize's callback function of the Lucky7TicketFactory contract.
       */
     modifier setParametersToReady(address _ticketOwner){
-        userValues[_ticketOwner].muReady = false;
-        userValues[_ticketOwner].iReady = false;
+        Lucky7TicketFactory lucky7TicketFactoryContract = Lucky7TicketFactory(lucky7TicketFactoryAddress);
+        lucky7TicketFactoryContract.bothToFalse(_ticketOwner);
         _;
     }
     
@@ -47,7 +67,7 @@ contract Lucky7Store is Lucky7Ballot, Destructible{
       * _orderLucky7Numbers function of the Lucky7Ballot contract, the settingLucky7Numbers is setted to false, which means that users are then allowed to buy tickets.
       */
     modifier sellingIsActive {
-        require(settingLucky7Numbers==false);
+        require(Lucky7Library.settingLucky7Numbers(lucky7TicketFactoryAddress)==false);
         _;
     }
     //------------------------
@@ -63,7 +83,8 @@ contract Lucky7Store is Lucky7Ballot, Destructible{
         setParametersToReady(msg.sender)
         sellingIsActive
     {
-        _generateTicket(msg.sender);
+        Lucky7TicketFactory lucky7TicketFactoryContract = Lucky7TicketFactory(lucky7TicketFactoryAddress);
+        lucky7TicketFactoryContract._generateTicket(msg.sender);
     }
     
     /** @dev generateRandomTicket is a function used to sell a parameters to the user without selling the ticket. It checks if the user sent the correct amount and 
@@ -77,7 +98,8 @@ contract Lucky7Store is Lucky7Ballot, Destructible{
         setParametersToReady(msg.sender)
         sellingIsActive
     {
-        _generateTicket(msg.sender);
+        Lucky7TicketFactory lucky7TicketFactoryContract = Lucky7TicketFactory(lucky7TicketFactoryAddress);
+        lucky7TicketFactoryContract._generateTicket(msg.sender);
     }
     
     /** @dev sellGeneratedTicket is a function used to sell the ticket generated through the parameters the user already bought. 
@@ -91,10 +113,16 @@ contract Lucky7Store is Lucky7Ballot, Destructible{
         userBoughtTicket(msg.sender)
         sellingIsActive
     {
-        require(keccak256(userValues[msg.sender].mu)!=keccak256('') && keccak256(userValues[msg.sender].i)!=keccak256(''));
-        _askForTicket(msg.sender);
+        Lucky7TicketFactory lucky7TicketFactoryContract = Lucky7TicketFactory(lucky7TicketFactoryAddress);
+        bool userParametersAreEmpty = lucky7TicketFactoryContract.userParametersEmpty(msg.sender);
+        require(userParametersAreEmpty == false);
+        lucky7TicketFactoryContract._askForTicket(msg.sender);
     }
     
+    function multip() public view returns(uint){
+        return Lucky7Library.oraclizeGasLimit(lucky7AdminAddress)*Lucky7Library.oraclizeCustomGasPrice(lucky7AdminAddress);
+    }
+
     function () public payable{
         
     }

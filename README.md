@@ -6,7 +6,7 @@ Decentralized lottery-based crowdfunding system on Ethereum Blockchain.
 
 This development is the first part of the Lucky7 Lottery project.
 Lucky7 Lottery is a descentralized lottery-based crowdfounding system on blockchain.
-More details of it can be found in the [White Paper(SOON)](https://ipfs.infura.io/ipfs/QmeC8TMMzfroX8Xa9sfXhY6uvGU5oeFLRHBKc3gADLg94N).
+More details of it can be found in the [White Paper](https://ipfs.infura.io/ipfs/QmaKdc6feSgeEoxvJgqRJ1GzGFxkBTezbBmqM48PzKyUDt).
 
 
 It uses Oraclize to ask for random numbers which operates as paramaters of a Pseudo-Random Number Generator (PRNG), and to execute the PRNG offchain and store the result on chain.
@@ -37,7 +37,7 @@ All the above empowered by Blockchain, to make a "fair play" contract and transp
 
 Lucky7 Lottery is planned to be a win-win crowdfounding system. Once it gains traction and active players, part of the contract balance is going to be dedicated to fund projects postuled by people and voted through tokens.
 The tokens are going to be delivered to players according to "how close was the ticket you purchased to a Lucky7Number".
-The prizes for ALL projects are going to be proportional to how many tokens were delivered in a certain game and how many tokens they earned, i.e. the prize of a certain project is (amount of tokens gained for that the project)/(amount of tokens delivered to all projects in game N)* (x% of the contract balance). That's what's going to give value to the tokens. More details in the [White Paper(SOON)](https://ipfs.infura.io/ipfs/QmeC8TMMzfroX8Xa9sfXhY6uvGU5oeFLRHBKc3gADLg94N).
+The prizes for ALL projects are going to be proportional to how many tokens were delivered in a certain game and how many tokens they earned, i.e. the prize of a certain project is (amount of tokens gained for that the project)/(amount of tokens delivered to all projects in game N)* (x% of the contract balance). That's what's going to give value to the tokens. More details in the [White Paper](https://ipfs.infura.io/ipfs/QmaKdc6feSgeEoxvJgqRJ1GzGFxkBTezbBmqM48PzKyUDt).
 
 Don't like any project? sell your token, for ETH for example, and buy another Ticket (or ice cream, you decide).
 
@@ -330,6 +330,18 @@ python mbn.py
 and the result is (and should) be the same as the Ticket or Lucky7Number generated. Due to complications of implementing Big Numbers on Javascript, this was not implemented n the front end. Therefore it is absolutely necessary to implement this function when the project gets in production, because people NEEDS to know the result of them new purchased parameters before purchasing the ticket, and telling them to run a python file is not the better idea. Either way, the PRNG is easily implementable; three code lines for the case of python, which manage the Big Numbers internally.
 
 This file can be used as a PRNG itself for various purposes, e.g. to generate Lucky7Numbers and insert them artificially through the insertCustomizedLucky7Number function of the Lucky7Ballot contract.
+
+## Testnet
+
+The project can be recently found deployed to Rinkeby testnet. 
+
+You can get Rinkeby ETH from [The Rinkeby faucet](https://faucet.rinkeby.io/).
+
+Front end is deployed and working at IPFS in [this link](https://ipfs.infura.io/ipfs/QmXoKWUoE5f6dZK8st3a7QiLDB1E8sJ9y4p1QgSq8vSkjo/src/).
+
+## The story behind the PRNG
+
+I wrote an article on [Medium](https://medium.com/@matias.barriosn/how-i-realized-as-an-adult-that-ive-been-studying-number-theory-since-i-was-a-kid-a8b49ea57a87) about how i formulated the PRNG. Read it and give me some claps.
 
 ## Authors
 

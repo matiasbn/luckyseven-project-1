@@ -11,26 +11,42 @@
 pragma solidity ^0.4.20;
 import "./usingOraclize.sol";
 import "./Lucky7Admin.sol";
+import "./Lucky7Storage.sol";
+import "./Lucky7Library.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
+
+contract Lucky7TicketFactory is usingOraclize,Ownable{
     /** @dev SafeMath library is used for the _checkForLucky7Ticket of this contract. 
+        @dev Lucky7Library is a library used to get values from other contracts.
       */
+    using Lucky7Library for *;
     using SafeMath for uint256;
     
+    /** @dev Address of the Lucky7Storage contract
+      */
+    address public lucky7AdminAddress;
+    address public lucky7StorageAddress;
     /** @dev The constructor needs to set the OAR, Oraclize Address Resolver
       * OAR is the Oraclize Address Resolver to use oraclize on localhost
       */
-    function Lucky7TicketFactory() payable{
-        OAR = OraclizeAddrResolverI(0x3A78BF1783a0187c1C8000e41C2a008897D0a35f);
+    function Lucky7TicketFactory(address _lucky7AdminAddress,address _lucky7StorageAddress) public payable{
+        OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
+        lucky7AdminAddress = _lucky7AdminAddress;
+        lucky7StorageAddress = _lucky7StorageAddress;
     }
-    
+
     /** @dev This function is to change the OAR without compiling again and deploying again
       * Used only for testing purposes.
       */
-    function changeOAR(address _newOAR){
+    function changeOAR(address _newOAR)
+        public
+        //onlyOwner
+    {
         OAR = OraclizeAddrResolverI(_newOAR);
     }
-    
+
     /**@dev The events are used mainly for testing purposes
       */
     event NewOraclizeQuery(string description);
@@ -38,14 +54,23 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     event NewIReceived(string iParameter);
     event NewTicketReceived(string newTicket);
     event NewWolframQuery(string description);
-    event NewLucky7Ticket(uint ticketID);
-    event NewLucky7Number(uint value);
+    event NewValue(uint value);
     
     /** @dev This modifier is used to set the gas price on the functions which do oraclize querys.
       *  It uses the oraclizeCustomGasPrice of the Lucky7Admin contract.
       */
     modifier oraclizeGasPriceCustomized{
+        uint oraclizeCustomGasPrice = Lucky7Library.oraclizeCustomGasPrice(lucky7AdminAddress);
         oraclize_setCustomGasPrice(oraclizeCustomGasPrice);
+        _;
+    }
+
+    /** @dev This modifier is meant to block the Lucky7Number generation when the game is on course
+      * Is used to block the action of the _generateLucky7Number function of this contract if the circuit breaker
+      * is not 
+      */
+    modifier gameNotInCourse(){
+        require(settingLucky7Numbers==true);
         _;
     }
 
@@ -71,6 +96,7 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
       * @param iReady is a boolean value used for the oraclize's callback function to verify if the i parameter for the current ticket was already setted.
       * @param userPaidTicket is a boolean value to verify if the user which is calling for the oraclize query actually paid for the ticket or is just generating
       * parameters to choose a ticket.
+      * @param userState is an enum to let other contracts verify that the info for the user is not empty.
     */
     struct UserParametersValue{
         string mu;
@@ -81,72 +107,11 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
         bool userPaidTicket;
     }
     
-    /** @pdev Ticket is a struct to store information of the tickets. It information is stored permanently through the tickets array.
-      * @param mu is a parameter of the pseudo-random number generator (PRNG).
-      * @param i is a parameter of the pseudo-random number generator (PRNG).
-      * @param ticketValue is the value of ticket.
-      * @param owner is the owner of the ticket.
-      * @param drawID is the number of the draw for this ticket, i.e. the game where this ticket was emitted.
-      */
-    struct Ticket{
-        string mu;
-        string i;
-        uint ticketValue;
-        address owner;
-        uint drawID;
-    }
-    
-    /** @dev Lucky7Number is a struct to store the information of the Lucky7Numbers. Is used for the lucky7Numbers array
-      * and it information is erased when a new game is setted, i.e. it information is replaced with the Lucky7Numbers information
-      * of the new game.
-      * @param mu is a parameter of the pseudo-random number generator (PRNG).
-      * @param i is a parameter of the pseudo-random number generator (PRNG).
-      * @param ticketValue is the value of the Lucky7Number.
-      * @param drawID is the number of the draw for this Lucky7Number, i.e. the game where this Lucky7Number was emitted. 
-      */
-    struct Lucky7Number{
-        string mu;
-        string i;
-        uint ticketValue;
-        uint drawID;
-    }
-    
-    /** @dev Lucky7Ticket is a struct to store the information of the Lucky7Tickets. Is used once a new game is setted, and it store the information of the final
-      * Lucky7Tickets permanently.
-      * @param difference is the difference (in absolute value) of the ticket with the Lucky7Number.
-      * @param owner is the owner of the Lucky7Ticket.
-      * @param ticketID is the ticket ID of the ticket which was selected as Lucky7Ticket. Is helpful to look up in the ticketID mapping to verify
-      * past games and results.
-      * @param ticketValue is the value of the ticket associated to this Lucky7Ticket.
-      * @param lucky7Number is the value of the Lucky7Number associated to this Lucky7Ticket.
-      * @param lucky7NumberID is the ID of the Lucky7Number associated to this Lucky7Ticket, i.e. if 0 is the first Lucky7Number of the draw.
-      * @param drawID is the number of the draw for this Lucky7Ticket, i.e. the game where this Lucky7Ticket was emitted.
-      */
-    struct Lucky7Ticket{
-        uint difference;
-        address owner;
-        uint ticketID;
-        uint ticketValue;
-        uint lucky7Number;
-        uint lucky7NumberID;
-        uint drawID;
-    }
-    
-    /** @dev The next two arrays are used to store information of the game permanently.
-      * @param lucky7TicketsArray stores the Lucky7Tickets once a new game is setted.
-      * @param ticketsArray stores the tickets everytime a user buys a ticket.
-      */
-    Lucky7Ticket[] public lucky7TicketsArray;
-    Ticket[] public ticketsArray;
-    
-    /** @param lucky7NumbersArray stores the Lucky7Numbers for the current draw. Once a new game is called, it is cleand to 0 to be reused. 
-      */
-    Lucky7Number[7] public lucky7NumbersArray;
-
     /** @dev Because addresses are not correlatives, is better to use a mapping. 
       * @param userValues maps from the user address to it UserParametersValue struct.
       */
     mapping (address => UserParametersValue) public userValues;
+
 
     /** @dev The next three mapping are used for the functions which do oraclize querys to being identified in the oraclize's callback function
       * as mu parameter, i parameter or a ticket.
@@ -158,46 +123,18 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
     mapping (bytes32 => address) iParameterID;
     mapping (bytes32 => address) newTicketID;
 
-    /** @dev The next three mapping are used to state the Lucky7Ticket values while a game is on course. This is because is expensive to look up on the Lucky7Ticket
-      * struct everytime a new ticket is inserted in the tickets array.
-      * They all maps from the lucky7NumberID, i.e. the id of the Lucky7Number of the current game. 
-      * @param lucky7TicketDifference points to an uint which is the difference between the Lucky7Number of it _KeyType and the ticket selected as Lucky7Ticket, 
-      * e.g. lucky7TicketDifference[0] is the difference between the first Lucky7Number with the ticket which was selected as his Lucky7Ticket.
-      * @param lucky7TicketOwner points to the address of the owner of the Lucky7Ticket associated to the Lucky7Number of it _KeyType, 
-      * e.g. lucky7TicketOwner[0] is the owner of the Lucky7Ticket associated to the first Lucky7Number.
-      * @param lucky7TicketID points to the id of the ticket which was selected as Lucky7Ticket for the Lucky7Number of it _KeyType, 
-      * e.g. lucky7TicketID[0] is the ticketID of the ticket owned by lucky7TicketOwner[0], with a difference of lucky7TicketDiffference[0] with the Lucky7Number[0].
-      */
-    mapping (uint => uint) public lucky7TicketDifference;
-    mapping (uint => address) public lucky7TicketOwner;
-    mapping (uint => uint) public lucky7TicketID;
-
-    /** @dev The next three mappings are used to storage ExactLucky7Ticket, i.e. tickets which difference with a Lucky7Number is 0 
-      * They follow the same logic as the previous three mapings. They're setted for future development, because this project is meant to emit tokens and ExactLucky7Tickets
-      * are going to be specially awarded.
-      * They're cleaned to 0 everytime a new game is setted.
-      */
-    mapping (uint => uint) public ExactLucky7TicketValue;
-    mapping (uint => address) public ExactLucky7TicketOwner;
-    mapping (uint => uint) public ExactLucky7TicketID;
-
-    /** @param drawNumber is the number of the current draw. Is used to help storage Lucky7Tickets, look up for current game winners and others functions.
-      * Is incremented by 1 everytime a new game is setted.
-      * @param indexForLucky7Array is a uint used to count the number of Lucky7Numbers generated everytime a new game is setted. Is used to know if all the Lucky7Numbers 
-      * were setted, and if they did, order them by them values in ascendant order and let users start buying tickets. Is setted to 0 after all this process.
-      * @param indexForExactLucky7Ticket is a uint which increments everytime a ExactLucky7Ticket is detected and stored. It's used to look up in in the ExactLucky7 mappings
-      * and is cleaned to 0 everytime a new game is setted.
-      */
-    uint public drawNumber = 0;
-    uint public indexForLucky7Array = 0;
-    uint public indexForExactLucky7Ticket = 0;
     
     /** @dev _askForMuParameter is a function to ask for a new mu parameter through an oraclize query.
       * @param _ticketOwner is the address of the user which is calling this function through a generation of new parameters or by buying a new random ticket.
       * First, it emit an event to register the query. Then it do the query and save the bytes32 value generated to the muID.
       * Finally it associate this muID with the _ticketOwner through the muParameterID mapping, so the oraclize's callback function know it is a mu petition and it belongs to the _ticketOwner user.
       */
-    function _askForMuParameter(address _ticketOwner) public oraclizeGasPriceCustomized{
+    function _askForMuParameter(address _ticketOwner) 
+        public 
+        oraclizeGasPriceCustomized
+    {
+        uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
+        emit NewValue(oraclizeGasLimit);
         emit NewOraclizeQuery("Asking for a new mu parameter...");
         bytes32 muID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
         muParameterID[muID] = _ticketOwner;
@@ -208,7 +145,11 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
       * First, it emit an event to register the query. Then it do the query and save the bytes32 value generated to the iID.
       * Finally it associate this iID with the _ticketOwner through the iParameterID mapping, so the oraclize's callback function know it is a i petition and it belongs to the _ticketOwner user.
       */
-    function _askForIParameter(address _ticketOwner) public oraclizeGasPriceCustomized{
+    function _askForIParameter(address _ticketOwner) 
+        public 
+        oraclizeGasPriceCustomized
+    {
+        uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
         emit NewOraclizeQuery("Asking for a new i parameter...");
         bytes32 iID = oraclize_query("WolframAlpha","4 random number",oraclizeGasLimit);
         iParameterID[iID] = _ticketOwner;
@@ -221,7 +162,11 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
       * is a ticket petition and it belongs to the _ticketOwner user. Inside the oraclize_query function it calls the _setTicketQuery function, so it generate the query 
       * depending on the UserParametersValue struct of the _ticketOwner user.
       */
-    function _askForTicket(address _ticketOwner) public oraclizeGasPriceCustomized{
+    function _askForTicket(address _ticketOwner) 
+        public 
+        oraclizeGasPriceCustomized
+    {
+        uint oraclizeGasLimit = Lucky7Library.oraclizeGasLimit(lucky7AdminAddress);
         emit NewOraclizeQuery("Asking for a new ticket...");
         bytes32 userTicketID = oraclize_query("WolframAlpha", _setTicketQuery(_ticketOwner), oraclizeGasLimit);
         newTicketID[userTicketID] = _ticketOwner;
@@ -233,7 +178,15 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
       * the usingOraclize contract to concat the parts with the parameters of the user.
       * Every line explains how the query is getting it shape. The meaning of this query is going to be explained on the paper of the project.
       */
-    function _setTicketQuery(address _parametersOwner) internal returns (string){
+    function _setTicketQuery(address _parametersOwner) 
+        internal 
+        returns (string)
+    {
+        string memory b;
+        string memory n;
+        string memory p;
+        string memory j;
+        (b,n,p,j) = Lucky7Library.getParameters(lucky7AdminAddress);
         string memory queryWolfram;
         //This line => (mod((1/(10^n-mu))*10^    
         queryWolfram = strConcat("(mod((1/(10^",n,"-",userValues[_parametersOwner].mu,"))*10^");
@@ -251,121 +204,42 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
 
     /** @dev _generateTicket is used for another contract. Invokes _askForMuParameter and _askForIparameter
       */
-    function _generateTicket(address _ticketOwner) public {
+    function _generateTicket(address _ticketOwner) 
+        public
+        //onlyOwner 
+    {
         _askForMuParameter(_ticketOwner);
         _askForIParameter(_ticketOwner);
     }
     
-    /** @dev _insertTicket inserts a ticket in the ticketsArray array.
-      * @param _ticketOwner is the owner of the ticket already generated. It uses the UserParametersValue struct values and the drawNumber value.
-      * Then it call the _checkForLucky7Ticket function to check if the inserted ticket is a Lucky7Ticket.
-      * Because a push return the size of the array, is necessary to decrement the id value in 1 to check the current ticket. 
+    /** @dev _generateLucky7Number is the function that is actually used to generate the Lucky7Numbers. It have the business logic for generating the Lucky7Numbers, i.e. if 
+      * the indexForLucky7Array is different than the numberOfLucky7Numbers, then sets the muReady and iReady booleans of the UserParametersValue struct of the 
+      * Lucky7TicketFactory contract to true and calls for the _askForMuParameter and _askForIParameter function of the Lucky7TicketFactory contract. This way it can ask for both mu and i parameters
+      * to oraclize and when the oraclize respond with both, ask for a ticket which is going to be a Lucky7Number.
+      * If the indexForLucky7Array is equal to the numberOfLucky7Numbers, then proceed to order the Lucky7Numbers through the _orderLucky7Numbers function of this contract.
+      * Then it sets the indexForLucky7Array to 0 so the next time a new game is setted, this function starts storing the Lucky7Numbers from the position 0, to finally shut off
+      * the settingLucky7Numbers circuit breaker to allow users to start buying tickets.
       */
-    function _insertTicket(address _ticketOwner) internal {
-        uint id = ticketsArray.push(Ticket(userValues[_ticketOwner].mu,userValues[_ticketOwner].i,userValues[_ticketOwner].ticketValue,_ticketOwner,drawNumber)) - 1;
-        _checkForLucky7Ticket(id);
-    }
-
-    /** @dev _insertLucky7Number inserts a Lucky7Number in the lucky7NumbersArray array.
-      * @param _ticketOwner is the owner, but in this case is the owner of the contract. This is setted this way to take advantage of the UserParametersValue struct
-      * and store it the same way the tickets are stored. Once stored, the indexForLucky7Array is incremented by 1, so next time this function is called, the next
-      * Lucky7Number don't replace the last inserted. 
-      * Then an event is emited.
-      */
-    function _insertLucky7Number(address _ticketOwner) internal {
-        lucky7NumbersArray[indexForLucky7Array] = Lucky7Number(userValues[_ticketOwner].mu,userValues[_ticketOwner].i,userValues[_ticketOwner].ticketValue,drawNumber);
-        indexForLucky7Array++;
-        emit NewLucky7Number(userValues[_ticketOwner].ticketValue);
-    }
-    
-    /** @dev _checkForLucky7Ticket is a function that check if a ticket recently inserted in the ticketsArray is a Lucky7Ticket.
-      * @param _ticketID is the ticket which is going to be checked.
-      * At this point, the Lucky7Numbers are ordered by them values in ascedant order.
-      * This function uses the SafeMath library to avoid integer underflow or overflow, or to check that the difference is not 0, which is a special case.
-      */
-    function _checkForLucky7Ticket(uint _ticketID) public{
-        uint i;
-        uint difference;
-        /** @dev First it checks if the ticket is bigger than the last Lucky7Number.
-          * If so, sets the auxiliary parameter i to the id of the last Lucky7Number, numberOfLucky7Numbers-1 in this case. Don't confuse with the i parameter of the PRNG.
-          * Then the difference between them is obtained through the sub function of the SafeMath library, knowing that the ticket is bigger than the last Lucky7Number.
-          */
-        if(ticketsArray[_ticketID].ticketValue>lucky7NumbersArray[numberOfLucky7Numbers-1].ticketValue){
-            i = numberOfLucky7Numbers-1;
-            difference = ticketsArray[_ticketID].ticketValue.sub(lucky7NumbersArray[i].ticketValue);
-            
+    function _generateLucky7Number() 
+        public 
+        // onlyOwner 
+        gameNotInCourse
+    {
+        uint indexForLucky7Array = Lucky7Library.indexForLucky7Array(lucky7StorageAddress);
+        uint numberOfLucky7Numbers = Lucky7Library.numberOfLucky7Numbers(lucky7StorageAddress);
+        if(indexForLucky7Array == numberOfLucky7Numbers){
+            Lucky7Storage lucky7StorageContract = Lucky7Storage(lucky7StorageAddress);
+            lucky7StorageContract._orderLucky7Numbers();
+            lucky7StorageContract.setIndexForLucky7ArrayToZero();
+            toggleLucky7Setting();
         }
-        /** @dev If it is not bigger than the last Lucky7Number, then checks if it is smaller thant the first Lucky7Number.
-          * If so, sets the auxiliary parameter i to the id of the first Lucky7Number, 0 in this case. Don't confuse with the i parameter of the PRNG.
-          * Then the difference between them is obtained through the sub function of the SafeMath library, knowing that the ticket is smaller than the first Lucky7Number.
-          */
-        else if (ticketsArray[_ticketID].ticketValue<lucky7NumbersArray[0].ticketValue){
-            i = 0;
-            difference = lucky7NumbersArray[i].ticketValue.sub(ticketsArray[_ticketID].ticketValue);
-        }
-
-        /** @dev If none of the above fits, then the ticket could be bigger or equal than the first Lucky7Number or smaller or equal than the last Lucky7Number.
-          * The function proceeds then to look which is it interval,i.e. it should be between two Lucky7Numbers or equal to one Lucky7Number.
-          */
         else{
-            /** @dev The function then proceed to increment i until the ticket is bigger than the Lucky7Number[i].
-              */
-            while(ticketsArray[_ticketID].ticketValue>lucky7NumbersArray[i].ticketValue){ 
-                i++;
-            }
-            /** @dev If the ticket and the correspondent Lucky7Numbers are equal, then the ticket is a ExactLucky7Ticket
-              */
-            if(ticketsArray[_ticketID].ticketValue==lucky7NumbersArray[i].ticketValue){
-                difference = 0;
-            }
-            else{
-                /** @dev If not, then it will have to check if the Lucky7Number above or below the ticket is closer
-                  * if the below Lucky7Number is closer to the ticket than the above Lucky7Number (if(upperLucky7NumberDifference>lowerLucky7NumberDifference)) then the 
-                  * correspondent candidate to Lucky7Ticket is the Lucky7Number which is below the ticket.
-                  * Else, the above Lucky7Number is the correspondent candidate.
-                  * Then saves the value of difference.
-                  */
-                uint lowerLucky7NumberDifference = ticketsArray[_ticketID].ticketValue.sub(lucky7NumbersArray[i-1].ticketValue);
-                uint upperLucky7NumberDifference = lucky7NumbersArray[i].ticketValue.sub(ticketsArray[_ticketID].ticketValue);
-                
-                if(upperLucky7NumberDifference>lowerLucky7NumberDifference){
-                    i=i-1;
-                    difference = lowerLucky7NumberDifference;
-                }
-                else{
-                    difference = upperLucky7NumberDifference;
-                }
-            }
-        }
-        /** @dev Now the function proceed to check if it is in fact a Lucky7Ticket.
-          * If the Lucky7Ticket[i] hasn't an owner, then the ticket is automatically assigned as Lucky7Ticket.
-          * If it has an owner, then check if the difference is smaller than the difference of the current owner.
-          * If it is smaller, then the ticket is a Lucky7Ticket and is stored in the Lucky7Ticket mappings.
-          * Then an event is emitted.
-          */
-        if(lucky7TicketOwner[i] == address(0x0) || difference<lucky7TicketDifference[i]){
-            lucky7TicketOwner[i] = ticketsArray[_ticketID].owner;
-            lucky7TicketDifference[i] = difference;
-            lucky7TicketID[i] = _ticketID;
-            emit NewLucky7Ticket(_ticketID);
-        }
-        /** @dev Then, checks if it's a ExactLucky7Ticket.
-          * Due to the high entropy of the PRNG is pretty unfeasible to get an ExactLucky7Ticket without having the same mu and i parameters than the
-          * Lucky7Number. The probability of having two identical ExactLucky7Tickets in the same game is even lower.
-          * If in determinated unfortunate case an user gets a ExacyLucky7Ticket which is already occupied, then it will not replace the old one.
-          * That's why is necessary to storage all the ExactLucky7Tickets to award them specially, e.g. giving them tokens according to some rules, which would be
-          * specified in future developments.
-          * The next step, then, is to check if it is indeed a ExactLucky7Ticket. If so, then store the information in the ExactLucky7Tickets mappings and increment
-          * indexForExactLucky7Ticket by 1.
-          */
-        if(difference == 0){
-            ExactLucky7TicketOwner[indexForExactLucky7Ticket] = ticketsArray[_ticketID].owner;
-            ExactLucky7TicketValue[indexForExactLucky7Ticket] = ticketsArray[_ticketID].ticketValue;
-            ExactLucky7TicketID[indexForExactLucky7Ticket] = _ticketID;
-            indexForExactLucky7Ticket++;
+            userValues[this].muReady = false;
+            userValues[this].iReady = false;
+            _generateTicket(this);
         }
     }
-    
+
     /** @dev __callback is a function used for oraclize to send back the query emitted to oraclize.
       * @param myid is the id of the query, same as the muID, iID or userTicketID of the _askForMuParameter, _askForIParameter and _askForTicket functions above.
       * @param result is the result of the query.
@@ -405,21 +279,62 @@ contract Lucky7TicketFactory is Lucky7Admin, usingOraclize{
 
         /** @dev If not, then proceed the same way as above, but once the ticket is inserted and the event is emitted, the userPaidTicket of the user's UserValuesStruct is 
           * setted to 0, marking that the ticket thet user paid is already stored and it have to pay again if it wants to buy another ticket.
-          * Finally, it checks if the game is currently in the setting Lucky7Numbers phase. If so, calls the _insertLucky7Number function, else it calls the 
-          * _insertTicket function, both explained above.
+          * Finally, it checks if the game is currently in the setting Lucky7Numbers phase. If so, calls the storageLuckyNumber function, else it calls the 
+          * storageTicket function. Both functions are on the Lucky7Storage contract.
           */
         else if (newTicketID[myid]!=0 &&  (userValues[newTicketID[myid]].userPaidTicket==true || settingLucky7Numbers==true )){
+            Lucky7Storage lucky7StorageContract = Lucky7Storage(lucky7StorageAddress);
             userValues[newTicketID[myid]].ticketValue=parseInt(result);
             emit NewTicketReceived(result);
             userValues[newTicketID[myid]].userPaidTicket=false;
             if(settingLucky7Numbers==true){
-                _insertLucky7Number(newTicketID[myid]);
+                lucky7StorageContract.storageLucky7Number(
+                    userValues[newTicketID[myid]].mu, 
+                    userValues[newTicketID[myid]].i, 
+                    userValues[newTicketID[myid]].ticketValue
+                    );
             }
             else{
-                _insertTicket(newTicketID[myid]);
+                lucky7StorageContract.storageTicket(
+                    userValues[newTicketID[myid]].mu, 
+                    userValues[newTicketID[myid]].i, 
+                    userValues[newTicketID[myid]].ticketValue,
+                    newTicketID[myid]
+                    );
             }
         }
     }
 
+    /** @dev Functions to set booleans of the UsersParametersValue to true or false 
+      */
+
+    function bothToFalse(address _ticketOwner)
+        public
+        //onlyOwner
+    {
+        userValues[_ticketOwner].muReady = false;
+        userValues[_ticketOwner].iReady = false;
+    }
+
+    function paidTicketToTrue(address _ticketOwner)
+        public
+        //onlyOwner
+    {
+        userValues[_ticketOwner].userPaidTicket = true;
+    
+    }
+
+    function userParametersEmpty(address _ticketOwner)
+        public
+        view
+        returns(bool)
+    {
+        if(keccak256(userValues[_ticketOwner].mu)==keccak256("") && keccak256(userValues[_ticketOwner].i)==keccak256("")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     function() public payable{}
 } 
