@@ -1,15 +1,19 @@
-def Mbn(b, n, mu, i, j,p):
-    M = Decimal(b)/Decimal(10**n-mu)
-    SCF = int((10**p)*M)
-    RCF = (SCF%10**(i+j)-SCF%10**i)/10 ** i
-    return RCF
-
 from decimal import *
 import collections
 import time
 from random import randint
 
+# Mu Generator
+def MuGenerator(b, n, mu, i, j,p):
+    M = Decimal(b)/Decimal(10**n-mu)
+    P = int((10**p)*M)
+    R = (SCF%10**(i+j)-SCF%10**i)/10 ** i
+    return R
+
+#Count time
 start_time = time.time()
+
+#Parameters
 b = 1
 n = 8
 mu =  7192
@@ -20,7 +24,8 @@ i = 5877
 j = 20
 getcontext().prec = p
 
-print Mbn(b, n, mu, i, j,p)
+#Print result
+print MuGenerator(b, n, mu, i, j,p)
 
-
+#Print time
 print("--- %s seconds ---" % (time.time() - start_time))
