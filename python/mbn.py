@@ -7,7 +7,7 @@ from random import randint
 def MuGenerator(b, n, mu, i, j,p):
     M = Decimal(b)/Decimal(10**n-mu)
     P = int((10**p)*M)
-    R = (SCF%10**(i+j)-SCF%10**i)/10 ** i
+    R = (P%10**(i+j)-P%10**i)/10 ** i
     return R
 
 #Count time
